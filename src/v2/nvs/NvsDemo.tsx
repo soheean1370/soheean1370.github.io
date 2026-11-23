@@ -100,7 +100,7 @@ export function NvsDemo() {
     return l;
   }, []);
 
-  const state = useRef({ frames: 0, captured: false });
+  const state = useRef({ frames: 0, captured: false, unpatched: new Set<THREE.Object3D>(), tick: 0 });
   const um = useRef(new THREE.Vector2(9, 9));
   const vMix = useRef(0);
   const bg = useMemo(() => ({ light: new THREE.Color(C.horizon), dark: new THREE.Color('#2A2438') }), []);
@@ -117,6 +117,8 @@ export function NvsDemo() {
     if (!st.captured) {
       if (++st.frames < 24) { reveal.value = 1; points.current.visible = false; polaroid.current.visible = false; return; }
       patchReveal(scene);
+      // troika text and fat lines can't take the dissolve patch → just hide them until the fill is done
+      scene.traverse((o: any) => { if (o.text !== undefined || o.isLine2 || o.isLineSegments2 || (o.material?.isShaderMaterial && o.name !== 'sky' && !o.userData.noReveal && !o.isPoints)) st.unpatched.add(o); });
       const hide = [points.current, polaroid.current, frustum];
       hide.forEach((o) => { o.visible = false; });
       reveal.value = 1;
@@ -135,6 +137,11 @@ export function NvsDemo() {
     }
 
     const p = live.p;
+    // things that mount late (fonts, suspense) still need the dissolve while the intro is on screen
+    if (p < 0.16 && ++st.tick % 30 === 0) {
+      patchReveal(scene);
+      scene.traverse((o: any) => { if (o.text !== undefined || o.isLine2 || o.isLineSegments2 || (o.material?.isShaderMaterial && o.name !== 'sky' && !o.userData.noReveal && !o.isPoints)) st.unpatched.add(o); });
+    }
     vMix.current += ((vMode ? 1 : 0) - vMix.current) * Math.min(1, dt * 5);
     const vm = vMix.current;
     const toFull = ss(0.0, 0.03, p), lift = ss(0.032, 0.07, p), fill = ss(0.112, 0.15, p);
@@ -165,6 +172,8 @@ export function NvsDemo() {
     uniforms.uEdge.value = Math.max(ss(0.07, 0.1, p), vm);
     uniforms.uAlpha.value = vm > 0.01 ? vm : 1 - ss(0.13, 0.155, p);
     reveal.value = fill * (1 - vm);
+    const showTexts = reveal.value > 0.6;
+    for (const o of st.unpatched) o.visible = showTexts;
     frustum.visible = p > 0.14 || vm > 0.01;
   });
 
