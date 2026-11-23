@@ -44,6 +44,11 @@
     </div>
     <p class="hud-scroll" id="scrollHint">스크롤해서 사진 속으로 ↓</p>
     <p class="hud-center" id="centerText" aria-live="polite"></p>
+    <div class="station-title" id="stationTitle" aria-live="polite">
+      <p class="st-kicker" id="stKicker"></p>
+      <h2 class="st-title" id="stTitle"></h2>
+      <p class="st-sub" id="stSub"></p>
+    </div>
     <div class="hud-bl">
       <p class="hud-stage" id="stage" aria-live="polite"></p>
       <p class="hud-scene" id="sceneName"></p>
@@ -65,6 +70,20 @@
       <div class="panel-body" id="panelBody"></div>
     </div>
   </aside>
+
+  <section class="ending" id="ending" aria-hidden="true" aria-label="엔딩">
+    <div class="ending-flash"></div>
+    <figure class="ending-polaroid">
+      <img id="endingPhoto" alt="처음 그 복도 사진" width="960" height="600" />
+      <figcaption>와줘서 고마워요 ✿<br /><span>저의 모든 각도였어요.</span></figcaption>
+    </figure>
+    <p class="ending-actions">
+      <button class="btn btn-solid" type="button" id="againBtn">↺ 처음부터 다시 보기</button>
+      <a class="btn" href="/resume.pdf" download="안소희-이력서.pdf">⬇ 이력서</a>
+      <a class="btn" href="https://github.com/soheean1370" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="/flat.html">2D 버전</a>
+    </p>
+  </section>
 
   <div class="loader" id="loader">
     <div class="loader-photo"><span id="loaderPct">현상 중…</span></div>

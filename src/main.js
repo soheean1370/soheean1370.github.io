@@ -4,7 +4,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { buildHallway, addLights } from './world/hallway.js';
 import { setAniso } from './world/textures.js';
 import { createNVS, patchReveal, reveal } from './nvs/nvs.js';
-import { STATIONS, SNAP_KEYS, sample, stationP } from './core/rail.js';
+import { STATIONS, SNAP_KEYS, TITLES, sample, stationP } from './core/rail.js';
 import { startClock, createFilm, createPanels, objectButtons } from './ui/ui.js';
 import profile from './content/profile.json';
 import projects from './content/projects.json';
@@ -82,6 +82,8 @@ function resize() {
 }
 addEventListener('resize', resize);
 resize();
+$('endingPhoto').src = nvs.snapshot(resize);
+if (isMobile) $('tryHint').textContent = '사진을 손가락으로 문질러 보세요 ✿';
 
 // ---------- scroll ----------
 const lenis = new Lenis({ lerp: reduceMotion ? 1 : 0.085, wheelMultiplier: 0.9, touchMultiplier: 1.4 });
@@ -126,10 +128,10 @@ const pick = () => {
   const hit = raycaster.intersectObjects(pickables, false)[0];
   return hit && hit.distance < 9 ? byId[hit.object.userData.interactable] : null;
 };
-const mouse = { x: 0, y: 0 };
+const mouse = { x: 0, y: 0, moved: false };
 addEventListener('pointermove', (e) => {
   ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
-  mouse.x = ndc.x; mouse.y = ndc.y;
+  mouse.x = ndc.x; mouse.y = ndc.y; mouse.moved = true;
   tip.style.left = `${e.clientX}px`; tip.style.top = `${e.clientY}px`;
 });
 canvas.addEventListener('pointerdown', (e) => { downAt = { x: e.clientX, y: e.clientY }; });
@@ -158,6 +160,10 @@ const par = new THREE.Euler(0, 0, 0, 'YXZ'), parQ = new THREE.Quaternion();
 const look = { x: 0, y: 0 };
 const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 let vMode = false, vMix = 0, last = performance.now();
+const um = new THREE.Vector2(9, 9);
+const titleEl = $('stationTitle'), endingEl = $('ending');
+let lastTitle = '';
+$('againBtn').addEventListener('click', () => goTo(0, 3));
 
 $('loader').classList.add('done');
 
@@ -196,14 +202,20 @@ renderer.setAnimationLoop((now) => {
   nvs.polaroid.quaternion.copy(STATIONS[0].quat).multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(
     (1 - toFull) * look.y * 0.1, (1 - toFull) * look.x * 0.1, (1 - toFull) * -0.05)));
   nvs.frameMat.opacity = 1 - toFull;
-  nvs.photo.visible = p < 0.045;
+  nvs.photo.visible = false;          // the photo *is* the points, so it can react to the cursor
+  nvs.syncFlat();
+  if (mouse.moved) um.lerp(new THREE.Vector2(mouse.x, mouse.y), Math.min(1, dt * 12));
+  nvs.uniforms.uMouse.value.copy(um);
+  nvs.uniforms.uAspect.value = camera.aspect;
+  nvs.uniforms.uRepel.value = reduceMotion ? 0 : 1;
+  nvs.uniforms.uScatter.value = reduceMotion ? 0 : 1;
 
-  const pointsOn = (p >= 0.045 && p < 0.19) || vMix > 0.01;
+  const pointsOn = p < 0.19 || vMix > 0.01;
   nvs.points.visible = pointsOn;
   nvs.uniforms.uLift.value = vMix > 0.01 ? 1 : lift;
   nvs.uniforms.uEdge.value = Math.max(ss(0.085, 0.12, p), vMix);
   nvs.uniforms.uAlpha.value = vMix > 0.01 ? vMix : 1 - ss(0.15, 0.185, p);
-  reveal.value = (p < 0.045 ? 0 : fill) * (1 - vMix);
+  reveal.value = fill * (1 - vMix);
   if (p < 0.045 && vMix < 0.01) reveal.value = 0;
   nvs.frustum.visible = p > 0.17 || vMix > 0.01;
 
@@ -218,6 +230,27 @@ renderer.setAnimationLoop((now) => {
   const sceneName = p < 0.19 ? '' : st.name;
   if (sceneName !== lastScene) { sceneEl.textContent = sceneName; lastScene = sceneName; }
   film(p);
+
+  // big station title
+  const near = p > 0.2 && p < 0.965 ? STATIONS.find((x) => TITLES[x.key] && Math.abs(x.p - p) < 0.02) : null;
+  const tkey = near && !panels.isOpen() ? near.key : '';
+  if (tkey !== lastTitle) {
+    lastTitle = tkey;
+    titleEl.classList.remove('show');
+    if (tkey) {
+      const t = TITLES[tkey];
+      $('stKicker').textContent = t.kicker; $('stTitle').textContent = t.title; $('stSub').textContent = t.sub;
+      requestAnimationFrame(() => titleEl.classList.add('show'));
+    }
+  }
+
+  // ending: light floods in, then everything folds back into one polaroid
+  const flash = ss(0.962, 0.99, p);
+  endingEl.style.setProperty('--flash', String(flash));
+  endingEl.classList.toggle('on', flash > 0.01);
+  endingEl.classList.toggle('done', p > 0.988);
+  endingEl.setAttribute('aria-hidden', String(p <= 0.988));
+  $('hud').style.opacity = String(1 - flash);
   document.querySelectorAll('.bar-views a').forEach((a) => a.classList.toggle('is-active', a.dataset.goto === st.chip));
 
   // hover highlight (desktop)

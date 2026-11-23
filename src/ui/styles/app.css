@@ -11,7 +11,7 @@ body { margin: 0; background: var(--cream); color: var(--cocoa); font-family: va
 .bar-views a { cursor: pointer; }
 kbd { font-family: var(--mono); font-size: .75em; padding: 1px 6px; border: 1px solid rgba(122, 92, 88, .3); border-bottom-width: 2px; border-radius: 5px; background: #fff; }
 
-#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; filter: saturate(1.2) contrast(1.06); }
 .scroll-space { height: 1400vh; }
 
 /* ---------- loader: a polaroid developing ---------- */
@@ -29,14 +29,16 @@ kbd { font-family: var(--mono); font-size: .75em; padding: 1px 6px; border: 1px 
 .hud > * { pointer-events: auto; }
 .hud-intro { position: absolute; left: 0; right: 0; top: 2.5vh; text-align: center; pointer-events: none; }
 .hud-intro .intro-q { width: min(720px, 92vw); margin: 0 auto; }
-.intro-q { font-family: var(--serif); font-style: italic; font-size: clamp(1.3rem, 2.8vw, 2.1rem); color: var(--deep); margin: 0; line-height: 1.2; }
+.intro-q { font-family: "Gowun Batang", var(--serif); font-weight: 700; font-size: clamp(1.35rem, 3vw, 2.3rem); color: var(--deep); margin: 0; line-height: 1.35; letter-spacing: -.01em; }
+.intro-try { display: inline-block; margin: 10px 0 0; font-family: var(--hand-ko); font-size: 1.2rem; color: #c76a86; background: rgba(255, 255, 255, .7); padding: 2px 14px; border-radius: 999px; animation: nudge2 1.8s ease-in-out infinite; }
+@keyframes nudge2 { 50% { transform: translateY(-3px) rotate(-1deg); } }
 .intro-who { margin: 6px 0 0; }
 .hand { font-family: var(--hand); font-size: 1.5rem; color: var(--deep); }
 .intro-tag { position: fixed; left: 50%; bottom: 46px; transform: translateX(-50%); width: min(820px, 92vw); font-size: .86rem; font-weight: 600; color: var(--cocoa); margin: 0; line-height: 1.5; }
 .intro-tag .hand { display: block; font-size: 1.35rem; font-weight: 700; }
 .hud-scroll { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); font-family: var(--mono); font-size: .78rem; margin: 0; animation: nudge 1.6s ease-in-out infinite; transition: opacity .4s; pointer-events: none; }
 @keyframes nudge { 50% { transform: translate(-50%, 4px); } }
-.hud-center { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); width: min(640px, 90vw); text-align: center; font-family: var(--serif); font-style: italic; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--cream); text-shadow: 0 2px 18px rgba(74, 56, 53, .55); opacity: 0; transition: opacity .5s; margin: 0; pointer-events: none; }
+.hud-center { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); width: min(640px, 90vw); text-align: center; font-family: "Gowun Batang", var(--serif); font-weight: 700; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--cream); text-shadow: 0 2px 18px rgba(74, 56, 53, .55); opacity: 0; transition: opacity .5s; margin: 0; pointer-events: none; }
 .hud-center.show { opacity: 1; }
 .hud-bl { position: absolute; left: 16px; bottom: 16px; pointer-events: none; }
 .hud-bl p { margin: 0; }
@@ -75,3 +77,32 @@ body.on-dark .hud-bl, body.on-dark .hud-br { color: var(--cream); }
 }
 .noscript { position: fixed; inset: auto 0 40% 0; text-align: center; z-index: 90; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* ---------- big station titles ---------- */
+.station-title { position: absolute; left: clamp(16px, 5vw, 72px); bottom: 15vh; max-width: min(640px, 70vw); pointer-events: none; }
+.station-title > * { opacity: 0; transform: translateY(18px); transition: opacity .5s, transform .6s cubic-bezier(.2, .8, .2, 1); }
+.station-title.show > * { opacity: 1; transform: none; }
+.station-title.show .st-title { transition-delay: .08s; }
+.station-title.show .st-sub { transition-delay: .18s; }
+.st-kicker { font-family: var(--mono); font-size: .8rem; letter-spacing: .06em; margin: 0 0 8px; color: var(--deep); background: var(--blush); display: inline-block; padding: 3px 10px; border-radius: 999px; }
+.st-title { font-family: "Gowun Batang", var(--serif); font-weight: 700; font-size: clamp(2rem, 5.2vw, 4.4rem); line-height: 1.18; letter-spacing: -.02em; color: var(--deep); margin: 0; white-space: pre-line;
+  text-shadow: 0 0 24px rgba(255, 248, 241, .95), 0 0 6px rgba(255, 248, 241, .9); }
+.st-sub { font-size: clamp(.9rem, 1.4vw, 1.05rem); font-weight: 600; color: var(--deep); margin: 12px 0 0; background: rgba(255, 248, 241, .82); display: inline-block; padding: 4px 12px; border-radius: 10px; }
+@media (max-width: 760px) {
+  .station-title { top: calc(12px); bottom: auto; max-width: 90vw; }
+  .st-title { font-size: clamp(1.7rem, 8vw, 2.4rem); }
+}
+
+/* ---------- ending ---------- */
+.ending { position: fixed; inset: 0; z-index: 35; display: grid; place-content: center; justify-items: center; gap: 22px; pointer-events: none; visibility: hidden; }
+.ending.on { visibility: visible; pointer-events: auto; }
+.ending-flash { position: absolute; inset: 0; background: radial-gradient(circle at 60% 45%, #fffaf2 0%, #ffe6d2 55%, #f7d6e0 100%); opacity: var(--flash, 0); }
+.ending-polaroid { position: relative; margin: 0; background: #fff; padding: 14px 14px 0; width: min(520px, 82vw); box-shadow: 0 30px 70px rgba(74, 56, 53, .25);
+  opacity: 0; transform: scale(1.9) rotate(0deg); transition: opacity .6s, transform 1.1s cubic-bezier(.2, .8, .2, 1); }
+.ending.done .ending-polaroid { opacity: 1; transform: scale(1) rotate(-3deg); }
+.ending-polaroid img { display: block; width: 100%; height: auto; aspect-ratio: 1.6; object-fit: cover; }
+.ending-polaroid figcaption { font-family: var(--hand-ko); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--deep); text-align: center; padding: 14px 0 18px; line-height: 1.25; }
+.ending-polaroid figcaption span { font-size: .8em; color: var(--cocoa); }
+.ending-actions { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; opacity: 0; transition: opacity .6s .5s; }
+.ending.done .ending-actions { opacity: 1; }
+.ending .btn { font-family: var(--sans); cursor: pointer; }
