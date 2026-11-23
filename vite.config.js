@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -25,13 +26,14 @@ function flatContent() {
 
 export default defineConfig({
   base: '/',
-  plugins: [flatContent()],
+  plugins: [react(), flatContent()],
   build: {
     target: 'es2022',
     rollupOptions: {
       input: {
         main: resolve(root, 'index.html'),
         flat: resolve(root, 'flat.html'),
+        three: resolve(root, '3d.html'),
       },
     },
   },
