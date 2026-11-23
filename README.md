@@ -1,26 +1,46 @@
-# Soheean High: Hallway Pass
+# 📷 One Photo, Every Angle — Sohee An (soheean1370)
 
-미국 하이틴 드라마 속 고등학교에 직접 들어가 복도를 걸으며 둘러보는 **1인칭 3D 포트폴리오**입니다.
-빨간 벽돌 학교 정문(노란 체크 차양)에서 시작해, 문이 열리면 락커와 교실 문이 늘어선 복도로 걸어 들어가요.
-→ https://soheean1370.github.io/
+> *✿ what would this photo look like from where the camera never was? ✿*
 
-## 조작법
-- PC: `W` `S` / `↑` `↓` 걷기, `A` `D` / `←` `→` 또는 마우스 드래그로 둘러보기, `Enter` / `Space`로 열기
-- 아무 물건이나 클릭하거나, 하단 안내판(Directory)을 누르면 그 앞까지 걸어가서 열어요.
-- 모바일: ▲ ▼ 버튼으로 걷기, 화면을 드래그해서 둘러보기, `OPEN` 또는 물건을 탭해서 열기
-- 오른쪽 위 **Skip to Portfolio**: 게임 없이 전체 내용을 한 페이지로 보기 (`/?skip` 또는 `#portfolio`로 바로 열기). WebGL이 안 되는 환경에서는 자동으로 이 화면이 떠요.
+A portfolio built around my research topic, **Novel View Synthesis** (making new viewpoints from a single photo).
+One polaroid of an American high-school hallway scatters into points, turns, reveals the holes the camera never saw, fills them in, and becomes a 3D hallway you can walk through.
 
-## 복도 지도
-정문 → 게시판(학생증) → 내 락커(FireGenerators) → 락커 101 → 카페테리아(주크박스) → 락커 102·103 → 졸업앨범실 → 락커 104 → 교무실(이력서 PDF)
+- Live: https://soheean1370.github.io/
+- Flat (2D) version with every item: https://soheean1370.github.io/flat.html
 
-왼쪽 벽은 락커, 오른쪽 벽은 교실 문·게시판·포스터이고, 복도 끝 창문으로 햇살이 들어와요.
+## Status (2026-11-23)
+| Step | What | State |
+|---|---|---|
+| M0 | Vite + GitHub Actions deploy | ✅ |
+| M1 | Content JSON + flat version (all assignment items, resume, photo) | ✅ |
+| M2 | Hallway + lockers | ⏳ tonight |
+| M3 | Camera rail + scroll + view chips | ⏳ tonight |
+| M4 | Photo → points → holes → fill | ⏳ tonight |
+| M5 | HUD + panels + props | ⏳ tonight |
 
-## 구조
-- `index.html`: 학생증 인트로, 3D 캔버스와 HUD, 전체 포트폴리오 내용 (JS 없이도 내용이 보여요)
-- `css/style.css`: 크림 / 세이지 / 더스티 핑크 / 버터 / 민트 + 노란 체크 팔레트, 필름 그레인, 비네팅
-- `js/hallway.js`: three.js 장면. 텍스처(테라조 바닥, 락커, 포스터, 벽돌, 체크무늬)는 전부 `<canvas>`로 그려서 이미지 파일이 없어요.
-- `assets/resume.pdf`: 이력서
-- 빌드 도구가 없어요. three.js는 import map으로 CDN에서 불러오고, GitHub Pages가 main 브랜치 루트를 그대로 배포해요.
+## Structure
+```
+index.html            3D version (flat content until M2 lands)
+flat.html             2D version — every assignment item as plain HTML
+public/               resume.pdf, photos/profile.webp, favicon, .nojekyll
+src/content/*.json    all text lives here (profile, copy EN/KO, projects, research, toolkit, timeline)
+src/content/render.js turns the JSON into HTML — used at build time (flat) and at runtime (3D panels)
+src/ui/styles/        tokens.css (colors, fonts), flat.css
+.github/workflows/    deploy.yml (build → GitHub Pages)
+```
+To edit text, change the JSON — both versions update. Fields set to `null` show up as `[확인 필요]` / "soon".
 
-## AI 활용 내역
-- (작성 예정) 어떤 부분을 AI(Claude Code)로 만들었고 무엇을 직접 했는지
+## Develop
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # → dist/
+```
+Deploy: push to `main`. Repo **Settings → Pages → Source = GitHub Actions**.
+
+## AI usage
+- **Me (Sohee):** concept, research content and survey categories, self-introduction copy, photo choice, final review.
+- **Claude Code:** code (Vite setup, renderer, styles, 3D scene and shaders), first drafts of English copy, deploy workflow.
+- Research-board pros/cons for groups A–C are drafts to be checked by me.
+
+No code, copy, or design was copied from other portfolios. Fonts are OFL (Google Fonts, Pretendard).
