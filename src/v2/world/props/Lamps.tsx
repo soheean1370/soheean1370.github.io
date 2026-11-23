@@ -9,6 +9,7 @@ export function Lamps() {
     const out: THREE.Matrix4[] = [];
     let k = 0;
     for (let t = 0.04; t < 0.98; t += 0.045) {
+      if (t > 0.37 && t < 0.68) { k++; continue; }
       const side = k++ % 2 ? 1 : -1;
       const p = roadPoint(t, side * 4.4);
       out.push(new THREE.Matrix4().compose(p, new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), roadYaw(t)), new THREE.Vector3(1, 1, 1)));

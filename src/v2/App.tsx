@@ -1,26 +1,55 @@
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerformanceMonitor, AdaptiveDpr } from '@react-three/drei';
-import { useState } from 'react';
+import { useEffect } from 'react';
+import Lenis from 'lenis';
 import { Experience } from './world/Experience';
+import { live, useStore } from './store';
+import { CAPTURE } from './layout';
+import { TopBar, Hud } from './ui/Hud';
 
 const debug = new URLSearchParams(location.search).has('debug');
 const isMobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+export let lenis: Lenis | null = null;
+export const scrollToP = (p: number, duration = 2) => lenis?.scrollTo(p * lenis.limit, { duration: reduce ? 0 : duration });
 
 export function App() {
-  const [quality, setQuality] = useState<'high' | 'low'>(isMobile ? 'low' : 'high');
+  const quality = useStore((s) => s.quality);
+  const setQuality = useStore((s) => s.setQuality);
+  const panelOpen = useStore((s) => !!s.panel);
+
+  useEffect(() => {
+    if (isMobile) setQuality('low');
+    lenis = new Lenis({ lerp: reduce ? 1 : 0.075, wheelMultiplier: 0.8 });
+    lenis.on('scroll', (l: Lenis) => { live.p = l.progress || 0; live.velocity = l.velocity; });
+    let raf = 0;
+    const tick = (t: number) => { lenis!.raf(t); raf = requestAnimationFrame(tick); };
+    raf = requestAnimationFrame(tick);
+    if (debug) Object.assign(window, { __lenis: lenis, __live: live });
+    return () => { cancelAnimationFrame(raf); lenis?.destroy(); };
+  }, []);
+  useEffect(() => { panelOpen ? lenis?.stop() : lenis?.start(); }, [panelOpen]);
+
   return (
-    <Canvas
-      shadows="soft"
-      dpr={[1, isMobile ? 1.5 : 2]}
-      gl={{ antialias: false, powerPreference: 'high-performance', toneMapping: THREE.NoToneMapping }}
-      camera={{ position: [1.2, 1.8, 16], fov: 42, near: 0.1, far: 900 }}
-      onCreated={({ camera, gl, scene }) => { camera.lookAt(-5, 3.2, -14); if (debug) Object.assign(window, { __gl: gl, __scene: scene, __cam: camera }); }}
-    >
-      <PerformanceMonitor onDecline={() => setQuality('low')} />
-      <AdaptiveDpr pixelated={false} />
-      <Experience quality={quality} />
-      {debug && <OrbitControls target={[-4, 3, -14]} makeDefault />}
-    </Canvas>
+    <>
+      <div className="canvas-wrap">
+        <Canvas
+          shadows="soft"
+          dpr={[1, isMobile ? 1.5 : 2]}
+          gl={{ antialias: false, powerPreference: 'high-performance', toneMapping: THREE.NoToneMapping, preserveDrawingBuffer: false }}
+          camera={{ position: CAPTURE.pos.toArray(), fov: CAPTURE.fov, near: 0.1, far: 900 }}
+          onCreated={({ camera, gl, scene }) => { camera.lookAt(CAPTURE.look); if (debug) Object.assign(window, { __gl: gl, __scene: scene, __cam: camera }); }}
+        >
+          <PerformanceMonitor onDecline={() => setQuality('low')} />
+          <AdaptiveDpr pixelated={false} />
+          <Experience quality={quality} debug={debug && new URLSearchParams(location.search).has('orbit')} />
+          {debug && new URLSearchParams(location.search).has('orbit') && <OrbitControls target={CAPTURE.look} makeDefault />}
+        </Canvas>
+      </div>
+      <TopBar />
+      <Hud />
+      <div className="scroll-space" aria-hidden="true" />
+    </>
   );
 }

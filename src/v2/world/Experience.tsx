@@ -10,6 +10,10 @@ import { School } from './props/School';
 import { Trees } from './props/Trees';
 import { Lamps } from './props/Lamps';
 import { C } from '../palette';
+import { SCHOOL, TREE_SKIP } from '../layout';
+import { CameraDirector } from './CameraDirector';
+import { FlyingCamera } from './props/FlyingCamera';
+import { Hello, Research, Systems, Stack, NextStop } from './sections/Sections';
 
 /** One low, pink key light from the horizon; its shadow box follows the camera so shadows stay crisp everywhere. */
 function KeyLight() {
@@ -31,13 +35,14 @@ function KeyLight() {
   );
 }
 
-export function Experience({ quality = 'high' as 'high' | 'low' }) {
+export function Experience({ quality = 'high' as 'high' | 'low', debug = false }) {
   return (
     <>
+      {!debug && <CameraDirector />}
       <color attach="background" args={[C.horizon]} />
       <fog attach="fog" args={[C.horizon, 20, 90]} />
       <Sky />
-      <hemisphereLight args={[C.sky, C.shade, 0.55]} />
+      <hemisphereLight args={[C.sky, C.clay, 0.8]} />
       <KeyLight />
       <Environment resolution={64}>
         <Lightformer form="rect" intensity={0.7} color={C.horizon} position={[0, 2, -10]} scale={[20, 4, 1]} />
@@ -45,8 +50,14 @@ export function Experience({ quality = 'high' as 'high' | 'low' }) {
       </Environment>
 
       <Ground />
-      <School position={[-22, 0, -12]} rotation-y={0.95} />
-      <Trees skip={[[0.0, 0.16]]} />
+      <School position={SCHOOL.pos} rotation-y={SCHOOL.rotY} />
+      <Trees skip={TREE_SKIP} />
+      <FlyingCamera />
+      <Hello />
+      <Research />
+      <Systems />
+      <Stack />
+      <NextStop />
       <Lamps />
 
       {quality === 'high' ? (
