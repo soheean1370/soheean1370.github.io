@@ -121,7 +121,7 @@ export function createNVS({ renderer, scene, world, pose, isMobile }) {
   const photo = new THREE.Mesh(new THREE.PlaneGeometry(halfW * 2, halfH * 2), photoMat);
   const capTex = canvasTex(1024, 900, (g, w, h) => {
     g.fillStyle = '#fff'; g.fillRect(0, 0, w, h);
-    text(g, 'Sohee An · soheean1370', w / 2, h - 70, `700 64px ${F.hand}`, PAL.deep);
+    text(g, '안소희 · soheean1370', w / 2, h - 70, `700 64px ${F.handKo}`, PAL.deep);
   });
   const frameMat = new THREE.MeshBasicMaterial({ map: capTex, transparent: true, fog: false, toneMapped: false });
   const pad = halfW * 0.07;

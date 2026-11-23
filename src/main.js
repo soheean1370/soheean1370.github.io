@@ -21,7 +21,7 @@ const $ = (id) => document.getElementById(id);
 
 // ---------- loader (3s → offer the flat version) ----------
 const pct = $('loaderPct');
-const setPct = (n) => { pct.textContent = `developing… ${n}%`; };
+const setPct = (n) => { pct.textContent = `현상 중… ${n}%`; };
 setTimeout(() => $('loaderSkip').classList.add('show'), 3000);
 setPct(5);
 
@@ -42,9 +42,9 @@ setAniso(renderer.capabilities.getMaxAnisotropy());
 
 // ---------- fonts + photo before painting textures ----------
 const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
-const fontSample = 'Sohee An soheean1370 #1370 One photo every angle HALL PASS Class of 2022 ♡✿★ 0123456789';
+const fontSample = JSON.stringify(content) + '안소희 사진 한 장 모든 각도 그래도 같은 사람으로 지금 공부 중 부산대학교 정보컴퓨터공학부 학부연구생 눌러서 열기 이름 목적지 당신의 팀 시간 언제든지 복도 통행증 소희 다녀감 나 노을 모든 각도 ♡✿★↻ 0123456789';
 await Promise.race([
-  Promise.all(['400 40px "Instrument Serif"', '700 40px Caveat', '600 40px "JetBrains Mono"', '600 40px "Pretendard Variable"']
+  Promise.all(['400 40px "Instrument Serif"', '700 40px Caveat', '700 40px Gaegu', '700 40px "Gowun Batang"', '600 40px "JetBrains Mono"', '600 40px "Pretendard Variable"', '800 40px "Pretendard Variable"']
     .map((f) => document.fonts.load(f, fontSample))),
   new Promise((r) => setTimeout(r, 2500)),
 ]).catch(() => {});
@@ -145,10 +145,10 @@ startClock();
 const film = createFilm(8);
 const stageEl = $('stage'), centerEl = $('centerText'), sceneEl = $('sceneName');
 const STAGES = [
-  [0.0, 0.04, '① input: one photo'],
-  [0.04, 0.08, '② estimate depth → lift to 3D points'],
-  [0.08, 0.13, '③ new viewpoint → holes the camera never saw'],
-  [0.13, 0.19, '④ fill the unseen → a whole hallway'],
+  [0.0, 0.04, '① 입력: 사진 한 장'],
+  [0.04, 0.08, '② 깊이 추정 → 3D 점으로 들어올리기'],
+  [0.08, 0.13, '③ 새로운 시점 → 카메라가 못 본 구멍'],
+  [0.13, 0.19, '④ 못 본 곳 채우기 → 복도 완성'],
 ];
 let lastStage = '', lastScene = '';
 
@@ -210,11 +210,11 @@ renderer.setAnimationLoop((now) => {
   // HUD
   $('intro').style.opacity = String(1 - ss(0.0, 0.02, p));
   $('scrollHint').style.opacity = String(1 - ss(0.0, 0.015, p));
-  const stage = vMode ? 'view synthesis mode · press V to return' : (STAGES.find(([a, b]) => p >= a && p < b)?.[2] ?? '');
+  const stage = vMode ? '시점 합성 모드 · V를 다시 누르면 돌아가요' : (STAGES.find(([a, b]) => p >= a && p < b)?.[2] ?? '');
   if (stage !== lastStage) { stageEl.textContent = stage; stageEl.classList.toggle('show', !!stage && (p > 0.005 || vMode)); lastStage = stage; }
   if (p > 0.005 && !stageEl.classList.contains('show') && stage) stageEl.classList.add('show');
   centerEl.classList.toggle('show', p > 0.185 && p < 0.225);
-  if (!centerEl.textContent) centerEl.textContent = copy.en.sceneOneEnd;
+  if (!centerEl.textContent) centerEl.textContent = copy.ko.sceneOneEnd;
   const sceneName = p < 0.19 ? '' : st.name;
   if (sceneName !== lastScene) { sceneEl.textContent = sceneName; lastScene = sceneName; }
   film(p);
@@ -226,7 +226,7 @@ renderer.setAnimationLoop((now) => {
     hovered = h;
     canvas.style.cursor = h ? 'pointer' : '';
     tip.hidden = !h;
-    if (h) tip.textContent = `✿ open · ${h.label}`;
+    if (h) tip.textContent = `✿ 열기 · ${h.label}`;
   }
   for (const it of interactables) {
     const target = it === hovered ? 0.35 : 0;

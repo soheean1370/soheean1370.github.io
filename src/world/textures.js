@@ -7,6 +7,8 @@ export const PAL = {
 };
 export const LOCKER_CYCLE = [PAL.blush, PAL.sky, PAL.sage, PAL.lavender, PAL.peach];
 export const F = {
+  ko: '"Gowun Batang", serif',
+  handKo: 'Gaegu, cursive',
   sans: '"Pretendard Variable", Pretendard, -apple-system, sans-serif',
   serif: '"Instrument Serif", serif',
   hand: 'Caveat, Gaegu, cursive',
@@ -197,10 +199,10 @@ export function myLockerTex(img) {
     g.fillStyle = '#FFFDF9'; rr(g, 196, 116, 120, 40, 8); g.fill();
     text(g, '#1370', 256, 137, `700 26px ${F.mono}`);
     polaroidOn(g, 34, 190, 170, -0.08, (pg, s) => cover(pg, img, 0, 0, s, s, 0.28), 'me ♡');
-    polaroidOn(g, 300, 180, 150, 0.1, dreamy('#F7D6E0', '#FFE6D2'), 'golden hour');
+    polaroidOn(g, 300, 180, 150, 0.1, dreamy('#F7D6E0', '#FFE6D2'), '노을 ✿');
     tape(g, 118, 192, 80, 22, -0.4, PAL.blush); tape(g, 376, 182, 74, 20, 0.35, PAL.lavender);
     g.fillStyle = PAL.gold; rr(g, 452, 440, 24, 112, 10); g.fill();
-    polaroidOn(g, 46, 630, 160, -0.06, dreamy('#D6E8F7', '#E2DAF5'), 'every angle');
+    polaroidOn(g, 46, 630, 160, -0.06, dreamy('#D6E8F7', '#E2DAF5'), '모든 각도');
     tape(g, 126, 632, 70, 20, 0.2, PAL.peach);
     g.save(); g.translate(370, 680); g.rotate(-0.08);
     g.fillStyle = PAL.lavender; g.beginPath(); g.arc(0, 0, 62, 0, 7); g.fill();
@@ -210,7 +212,7 @@ export function myLockerTex(img) {
     heart(g, 300, 820, 30, PAL.pinkHot); heart(g, 420, 800, 20, '#F2B8C8');
     g.save(); g.translate(256, 890); g.rotate(-0.03);
     g.fillStyle = PAL.blush; g.fillRect(-150, -30, 300, 60);
-    text(g, 'Sohee was here ✿', 0, 2, `700 38px ${F.hand}`);
+    text(g, '소희 다녀감 ✿', 0, 2, `700 40px ${F.handKo}`);
     g.restore();
   });
 }
@@ -218,14 +220,14 @@ export function idCardTex(img) {
   return canvasTex(640, 400, (g, w, h) => {
     g.fillStyle = '#fff'; rr(g, 0, 0, w, h, 28); g.fill();
     g.save(); rr(g, 0, 0, w, 74, [28, 28, 0, 0]); g.clip(); g.fillStyle = PAL.sky; g.fillRect(0, 0, w, 74); g.restore();
-    text(g, 'PUSAN NATIONAL UNIVERSITY', 32, 38, `700 24px ${F.mono}`, PAL.deep, 'left');
+    text(g, '부산대학교 · PUSAN NATIONAL UNIV.', 32, 38, `700 24px ${F.sans}`, PAL.deep, 'left');
     g.save(); rr(g, 32, 100, 170, 220, 12); g.clip(); cover(g, img, 32, 100, 170, 220, 0.25); g.restore();
-    text(g, 'Sohee An', 228, 138, `400 58px ${F.serif}`, PAL.deep, 'left');
+    text(g, '안소희', 228, 138, `700 54px ${F.ko}`, PAL.deep, 'left');
     text(g, '@soheean1370', 230, 190, `700 38px ${F.hand}`, PAL.cocoa, 'left');
-    text(g, 'B.S. Computer Science & Eng.', 230, 240, `500 24px ${F.sans}`, PAL.cocoa, 'left');
-    text(g, 'Undergrad Researcher · CV Lab', 230, 276, `500 24px ${F.sans}`, PAL.cocoa, 'left');
+    text(g, '정보컴퓨터공학부', 230, 240, `600 26px ${F.sans}`, PAL.cocoa, 'left');
+    text(g, 'PNU CV Lab 학부연구생', 230, 276, `600 26px ${F.sans}`, PAL.cocoa, 'left');
     for (let i = 0; i < 40; i++) { g.fillStyle = PAL.deep; g.fillRect(230 + i * 9, 318, i % 3 ? 3 : 6, 46); }
-    text(g, 'tap to flip ↻', w - 30, h - 24, `700 28px ${F.hand}`, PAL.pinkHot, 'right');
+    text(g, '눌러서 열기 ↻', w - 30, h - 24, `700 28px ${F.handKo}`, PAL.pinkHot, 'right');
   });
 }
 
@@ -242,20 +244,20 @@ export function boardTex(research) {
     spots.forEach(([x, y]) => { g.beginPath(); g.moveTo(center[0], center[1]); g.quadraticCurveTo((x + center[0]) / 2, (y + center[1]) / 2 + 40, x, y); g.stroke(); });
     // center card
     shadowed(g, () => { g.fillStyle = '#FFFDF9'; g.fillRect(center[0] - 300, center[1] - 120, 600, 240); });
-    text(g, 'One photo → every angle', center[0], center[1] - 36, `400 64px ${F.serif}`);
-    text(g, '(but still the same person)', center[0], center[1] + 40, `700 46px ${F.hand}`, PAL.cocoa);
+    text(g, '사진 한 장 → 모든 각도', center[0], center[1] - 36, `700 60px ${F.ko}`);
+    text(g, '(그래도 같은 사람으로)', center[0], center[1] + 40, `700 46px ${F.handKo}`, PAL.cocoa);
     const cols = [PAL.sage, PAL.sky, PAL.peach, PAL.lavender];
     research.groups.forEach((gr, i) => {
       const [x, y] = spots[i];
       g.save(); g.translate(x, y); g.rotate((i % 2 ? 1 : -1) * 0.04);
       shadowed(g, () => { g.fillStyle = cols[i]; g.fillRect(-210, -140, 420, 280); });
       text(g, `${gr.id} · ${gr.kind}`, 0, -100, `600 26px ${F.mono}`, PAL.cocoa);
-      text(g, gr.title, 0, -56, `700 40px ${F.hand}`, PAL.deep, 'center', 390);
+      text(g, gr.title, 0, -56, `700 40px ${F.handKo}`, PAL.deep, 'center', 390);
       gr.papers.slice(0, 4).forEach((p, k) => text(g, `• ${p}`, -180, -6 + k * 34, `500 24px ${F.sans}`, PAL.deep, 'left', 370));
       g.restore();
       g.fillStyle = PAL.pinkHot; g.beginPath(); g.arc(x, y - 140, 13, 0, 7); g.fill();
     });
-    text(g, '🌱 now learning: Diffusion · NeRF · 3DGS', w / 2, h - 50, `600 28px ${F.mono}`, PAL.deep);
+    text(g, '🌱 지금 공부 중: Diffusion · NeRF · 3DGS', w / 2, h - 50, `600 30px ${F.sans}`, PAL.deep);
   });
 }
 export function shelfTex(items) {
@@ -300,9 +302,9 @@ export function hallPassTex() {
   return canvasTex(512, 320, (g, w, h) => {
     g.fillStyle = '#FFFDF9'; rr(g, 0, 0, w, h, 24); g.fill();
     g.setLineDash([14, 10]); g.strokeStyle = PAL.cocoa; g.lineWidth = 5; rr(g, 14, 14, w - 28, h - 28, 18); g.stroke(); g.setLineDash([]);
-    text(g, 'HALL PASS', w / 2, 62, `700 40px ${F.mono}`);
-    const rows = [['Name', 'Sohee An'], ['Destination', 'your team'], ['Time', 'anytime']];
-    rows.forEach(([k, v], i) => { text(g, k, 50, 130 + i * 56, `500 24px ${F.mono}`, PAL.cocoa, 'left'); text(g, v, 230, 128 + i * 56, `700 44px ${F.hand}`, PAL.deep, 'left'); });
+    text(g, 'HALL PASS · 복도 통행증', w / 2, 62, `700 34px ${F.sans}`);
+    const rows = [['이름', '안소희'], ['목적지', '당신의 팀'], ['시간', '언제든지']];
+    rows.forEach(([k, v], i) => { text(g, k, 60, 130 + i * 56, `600 26px ${F.sans}`, PAL.cocoa, 'left'); text(g, v, 200, 128 + i * 56, `700 44px ${F.handKo}`, PAL.deep, 'left'); });
   });
 }
 export function posterTex({ bg, title, sub, seed = 1 }) {

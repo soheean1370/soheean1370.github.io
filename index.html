@@ -1,33 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Sohee An — One Photo, Every Angle</title>
-  <meta name="description" content="CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis & AI Backend" />
-  <meta property="og:title" content="Sohee An — One Photo, Every Angle" />
-  <meta property="og:description" content="CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis & AI Backend" />
+  <title>안소희 — 사진 한 장, 모든 각도</title>
+  <meta name="description" content="부산대 정보컴퓨터공학 · PNU CV Lab 학부연구생 · 새로운 시점 합성 & AI 백엔드. 사진 한 장이 3D 복도가 되는 포트폴리오." />
+  <meta property="og:title" content="안소희 — 사진 한 장, 모든 각도" />
+  <meta property="og:description" content="카메라가 없던 자리에서 보면, 이 사진은 어떤 모습일까? 사진 한 장이 3D 복도로 살아나는 포트폴리오." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://soheean1370.github.io/" />
   <meta name="theme-color" content="#FFF8F1" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Gaegu:wght@400;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Gaegu:wght@400;700&family=Gowun+Batang:wght@400;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="/src/ui/styles/app.css" />
 </head>
 <body>
-  <a class="skip-link" href="/flat.html">Skip to content (flat version)</a>
+  <a class="skip-link" href="/flat.html">본문으로 바로가기 (2D 버전)</a>
 
   <header class="bar">
     <a class="bar-brand" href="#" data-goto="0"><span aria-hidden="true">✿</span> soheean1370</a>
-    <nav class="bar-views" aria-label="Scenes" id="views">
-      <a href="#front" data-goto="front">front</a><a href="#side" data-goto="side">side</a><a href="#lockers" data-goto="lockers">lockers</a><a href="#toolkit" data-goto="toolkit">toolkit</a><a href="#back" data-goto="back">back</a><a href="#hallpass" data-goto="hallpass">hall pass</a>
+    <nav class="bar-views" aria-label="장면" id="views">
+      <a href="#front" data-goto="front">앞모습</a><a href="#side" data-goto="side">옆모습</a><a href="#lockers" data-goto="lockers">락커</a><a href="#toolkit" data-goto="toolkit">도구함</a><a href="#back" data-goto="back">뒷모습</a><a href="#hallpass" data-goto="hallpass">통행증</a>
     </nav>
     <div class="bar-actions">
       <a href="https://github.com/soheean1370" target="_blank" rel="noopener">GitHub</a>
-      <a href="/resume.pdf" download="Sohee-An-resume.pdf">Resume</a>
+      <a href="/resume.pdf" download="안소희-이력서.pdf">이력서</a>
       <a class="pill" href="/flat.html">2D</a>
     </div>
   </header>
@@ -38,39 +38,40 @@
   <!-- HUD -->
   <div class="hud" id="hud">
     <div class="hud-intro" id="intro">
-      <p class="intro-q">what would this photo look like from where the camera never was?</p>
-      <h1 class="intro-tag"><span class="sr-only">Sohee An (soheean1370) — </span>CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis &amp; AI Backend</h1>
+      <p class="intro-q">카메라가 없던 자리에서 보면,<br />이 사진은 어떤 모습일까?</p>
+      <p class="intro-try" id="tryHint">사진 위에 마우스를 올려 보세요 ✿</p>
+      <h1 class="intro-tag"><span class="sr-only">안소희 (soheean1370) — </span>부산대 정보컴퓨터공학 · PNU CV Lab 학부연구생 · 새로운 시점 합성 &amp; AI 백엔드</h1>
     </div>
-    <p class="hud-scroll" id="scrollHint">scroll to step inside ↓</p>
+    <p class="hud-scroll" id="scrollHint">스크롤해서 사진 속으로 ↓</p>
     <p class="hud-center" id="centerText" aria-live="polite"></p>
     <div class="hud-bl">
       <p class="hud-stage" id="stage" aria-live="polite"></p>
       <p class="hud-scene" id="sceneName"></p>
-      <p class="hud-clock" id="clock">Busan --:-- · Philly --:--</p>
+      <p class="hud-clock" id="clock">부산 --:-- · 필라델피아 --:--</p>
     </div>
     <div class="hud-br">
       <ol class="film" id="film" aria-hidden="true"></ol>
-      <p class="hud-hint">press <kbd>V</kbd> to see the points</p>
+      <p class="hud-hint"><kbd>V</kbd> 키를 누르면 점으로 보여요</p>
     </div>
     <button class="hover-tip" id="hoverTip" type="button" hidden></button>
   </div>
 
   <!-- every clickable object also exists as a real button (Tab / screen readers) -->
-  <nav class="sr-only" aria-label="Objects in the hallway" id="objectButtons"></nav>
+  <nav class="sr-only" aria-label="복도에 있는 물건" id="objectButtons"></nav>
 
   <aside class="panel-wrap" id="panel" aria-hidden="true">
     <div class="panel-card" role="dialog" aria-modal="true" aria-labelledby="panelTitle" tabindex="-1">
-      <button class="panel-close" id="panelClose" type="button" aria-label="Close">×</button>
+      <button class="panel-close" id="panelClose" type="button" aria-label="닫기">×</button>
       <div class="panel-body" id="panelBody"></div>
     </div>
   </aside>
 
   <div class="loader" id="loader">
-    <div class="loader-photo"><span id="loaderPct">developing…</span></div>
-    <a class="loader-skip" id="loaderSkip" href="/flat.html">skip to flat version →</a>
+    <div class="loader-photo"><span id="loaderPct">현상 중…</span></div>
+    <a class="loader-skip" id="loaderSkip" href="/flat.html">2D 버전으로 보기 →</a>
   </div>
 
-  <noscript><p class="noscript">This 3D portfolio needs JavaScript. <a href="/flat.html">Open the flat version →</a></p></noscript>
+  <noscript><p class="noscript">이 3D 포트폴리오는 자바스크립트가 필요해요. <a href="/flat.html">2D 버전 열기 →</a></p></noscript>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

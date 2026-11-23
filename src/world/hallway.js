@@ -115,8 +115,8 @@ export function buildHallway({ profileImg, content, isMobile }) {
         const { g, door } = locker(zc, P * 2, front, 2);
         const idMat = std({ map: T.idCardTex(profileImg), roughness: 0.35, emissive: 0xf7a8c0, emissiveIntensity: 0 });
         const card = plane(0.4, 0.25, idMat, g); card.position.set(-0.16, 1.08, LD + 0.012); card.rotation.z = 0.04;
-        add('idcard', 'about', 'Student ID', [card], [idMat], card);
-        add('mylocker', 'about', 'My locker #1370', [door], [front], door);
+        add('idcard', 'about', '학생증', [card], [idMat], card);
+        add('mylocker', 'about', '내 락커 #1370', [door], [front], door);
         return;
       }
       const pr = projects.find((x) => x.id === c.key);
@@ -132,7 +132,7 @@ export function buildHallway({ profileImg, content, isMobile }) {
         const glow = plane(width - 0.08, LH - 0.1, new THREE.MeshBasicMaterial({ color: 0xffd9bd, toneMapped: false }), g);
         glow.position.set(0, PL + LH / 2, 0.06);
         const l = new THREE.PointLight(0xffc9a6, 2.2, 3.2, 1.5); l.position.set(0, 1.3, LD + 0.25); g.add(l);
-        add('firegenerators', 'featured', 'FireGenerators ★', [d, glow], [front], d);
+        add('firegenerators', 'featured', '대표 프로젝트 · FireGenerators ★', [d, glow], [front], d);
         return;
       }
       const ci = idx++;
@@ -150,7 +150,7 @@ export function buildHallway({ profileImg, content, isMobile }) {
     const g = onWall(world, 'R', -7);
     const mat = std({ map: T.boardTex(content.research), roughness: 0.9, emissive: 0xf7a8c0, emissiveIntensity: 0 });
     const b = plane(2.7, 1.52, mat, g); b.position.set(0, 1.42, 0.03);
-    add('board', 'research', 'Research board', [b], [mat], b);
+    add('board', 'research', '연구 게시판', [b], [mat], b);
   }
 
   /* ---------- trophy case (right wall) = toolkit ---------- */
@@ -173,7 +173,7 @@ export function buildHallway({ profileImg, content, isMobile }) {
     box(0.16, 0.06, 0.16, gold, g, 0, 2.24, 0.22);
     const glass = plane(2.2, 1.9, new THREE.MeshPhysicalMaterial({ color: 0xffffff, transparent: true, opacity: 0.12, roughness: 0.05, metalness: 0 }), g);
     glass.position.set(0, 1.2, 0.45);
-    add('trophy', 'toolkit', 'Trophy case · toolkit', [glass, cup], mats, glass);
+    add('trophy', 'toolkit', '트로피 진열장 · 도구함', [glass, cup], mats, glass);
   }
 
   /* ---------- yearbook on the floor = back view ---------- */
@@ -182,14 +182,14 @@ export function buildHallway({ profileImg, content, isMobile }) {
     box(1.1, 0.04, 0.66, std({ map: T.yearbookCoverTex(), roughness: 0.6 }), g, 0, 0.02, 0);
     const pm = std({ map: T.yearbookPagesTex(profileImg), roughness: 0.8, emissive: 0xf7a8c0, emissiveIntensity: 0 });
     const pages = plane(1.04, 0.62, pm, g); pages.rotation.x = -Math.PI / 2; pages.position.y = 0.045;
-    add('yearbook', 'yearbook', 'Yearbook', [pages], [pm], pages);
+    add('yearbook', 'yearbook', '졸업앨범', [pages], [pm], pages);
   }
 
   /* ---------- hall pass next to the front door ---------- */
   {
     const m = std({ map: T.hallPassTex(), roughness: 0.6, emissive: 0xf7a8c0, emissiveIntensity: 0 });
     const hp = plane(0.8, 0.5, m, world); hp.position.set(1.5, 1.45, HALL.Z1 + 0.03); hp.rotation.z = -0.05;
-    add('hallpass', 'hallpass', 'Hall pass', [hp], [m], hp);
+    add('hallpass', 'hallpass', '복도 통행증', [hp], [m], hp);
   }
 
   /* ---------- posters ---------- */

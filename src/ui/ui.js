@@ -6,7 +6,7 @@ const $ = (id) => document.getElementById(id);
 export function startClock() {
   const el = $('clock');
   const fmt = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz }).format(new Date());
-  const tick = () => { el.textContent = `Busan ${fmt('Asia/Seoul')} · Philly ${fmt('America/New_York')}`; };
+  const tick = () => { el.textContent = `부산 ${fmt('Asia/Seoul')} · 필라델피아 ${fmt('America/New_York')}`; };
   tick(); setInterval(tick, 15000);
 }
 
@@ -31,7 +31,7 @@ export function createPanels(content, { onOpen, onClose }) {
     if (key === 'hallpass') return R.hallPassPanel(p, c);
     if (key.startsWith('project:')) {
       const pr = projects.find((x) => x.id === key.slice(8));
-      return `<p class="view-tag">🔒 lockers · project</p>${R.projectCard(pr)}`;
+      return `<p class="view-tag">🔒 락커 · 프로젝트</p>${R.projectCard(pr)}`;
     }
     return '';
   };
@@ -65,7 +65,7 @@ export function objectButtons(interactables, open) {
   for (const it of interactables) {
     const b = document.createElement('button');
     b.type = 'button';
-    b.textContent = `Open: ${it.label}`;
+    b.textContent = `열기: ${it.label}`;
     b.addEventListener('click', () => open(it.panel));
     nav.append(b);
   }
