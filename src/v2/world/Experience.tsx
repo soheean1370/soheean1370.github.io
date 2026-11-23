@@ -14,6 +14,7 @@ import { SCHOOL, TREE_SKIP } from '../layout';
 import { CameraDirector } from './CameraDirector';
 import { FlyingCamera } from './props/FlyingCamera';
 import { Hello, Research, Systems, Stack, NextStop } from './sections/Sections';
+import { NvsDemo } from '../nvs/NvsDemo';
 
 /** One low, pink key light from the horizon; its shadow box follows the camera so shadows stay crisp everywhere. */
 function KeyLight() {
@@ -58,6 +59,7 @@ export function Experience({ quality = 'high' as 'high' | 'low', debug = false }
       <Systems />
       <Stack />
       <NextStop />
+      <NvsDemo />
       <Lamps />
 
       {quality === 'high' ? (

@@ -31,5 +31,5 @@ export function Sky() {
         #include <colorspace_fragment>
       }`,
   }), []);
-  return <mesh material={mat} scale={400}><sphereGeometry args={[1, 48, 24]} /></mesh>;
+  return <mesh name="sky" material={mat} scale={400}><sphereGeometry args={[1, 48, 24]} /></mesh>;
 }
