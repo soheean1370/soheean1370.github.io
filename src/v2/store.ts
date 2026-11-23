@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 /** per-frame values live here (mutable, no re-render) */
-export const live = { p: 0, velocity: 0, mode: 'fixed', points: 0 };
+export const live = { p: 0, velocity: 0, mode: 'fixed', points: 0, fov: 42 };
 
 type Panel = null | { kind: 'hello' | 'research' | 'stack' | 'contact' | 'project'; id?: string };
 type State = {

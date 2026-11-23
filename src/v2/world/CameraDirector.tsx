@@ -10,7 +10,7 @@ const coarse = matchMedia('(pointer: coarse)').matches;
 
 /** scroll p → keyframe pose (fixed / orbit / follow / crane), then the real camera damps toward it */
 export function CameraDirector() {
-  const { camera, pointer } = useThree();
+  const { camera, pointer, size } = useThree();
   const curve = useMemo(() => new THREE.CatmullRomCurve3(KEYS.map((k) => k.pos), false, 'centripetal'), []);
   const target = useRef({ pos: new THREE.Vector3(), look: new THREE.Vector3() });
   const cur = useRef({ look: KEYS[0].look.clone(), init: false });
@@ -18,6 +18,10 @@ export function CameraDirector() {
   const tmp = new THREE.Vector3();
 
   useFrame((_, dt) => {
+    const cam = camera as THREE.PerspectiveCamera;
+    const wantFov = size.width / size.height < 0.8 ? 66 : 42;
+    if (cam.fov !== wantFov) { cam.fov = wantFov; cam.updateProjectionMatrix(); }
+    live.fov = wantFov;
     const p = live.p;
     let i = 0;
     while (i < KEYS.length - 2 && p > KEYS[i + 1].p) i++;
@@ -32,8 +36,10 @@ export function CameraDirector() {
       const s = SYSTEMS.find((x) => x.id === focus);
       if (s) {
         const toRoad = tmp.set(-s.side, 0, 0);
-        target.current.pos.copy(s.pos).addScaledVector(toRoad, 8.5).setY(3.2);
-        target.current.look.copy(s.pos).setY(2.2);
+        target.current.pos.copy(s.pos).addScaledVector(toRoad, 13).setY(3.6);
+        target.current.pos.z += 3.2 * s.side;
+        target.current.look.copy(s.pos).setY(2.4);
+        target.current.look.z += 3.2 * s.side;
         live.mode = 'focus';
       }
     }

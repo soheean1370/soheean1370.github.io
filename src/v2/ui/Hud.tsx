@@ -54,7 +54,7 @@ export function Hud() {
       const st = STAGES.find(([a, b]) => p >= a && p < b);
       stage.current.textContent = vMode ? 'view synthesis mode · V로 돌아가기' : st && p > 0.002 ? st[2] : '';
       stage.current.classList.toggle('show', !!stage.current.textContent);
-      cam.current.textContent = `camera: ${live.mode} · fov 42°${live.points ? ` · ${live.points.toLocaleString('en-US')} pts` : ''}`;
+      cam.current.textContent = `camera: ${live.mode} · fov ${live.fov}°${live.points ? ` · ${live.points.toLocaleString('en-US')} pts` : ''}`;
       intro.current.style.opacity = String(Math.max(0, 1 - p / 0.02));
       raf = requestAnimationFrame(loop);
     };

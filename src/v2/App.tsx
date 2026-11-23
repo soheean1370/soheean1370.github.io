@@ -7,6 +7,9 @@ import { Experience } from './world/Experience';
 import { live, useStore } from './store';
 import { CAPTURE } from './layout';
 import { TopBar, Hud } from './ui/Hud';
+import { Panel, ObjectButtons } from './ui/Panel';
+import { StopCard, Ending, Loader, DevStats, DevOverlay } from './ui/Overlays';
+import { useStore as useS } from './store';
 
 const debug = new URLSearchParams(location.search).has('debug');
 const isMobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
@@ -22,12 +25,19 @@ export function App() {
   useEffect(() => {
     if (isMobile) setQuality('low');
     lenis = new Lenis({ lerp: reduce ? 1 : 0.075, wheelMultiplier: 0.8 });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input,textarea')) return;
+      if (e.key === 'v' || e.key === 'V') useS.getState().toggleV();
+      if (e.key === 'd' || e.key === 'D') useS.getState().toggleDev();
+      if (e.key === 'Escape') useS.getState().close();
+    };
+    addEventListener('keydown', onKey);
     lenis.on('scroll', (l: Lenis) => { live.p = l.progress || 0; live.velocity = l.velocity; });
     let raf = 0;
     const tick = (t: number) => { lenis!.raf(t); raf = requestAnimationFrame(tick); };
     raf = requestAnimationFrame(tick);
     if (debug) Object.assign(window, { __lenis: lenis, __live: live });
-    return () => { cancelAnimationFrame(raf); lenis?.destroy(); };
+    return () => { cancelAnimationFrame(raf); lenis?.destroy(); removeEventListener('keydown', onKey); };
   }, []);
   useEffect(() => { panelOpen ? lenis?.stop() : lenis?.start(); }, [panelOpen]);
 
@@ -43,12 +53,19 @@ export function App() {
         >
           <PerformanceMonitor onDecline={() => setQuality('low')} />
           <AdaptiveDpr pixelated={false} />
+          <DevStats />
           <Experience quality={quality} debug={debug && new URLSearchParams(location.search).has('orbit')} />
           {debug && new URLSearchParams(location.search).has('orbit') && <OrbitControls target={CAPTURE.look} makeDefault />}
         </Canvas>
       </div>
       <TopBar />
       <Hud />
+      <StopCard />
+      <Panel />
+      <ObjectButtons />
+      <Ending />
+      <DevOverlay />
+      <Loader />
       <div className="scroll-space" aria-hidden="true" />
     </>
   );
