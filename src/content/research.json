@@ -1,0 +1,42 @@
+{
+  "center": "One photo → every angle (but still the same person)",
+  "surveyNote": "From my survey of 15 papers on single-portrait novel view synthesis (categories and paper names only).",
+  "groups": [
+    {
+      "id": "A",
+      "title": "Warp the original photo",
+      "kind": "2D warping",
+      "papers": ["Perspective-aware manipulation", "DisCO", "SUPER", "Depth-based selfie rectification", "LivePortrait"],
+      "good": "Keeps the real pixels, so the face stays very much itself.",
+      "bad": "Only small turns — anything the photo never saw can't be invented.",
+      "draft": true
+    },
+    {
+      "id": "B",
+      "title": "3D GAN inversion",
+      "kind": "3D GAN",
+      "papers": ["EG3D", "PanoHead"],
+      "good": "A real 3D-aware generator, so every angle is geometrically consistent.",
+      "bad": "Squeezing a photo into the GAN's space can lose who the person is.",
+      "draft": true
+    },
+    {
+      "id": "C",
+      "title": "Feed-forward 3D reconstruction",
+      "kind": "feed-forward",
+      "papers": ["FaceLift", "LAM", "FastAvatar"],
+      "good": "One pass, fast enough to feel instant.",
+      "bad": "Fine details depend on what the network saw in training.",
+      "draft": true
+    },
+    {
+      "id": "D",
+      "title": "Diffusion-based",
+      "kind": "diffusion",
+      "papers": ["DiffPortrait3D", "DiffPortrait360", "TurboPortrait3D", "GeoDiff4D", "One-stage blind face NVS"],
+      "good": "Great at imagining unseen sides.",
+      "bad": "The face can drift into someone else.",
+      "draft": false
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "shelves": [
+    { "name": "AI / ML", "items": ["PyTorch", "Hugging Face", "OpenCV", "TensorFlow", "scikit-learn"] },
+    { "name": "Backend / Data", "items": ["FastAPI", "Python", "Supabase", "Pinecone", "Vector DB", "Streamlit"] },
+    { "name": "Base", "items": ["C++", "C", "NumPy", "Pandas", "Git", "Jupyter", "VS Code", "CLion"] }
+  ],
+  "trophy": "Hackathon Encouragement Award · 2024"
+}

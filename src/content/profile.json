@@ -1,0 +1,27 @@
+{
+  "name": "Sohee An",
+  "nameKo": "안소희",
+  "handle": "soheean1370",
+  "photo": "/photos/profile.webp",
+  "photoAlt": "Portrait of Sohee An",
+  "interests": ["Novel View Synthesis", "3D Vision", "Generative Models", "Computer Vision", "AI Backend"],
+  "nowLearning": ["Diffusion", "NeRF", "3D Gaussian Splatting"],
+  "idFront": {
+    "school": "Pusan National University",
+    "degree": "B.S. Computer Science and Engineering · 2023–",
+    "role": "Undergrad Researcher · PNU CV Lab"
+  },
+  "idBack": {
+    "school": "Council Rock High School North",
+    "class": "Class of 2022",
+    "place": "Newtown, PA"
+  },
+  "links": {
+    "github": "https://github.com/soheean1370",
+    "email": "soheean1370@gmail.com",
+    "resume": "/resume.pdf",
+    "velog": null,
+    "naver": null,
+    "lab": null
+  }
+}

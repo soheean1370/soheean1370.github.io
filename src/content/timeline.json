@@ -1,0 +1,26 @@
+[
+  {
+    "when": "Class of 2022",
+    "title": "Council Rock High School North, PA",
+    "body": null,
+    "superlative": true,
+    "photo": null
+  },
+  {
+    "when": "2023",
+    "title": "Pusan National University",
+    "body": "New school, new angle. Ran AIDeveloper, the CS academic club: a 50+ member Discord, study curriculum from beginner to advanced, and teams for hackathons."
+  },
+  {
+    "when": "2023–2025",
+    "title": "The LLM chapter",
+    "body": "Before vision, I spent my time with LLMs 💬 — Ollama local-LLM project at the Open Source Contribution Academy, then Goorm Deep Dive Generative AI cohort 3.",
+    "badges": ["RAG", "Prompt Engineering", "LangChain"]
+  },
+  {
+    "when": "Now",
+    "title": "PNU CV Lab",
+    "body": "From language to images, from 2D to 3D.",
+    "llmLine": true
+  }
+]

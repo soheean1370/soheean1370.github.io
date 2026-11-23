@@ -1,0 +1,32 @@
+{
+  "en": {
+    "question": "what would this photo look like from where the camera never was?",
+    "tagline": "CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis & AI Backend",
+    "scrollHint": "scroll to step inside ↓",
+    "sceneOneEnd": "That's my research, in four steps. Now let me show you around.",
+    "about": "Hi, I'm Sohee. I grew up between two angles: high school in Pennsylvania, university in Busan. Now I study how one photo can become every angle, and I build the AI backends that turn models into things people can use.",
+    "researchQuestion": "How far can we turn a face before it stops being the same person?",
+    "researchLine": "Keep what the camera saw. Imagine only what it didn't.",
+    "researchDetail": "I'm studying how to keep what the camera saw, and only imagine what it didn't.",
+    "featuredWhy": "AI backend = turning a model's output into something a real person can use.",
+    "superlative": "Most Likely to Ask \"But What Does It Look Like From the Other Side?\"",
+    "llmLine": "I went from making models talk to making photos turn around.",
+    "hallPass": "Destination: your team. Time: anytime.",
+    "ending": "thanks for visiting ✿ every angle of me.",
+    "footer": "Built with Three.js, designed by Sohee, coded with help from Claude Code."
+  },
+  "ko": {
+    "question": "카메라가 없던 자리에서 보면, 이 사진은 어떤 모습일까?",
+    "tagline": "부산대 정보컴퓨터공학 · PNU CV Lab 학부연구생 · 새로운 시점 합성 & AI 백엔드",
+    "scrollHint": "스크롤해서 사진 속으로 ↓",
+    "sceneOneEnd": "제 연구를 네 단계로 줄이면 이거예요. 이제 복도를 안내할게요.",
+    "about": "안녕하세요, 소희예요. 펜실베이니아의 고등학교와 부산의 대학교, 두 각도 사이에서 자랐어요. 지금은 사진 한 장이 모든 각도가 되는 방법을 연구하고, 모델을 사람이 쓸 수 있는 서비스로 만드는 AI 백엔드를 개발해요.",
+    "researchQuestion": "얼굴을 얼마나 돌려야 더 이상 같은 사람이 아니게 될까?",
+    "researchLine": "카메라가 본 건 지키고, 못 본 것만 상상하기.",
+    "featuredWhy": "AI 백엔드는 모델의 결과를 진짜 사람이 쓸 수 있게 만드는 일이에요.",
+    "superlative": "\"근데 반대쪽에서 보면 어떻게 생겼어?\"라고 물어볼 것 같은 사람 1위",
+    "llmLine": "모델을 말하게 하던 사람이, 이제 사진을 돌아보게 만들어요.",
+    "hallPass": "목적지: 당신의 팀. 시간: 언제든지.",
+    "ending": "와줘서 고마워요 ✿ 저의 모든 각도였어요."
+  }
+}

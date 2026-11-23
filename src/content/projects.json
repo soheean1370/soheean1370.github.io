@@ -1,0 +1,92 @@
+[
+  {
+    "id": "firegenerators",
+    "featured": true,
+    "title": "FireGenerators",
+    "subtitle": "AI financial literacy & investing coach",
+    "period": "2025.07–09",
+    "team": "team of 6",
+    "role": "Financial level test & data management",
+    "problem": "Beginners don't know their own financial level, so they get advice that's too easy or too hard.",
+    "flow": ["quiz answers + response time", "adaptive difficulty", "GPT-5 3-sentence report", "Supabase profile", "content & ETF recommendation"],
+    "built": [
+      "Designed and built an adaptive OX / multiple-choice level test whose difficulty shifts with accuracy and response time",
+      "GPT-5 reads the answers and writes a 3-sentence report: strengths, weak spots, and what to learn next",
+      "Offline evaluation pipeline for question-difficulty calibration and report quality, iterating on prompts",
+      "User profile schema in Supabase that feeds content curation and stock/ETF recommendations"
+    ],
+    "stack": ["Streamlit", "FastAPI", "Supabase (PostgreSQL + Vector DB)", "Pinecone", "GPT-5"],
+    "result": "Shipped the full flow from adaptive level test → personal GPT-5 report → recommendations, and used the offline evaluation pipeline to make the reports more reliable and consistent.",
+    "resultNumbers": null,
+    "links": [{ "label": "Source", "url": "https://github.com/soheean1370/FireGenerators" }],
+    "noDemoNote": "No live demo — the repo README has screenshots."
+  },
+  {
+    "id": "eatwise",
+    "title": "EatWise",
+    "subtitle": "OCR product info & price comparison",
+    "period": "2025.06–07",
+    "team": "team of 4",
+    "role": "AI · OCR",
+    "summary": "Photo of an electronic shelf label → rotation fix & denoise → OCR → Gemini turns it into product & nutrition JSON → compare the lowest price online.",
+    "proof": "Benchmarked PaddleOCR vs EasyOCR with Character Error Rate (CER)",
+    "stack": ["OpenCV", "PaddleOCR", "EasyOCR", "Gemini 2.0 Flash", "FastAPI", "Streamlit", "Firebase"],
+    "links": [
+      { "label": "Source", "url": "https://github.com/GOORM-team-02/ocr-price-compare" },
+      { "label": "Demo video", "url": "https://www.youtube.com/shorts/AbGvId-CgKM" }
+    ],
+    "note": "a photo is the input → pipeline"
+  },
+  {
+    "id": "farmforyou",
+    "title": "FarmForYou",
+    "subtitle": "Farm job matching · 팜포유",
+    "period": "2025.08",
+    "team": "Goorm hackathon · team of 6",
+    "role": "AI",
+    "summary": "Speak, and the job post writes itself — plus AI matching between farms and workers.",
+    "proof": "90% generation accuracy · match rate +25% · search time −40%",
+    "stack": ["Whisper", "PyTorch", "FastAPI", "Spring Boot"],
+    "links": [{ "label": "Source", "url": "https://github.com/CountryJob/Server-Backend" }]
+  },
+  {
+    "id": "review-stars",
+    "title": "Review → Stars",
+    "subtitle": "Star-rating prediction from review text",
+    "period": "2024.08–12",
+    "team": "PNU SW study · team of 6",
+    "role": "PyTorch",
+    "summary": "A web demo that reads an English McDonald's review and predicts its star rating.",
+    "proof": "85% accuracy · 4.6 / 5 user satisfaction",
+    "stack": ["PyTorch", "transformers", "Django", "Next.js", "Docker"],
+    "links": [{ "label": "Source", "url": "https://github.com/soheean1370/Group-11" }]
+  },
+  {
+    "id": "withpnu",
+    "title": "WithPNU",
+    "subtitle": "Campus partnership info app",
+    "period": "2024",
+    "team": "PNU SW hackathon · team of 4",
+    "role": "App",
+    "summary": "Student and local-shop partnership deals scattered everywhere, gathered into one app with a map and categories.",
+    "proof": "Hackathon Encouragement Award 🏅",
+    "stack": ["Kotlin", "Firebase", "Google Places API"],
+    "links": [{ "label": "Source", "url": "https://github.com/soheean1370/WithPNU" }]
+  },
+  {
+    "id": "qroom",
+    "title": "Qroom",
+    "subtitle": "Anonymous questions for offline lectures",
+    "period": "2026",
+    "team": "team of 2",
+    "role": "Frontend",
+    "summary": "No login — join with a 4-digit code or QR, ask in real time, tap feedback buttons, and let AI polish your question.",
+    "proof": "Live — try it right now",
+    "live": true,
+    "stack": ["Supabase Realtime", "Edge Functions", "Vercel"],
+    "links": [
+      { "label": "Live demo", "url": "https://q-room.vercel.app/" },
+      { "label": "Source", "url": "https://github.com/soheean1370/Qroom" }
+    ]
+  }
+]
