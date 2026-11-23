@@ -188,7 +188,7 @@ export function buildHallway({ profileImg, content, isMobile }) {
   /* ---------- hall pass next to the front door ---------- */
   {
     const m = std({ map: T.hallPassTex(), roughness: 0.6, emissive: 0xf7a8c0, emissiveIntensity: 0 });
-    const hp = plane(0.56, 0.35, m, world); hp.position.set(1.55, 1.45, HALL.Z1 + 0.03); hp.rotation.z = -0.05;
+    const hp = plane(0.8, 0.5, m, world); hp.position.set(1.5, 1.45, HALL.Z1 + 0.03); hp.rotation.z = -0.05;
     add('hallpass', 'hallpass', 'Hall pass', [hp], [m], hp);
   }
 
