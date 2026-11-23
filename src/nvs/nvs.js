@@ -46,18 +46,23 @@ const VERT = /* glsl */`
 uniform sampler2D uColor;
 uniform sampler2D uDepth;
 uniform mat4 uInvViewProj;
-uniform float uLift, uPx, uFlatNdcZ, uFlatDist, uNear, uFar, uEdge;
-uniform vec2 uTexel;
+uniform float uLift, uPx, uFlatNdcZ, uFlatDist, uNear, uFar, uEdge, uScatter, uRepel, uAspect, uFlatScale;
+uniform vec2 uTexel, uMouse;
+uniform mat4 uFlatM;
 attribute vec2 aUv;
 varying vec3 vColor;
 varying float vEdge;
+varying float vPush;
+vec3 hash3(vec2 p) { vec3 q = vec3(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)), dot(p, vec2(419.2, 371.9))); return fract(sin(q) * 43758.5453) - 0.5; }
 float lin(float d) { float z = d * 2.0 - 1.0; return 2.0 * uNear * uFar / (uFar + uNear - z * (uFar - uNear)); }
 vec3 unproject(vec2 uv, float ndcZ) { vec4 p = uInvViewProj * vec4(uv * 2.0 - 1.0, ndcZ, 1.0); return p.xyz / p.w; }
 void main() {
   float d = texture2D(uDepth, aUv).r;
   vec3 world = unproject(aUv, d * 2.0 - 1.0);
-  vec3 flat_ = unproject(aUv, uFlatNdcZ);
+  vec3 flat_ = (uFlatM * vec4(unproject(aUv, uFlatNdcZ), 1.0)).xyz;
   vec3 pos = mix(flat_, world, uLift);
+  // burst: mid-lift every point flies off a little, then settles at its depth
+  pos += hash3(aUv * 91.7) * uScatter * sin(3.14159 * uLift) * 0.35 * (0.4 + lin(d) * 0.08);
   float z = lin(d);
   float zx = lin(texture2D(uDepth, aUv + vec2(uTexel.x, 0.0)).r);
   float zy = lin(texture2D(uDepth, aUv + vec2(0.0, uTexel.y)).r);
@@ -68,17 +73,26 @@ void main() {
   vColor = texture2D(uColor, aUv).rgb;
   vec4 mv = modelViewMatrix * vec4(pos, 1.0);
   gl_Position = projectionMatrix * mv;
+  // the cursor pushes pixels away (screen space)
+  vec2 ndc = gl_Position.xy / gl_Position.w;
+  vec2 dd = (ndc - uMouse) * vec2(uAspect, 1.0);
+  float r = length(dd);
+  float push = uRepel * smoothstep(0.22, 0.0, r);
+  ndc += (dd / max(r, 1e-4)) / vec2(uAspect, 1.0) * push * 0.13;
+  gl_Position.xy = ndc * gl_Position.w;
+  vPush = push;
   float capZ = mix(uFlatDist, z, uLift);
-  gl_PointSize = clamp(uPx * capZ / -mv.z, 1.0, 26.0);
+  gl_PointSize = clamp(uPx * capZ / -mv.z * mix(uFlatScale, 1.0, uLift) * (1.0 + push * 0.8), 1.0, 26.0);
 }`;
 const FRAG = /* glsl */`
 uniform float uAlpha;
 varying vec3 vColor;
 varying float vEdge;
+varying float vPush;
 void main() {
   vec2 c = gl_PointCoord - 0.5;
   if (dot(c, c) > 0.25) discard;
-  vec3 col = mix(vColor, vec3(0.95, 0.55, 0.68) * 1.6, vEdge);
+  vec3 col = mix(vColor, vec3(0.95, 0.55, 0.68) * 1.6, max(vEdge, vPush * 0.7));
   gl_FragColor = vec4(col, uAlpha);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
@@ -144,6 +158,8 @@ export function createNVS({ renderer, scene, world, pose, isMobile }) {
     uColor: { value: rt.texture }, uDepth: { value: rt.depthTexture },
     uInvViewProj: { value: new THREE.Matrix4().multiplyMatrices(capCam.matrixWorld, capCam.projectionMatrixInverse) },
     uLift: { value: 0 }, uPx: { value: 4 }, uAlpha: { value: 1 }, uEdge: { value: 0 },
+    uScatter: { value: 0 }, uRepel: { value: 0 }, uAspect: { value: 1 }, uFlatScale: { value: 1 },
+    uMouse: { value: new THREE.Vector2(9, 9) }, uFlatM: { value: new THREE.Matrix4() },
     uFlatDist: { value: D }, uFlatNdcZ: { value: (far + near) / (far - near) - (2 * far * near) / ((far - near) * D) },
     uNear: { value: near }, uFar: { value: far },
     uTexel: { value: new THREE.Vector2(2 / CAP_W, 2 / CAP_H) },
@@ -154,7 +170,7 @@ export function createNVS({ renderer, scene, world, pose, isMobile }) {
 
   // the photo camera stays in the hallway as a thin frustum
   const fr = (() => {
-    const s = 0.35, hh = Math.tan(THREE.MathUtils.degToRad(30)) * s, hw = hh * 1.6;
+    const s = 0.7, hh = Math.tan(THREE.MathUtils.degToRad(30)) * s, hw = hh * 1.6;
     const c = [[-hw, -hh], [hw, -hh], [hw, hh], [-hw, hh]].map(([x, y]) => new THREE.Vector3(x, y, -s));
     const v = [];
     c.forEach((p, i) => { v.push(0, 0, 0, p.x, p.y, p.z); const q = c[(i + 1) % 4]; v.push(p.x, p.y, p.z, q.x, q.y, q.z); });
@@ -171,5 +187,28 @@ export function createNVS({ renderer, scene, world, pose, isMobile }) {
   }
 
   const home = polaroid.position.clone(), down = new THREE.Vector3(0, -1, 0).applyQuaternion(capCam.quaternion);
-  return { home, down, capture, polaroid, frame, frameMat, photo, points, uniforms, frustum: fr, setPointPx, D };
+  polaroid.updateMatrixWorld();
+  const homeInv = polaroid.matrixWorld.clone().invert();
+  /** keep the flat (photo) points glued to the polaroid as it scales/tilts */
+  function syncFlat() {
+    polaroid.updateMatrixWorld();
+    uniforms.uFlatM.value.multiplyMatrices(polaroid.matrixWorld, homeInv);
+    uniforms.uFlatScale.value = polaroid.scale.x;
+  }
+  /** a small JPEG of the photo, for the ending polaroid and sharing */
+  function snapshot(resize) {
+    const hidden = [polaroid, points, fr].map((o) => { const v = o.visible; o.visible = false; return [o, v]; });
+    const prev = reveal.value; reveal.value = 1;
+    const pr = renderer.getPixelRatio();
+    renderer.setPixelRatio(1);
+    renderer.setSize(960, 600, false);
+    renderer.render(scene, capCam);
+    const url = renderer.domElement.toDataURL('image/jpeg', 0.88);
+    renderer.setPixelRatio(pr);
+    reveal.value = prev;
+    hidden.forEach(([o, v]) => { o.visible = v; });
+    resize();
+    return url;
+  }
+  return { home, down, syncFlat, snapshot, capture, polaroid, frame, frameMat, photo, points, uniforms, frustum: fr, setPointPx, D };
 }
