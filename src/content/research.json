@@ -1,41 +1,60 @@
 {
-  "center": "One photo → every angle (but still the same person)",
-  "surveyNote": "From my survey of 15 papers on single-portrait novel view synthesis (categories and paper names only).",
+  "center": "사진 한 장 → 모든 각도 (그래도 같은 사람으로)",
+  "surveyNote": "단일 인물 사진 시점 변환 논문 15편을 정리한 서베이에서 가져왔어요 (분류와 논문 이름만 공개해요).",
   "groups": [
     {
       "id": "A",
-      "title": "Warp the original photo",
+      "title": "원본 사진 변형",
       "kind": "2D warping",
-      "papers": ["Perspective-aware manipulation", "DisCO", "SUPER", "Depth-based selfie rectification", "LivePortrait"],
-      "good": "Keeps the real pixels, so the face stays very much itself.",
-      "bad": "Only small turns — anything the photo never saw can't be invented.",
+      "papers": [
+        "Perspective-aware manipulation",
+        "DisCO",
+        "SUPER",
+        "Depth-based selfie rectification",
+        "LivePortrait"
+      ],
+      "good": "실제 픽셀을 쓰니까 얼굴이 그 사람 그대로 유지돼요.",
+      "bad": "조금만 돌릴 수 있어요. 사진에 없던 부분은 만들어 낼 수 없거든요.",
       "draft": true
     },
     {
       "id": "B",
-      "title": "3D GAN inversion",
+      "title": "3D GAN 역변환",
       "kind": "3D GAN",
-      "papers": ["EG3D", "PanoHead"],
-      "good": "A real 3D-aware generator, so every angle is geometrically consistent.",
-      "bad": "Squeezing a photo into the GAN's space can lose who the person is.",
+      "papers": [
+        "EG3D",
+        "PanoHead"
+      ],
+      "good": "3D를 아는 생성기라서 어느 각도든 기하학적으로 일관돼요.",
+      "bad": "사진을 GAN 공간에 끼워 맞추다 보면 그 사람다움을 잃을 수 있어요.",
       "draft": true
     },
     {
       "id": "C",
-      "title": "Feed-forward 3D reconstruction",
+      "title": "피드포워드 3D 재구성",
       "kind": "feed-forward",
-      "papers": ["FaceLift", "LAM", "FastAvatar"],
-      "good": "One pass, fast enough to feel instant.",
-      "bad": "Fine details depend on what the network saw in training.",
+      "papers": [
+        "FaceLift",
+        "LAM",
+        "FastAvatar"
+      ],
+      "good": "한 번에 계산해서 거의 바로 결과가 나와요.",
+      "bad": "세밀한 디테일은 학습 데이터에 크게 달려 있어요.",
       "draft": true
     },
     {
       "id": "D",
-      "title": "Diffusion-based",
+      "title": "Diffusion 기반",
       "kind": "diffusion",
-      "papers": ["DiffPortrait3D", "DiffPortrait360", "TurboPortrait3D", "GeoDiff4D", "One-stage blind face NVS"],
-      "good": "Great at imagining unseen sides.",
-      "bad": "The face can drift into someone else.",
+      "papers": [
+        "DiffPortrait3D",
+        "DiffPortrait360",
+        "TurboPortrait3D",
+        "GeoDiff4D",
+        "One-stage blind face NVS"
+      ],
+      "good": "안 보이던 쪽을 상상하는 데 뛰어나요.",
+      "bad": "얼굴이 다른 사람처럼 변해 버릴 수 있어요.",
       "draft": false
     }
   ]

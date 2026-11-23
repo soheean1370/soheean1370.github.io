@@ -1,8 +1,39 @@
 {
   "shelves": [
-    { "name": "AI / ML", "items": ["PyTorch", "Hugging Face", "OpenCV", "TensorFlow", "scikit-learn"] },
-    { "name": "Backend / Data", "items": ["FastAPI", "Python", "Supabase", "Pinecone", "Vector DB", "Streamlit"] },
-    { "name": "Base", "items": ["C++", "C", "NumPy", "Pandas", "Git", "Jupyter", "VS Code", "CLion"] }
+    {
+      "name": "AI / ML",
+      "items": [
+        "PyTorch",
+        "Hugging Face",
+        "OpenCV",
+        "TensorFlow",
+        "scikit-learn"
+      ]
+    },
+    {
+      "name": "백엔드 / 데이터",
+      "items": [
+        "FastAPI",
+        "Python",
+        "Supabase",
+        "Pinecone",
+        "Vector DB",
+        "Streamlit"
+      ]
+    },
+    {
+      "name": "기본기",
+      "items": [
+        "C++",
+        "C",
+        "NumPy",
+        "Pandas",
+        "Git",
+        "Jupyter",
+        "VS Code",
+        "CLion"
+      ]
+    }
   ],
-  "trophy": "Hackathon Encouragement Award · 2024"
+  "trophy": "해커톤 장려상 · 2024"
 }

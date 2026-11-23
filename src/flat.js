@@ -1,7 +1,7 @@
 // Two-city clock (Busan ↔ Philly) and active section chip for the flat page.
 const clock = document.getElementById('clock');
 const fmt = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz }).format(new Date());
-const tick = () => { clock.textContent = `Busan ${fmt('Asia/Seoul')} · Philly ${fmt('America/New_York')}`; };
+const tick = () => { clock.textContent = `부산 ${fmt('Asia/Seoul')} · 필라델피아 ${fmt('America/New_York')}`; };
 tick();
 setInterval(tick, 15000);
 

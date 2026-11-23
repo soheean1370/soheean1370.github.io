@@ -7,7 +7,7 @@ export const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) => ESC[c]);
 const todo = (what) => `<span class="todo">[확인 필요${what ? `: ${esc(what)}` : ''}]</span>`;
 
 export function btn(label, url, { solid = false, download, icon = '' } = {}) {
-  if (!url) return `<span class="btn is-todo" aria-disabled="true">${icon}${esc(label)} <small>soon</small></span>`;
+  if (!url) return `<span class="btn is-todo" aria-disabled="true">${icon}${esc(label)} <small>준비 중</small></span>`;
   const attrs = download
     ? `href="${esc(url)}" download="${esc(download)}"`
     : url.startsWith('mailto:') ? `href="${esc(url)}"` : `href="${esc(url)}" target="_blank" rel="noopener"`;
@@ -25,7 +25,7 @@ export function idCard(p) {
       <div class="idcard-row">
         <img class="idcard-photo" src="${esc(p.photo)}" alt="${esc(p.photoAlt)}" width="120" height="156" loading="lazy" />
         <div>
-          <p class="idcard-name">${esc(p.name)} <span lang="ko">${esc(p.nameKo)}</span></p>
+          <p class="idcard-name">${esc(p.nameKo)} <span lang="en">${esc(p.name)}</span></p>
           <p class="idcard-handle">@${esc(p.handle)}</p>
           <p class="idcard-line">${esc(p.idFront.degree)}</p>
           <p class="idcard-line">${esc(p.idFront.role)}</p>
@@ -41,20 +41,20 @@ export function idCard(p) {
 
 export function aboutPanel(p, c) {
   return `
-  ${viewTag('🍡', 'front view · my locker #1370')}
-  <h2>Hi, I'm Sohee.</h2>
+  ${viewTag('🍡', '앞모습 · 내 락커 #1370')}
+  <h2>안녕하세요, 소희예요.</h2>
   ${idCard(p)}
-  <p class="lead">${esc(c.en.about)}</p>
-  <p class="label">interests</p>
+  <p class="lead">${esc(c.ko.about)}</p>
+  <p class="label">관심 분야</p>
   ${chips(p.interests.map((t) => `♡ ${t}`), 'chip chip-pink')}
   <p class="btn-row">${btn('GitHub ↗', p.links.github)}${btn('PNU CV Lab ↗', p.links.lab)}</p>`;
 }
 
 export function researchPanel(r, c, p) {
   return `
-  ${viewTag('☁', 'side view · research')}
+  ${viewTag('☁', '옆모습 · 연구')}
   <h2>${esc(r.center)}</h2>
-  <blockquote class="pull">${esc(c.en.researchQuestion)}<span>${esc(c.en.researchDetail)}</span></blockquote>
+  <blockquote class="pull">${esc(c.ko.researchQuestion)}<span>${esc(c.ko.researchDetail)}</span></blockquote>
   <p class="muted">${esc(r.surveyNote)}</p>
   <div class="board">
     ${r.groups.map((g) => `
@@ -62,32 +62,32 @@ export function researchPanel(r, c, p) {
       <p class="pin-kind"><span class="pin-id">${esc(g.id)}</span> ${esc(g.kind)}</p>
       <h3>${esc(g.title)}</h3>
       <ul class="papers">${g.papers.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-      <p class="pro">＋ ${esc(g.good)}</p>
-      <p class="con">－ ${esc(g.bad)}</p>
+      <p class="pro">＋ 잘하는 것: ${esc(g.good)}</p>
+      <p class="con">－ 아쉬운 것: ${esc(g.bad)}</p>
     </article>`).join('')}
   </div>
-  <p class="label">🌱 now learning</p>
+  <p class="label">🌱 지금 공부 중</p>
   ${chips(p.nowLearning, 'chip chip-sage')}
-  <p class="btn-row">${btn('Velog notes ↗', p.links.velog)}</p>`;
+  <p class="btn-row">${btn('Velog 정리 노트 ↗', p.links.velog)}</p>`;
 }
 
 export function featuredPanel(f, c) {
   return `
-  ${viewTag('🔒', 'lockers · featured project')}
+  ${viewTag('🔒', '락커 · 대표 프로젝트')}
   <h2>${esc(f.title)} <span class="sub">— ${esc(f.subtitle)}</span></h2>
   <p class="meta">${esc(f.period)} · ${esc(f.team)}</p>
   <dl class="case">
-    <div><dt>Problem</dt><dd>${esc(f.problem)}</dd></div>
-    <div><dt>My role</dt><dd>${esc(f.role)}</dd></div>
-    <div><dt>What I built</dt><dd>
-      <ol class="flow" aria-label="pipeline">${f.flow.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
+    <div><dt>문제 정의</dt><dd>${esc(f.problem)}</dd></div>
+    <div><dt>내 역할</dt><dd>${esc(f.role)}</dd></div>
+    <div><dt>만든 것</dt><dd>
+      <ol class="flow" aria-label="파이프라인">${f.flow.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
       <ul>${f.built.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
     </dd></div>
-    <div><dt>Stack</dt><dd>${chips(f.stack)}</dd></div>
-    <div><dt>Result</dt><dd>${esc(f.result)}${f.resultNumbers ? ` ${esc(f.resultNumbers)}` : ` ${todo('숫자')}`}</dd></div>
-    <div><dt>Links</dt><dd><p class="btn-row">${f.links.map((l) => btn(`${l.label} ↗`, l.url, { solid: true })).join('')}${btn('Demo', null)}</p><p class="muted">${esc(f.noDemoNote)}</p></dd></div>
+    <div><dt>기술</dt><dd>${chips(f.stack)}</dd></div>
+    <div><dt>결과</dt><dd>${esc(f.result)}${f.resultNumbers ? ` ${esc(f.resultNumbers)}` : ` ${todo('숫자')}`}</dd></div>
+    <div><dt>링크</dt><dd><p class="btn-row">${f.links.map((l) => btn(`${l.label} ↗`, l.url, { solid: true })).join('')}${btn('데모', null)}</p><p class="muted">${esc(f.noDemoNote)}</p></dd></div>
   </dl>
-  <p class="why">💡 ${esc(c.en.featuredWhy)}</p>`;
+  <p class="why">💡 ${esc(c.ko.featuredWhy)}</p>`;
 }
 
 export function projectCard(pr) {
@@ -105,8 +105,8 @@ export function projectCard(pr) {
 
 export function toolkitPanel(t) {
   return `
-  ${viewTag('🧺', 'toolkit · trophy case')}
-  <h2>The trophy case</h2>
+  ${viewTag('🧺', '도구함 · 트로피 진열장')}
+  <h2>트로피 대신, 기술 배지</h2>
   <div class="shelves">
     ${t.shelves.map((s) => `<div class="shelf"><p class="label">${esc(s.name)}</p>${chips(s.items, 'chip chip-badge')}</div>`).join('')}
   </div>
@@ -115,41 +115,41 @@ export function toolkitPanel(t) {
 
 export function yearbookPanel(tl, c) {
   return `
-  ${viewTag('🌙', 'back view · where I came from')}
-  <h2>The yearbook</h2>
+  ${viewTag('🌙', '뒷모습 · 내가 지나온 길')}
+  <h2>졸업앨범</h2>
   <ol class="yearbook">
     ${tl.map((pg) => `
     <li class="yb-page">
       <p class="yb-when">${esc(pg.when)}</p>
       <h3>${esc(pg.title)}</h3>
-      ${pg.superlative ? `<p class="superlative">${esc(c.en.superlative)}</p>` : ''}
+      ${pg.superlative ? `<p class="superlative" lang="en">${esc(c.en.superlative)}</p><p class="superlative-ko">${esc(c.ko.superlative)}</p>` : ''}
       ${pg.body ? `<p>${esc(pg.body)}</p>` : ''}
       ${pg.badges ? chips(pg.badges, 'chip chip-lav') : ''}
-      ${pg.llmLine ? `<p class="hand-line">${esc(c.en.llmLine)}</p>` : ''}
+      ${pg.llmLine ? `<p class="hand-line">${esc(c.ko.llmLine)}</p>` : ''}
     </li>`).join('')}
-    <li class="yb-page yb-doodles" aria-label="signatures page">
-      <p class="doodle d1">Stay curious! — future me</p>
-      <p class="doodle d2">HAGS ♡</p>
+    <li class="yb-page yb-doodles" aria-label="낙서 페이지">
+      <p class="doodle d1">늘 궁금해하기! — 미래의 나</p>
+      <p class="doodle d2">HAGS ♡ <small>(Have A Great Summer)</small></p>
     </li>
   </ol>`;
 }
 
 export function hallPassPanel(p, c) {
   return `
-  ${viewTag('💌', 'hall pass · say hi')}
+  ${viewTag('💌', '복도 통행증 · 연락하기')}
   <div class="hallpass">
-    <p class="hp-title">HALL PASS</p>
+    <p class="hp-title">HALL PASS · 복도 통행증</p>
     <dl>
-      <div><dt>Name</dt><dd>${esc(p.name)}</dd></div>
-      <div><dt>Destination</dt><dd>your team</dd></div>
-      <div><dt>Time</dt><dd>anytime</dd></div>
+      <div><dt>이름</dt><dd>${esc(p.nameKo)} (${esc(p.name)})</dd></div>
+      <div><dt>목적지</dt><dd>당신의 팀</dd></div>
+      <div><dt>시간</dt><dd>언제든지</dd></div>
     </dl>
   </div>
   <p class="btn-row">
-    ${btn('⬇ Download Resume (PDF)', p.links.resume, { solid: true, download: 'Sohee-An-resume.pdf' })}
+    ${btn('⬇ 이력서 다운로드 (PDF)', p.links.resume, { solid: true, download: '안소희-이력서.pdf' })}
     ${btn('GitHub ↗', p.links.github)}
     ${btn('Velog ↗', p.links.velog)}
-    ${btn('Naver Blog ↗', p.links.naver)}
+    ${btn('네이버 블로그 ↗', p.links.naver)}
     ${btn(`✉ ${p.links.email}`, `mailto:${p.links.email}`)}
   </p>`;
 }
@@ -165,14 +165,14 @@ export function renderFlat({ profile: p, copy: c, projects, research, toolkit, t
       <figcaption>${esc(p.name)} · ${esc(p.handle)}</figcaption>
     </figure>
     <div class="hero-text">
-      <p class="hero-q">${esc(c.en.question)}</p>
-      <h1>${esc(p.name)} <span class="hero-handle">@${esc(p.handle)}</span></h1>
-      <p class="hero-tagline">${esc(c.en.tagline)}</p>
-      <p class="hero-ko" lang="ko">${esc(c.ko.tagline)}</p>
+      <p class="hero-q">${esc(c.ko.question)}</p>
+      <h1>${esc(p.nameKo)} <span class="hero-handle">@${esc(p.handle)}</span></h1>
+      <p class="hero-tagline">${esc(c.ko.tagline)}</p>
+      <p class="hero-ko" lang="en">${esc(c.en.tagline)}</p>
       ${chips(p.interests.map((t) => `♡ ${t}`), 'chip chip-pink')}
       <p class="btn-row">
         ${btn('GitHub ↗', p.links.github, { solid: true })}
-        ${btn('⬇ Resume (PDF)', p.links.resume, { download: 'Sohee-An-resume.pdf' })}
+        ${btn('⬇ 이력서 (PDF)', p.links.resume, { download: '안소희-이력서.pdf' })}
         ${btn(`✉ ${p.links.email}`, `mailto:${p.links.email}`)}
       </p>
     </div>
@@ -182,11 +182,11 @@ export function renderFlat({ profile: p, copy: c, projects, research, toolkit, t
   <section class="panel tint-lav" id="side">${researchPanel(research, c, p)}</section>
   <section class="panel tint-pink" id="lockers">${featuredPanel(featured, c)}</section>
   <section class="panel tint-cream" id="more-projects">
-    ${viewTag('🔒', 'lockers · more projects')}
-    <h2>More lockers</h2>
+    ${viewTag('🔒', '락커 · 다른 프로젝트')}
+    <h2>다른 락커들</h2>
     <div class="locker-grid">${others.map(projectCard).join('')}</div>
   </section>
   <section class="panel tint-sage" id="toolkit">${toolkitPanel(toolkit)}</section>
   <section class="panel tint-peach" id="back">${yearbookPanel(timeline, c)}</section>
-  <section class="panel tint-pink" id="hallpass">${hallPassPanel(p, c)}<p class="ending">${esc(c.en.ending)}</p></section>`;
+  <section class="panel tint-pink" id="hallpass">${hallPassPanel(p, c)}<p class="ending">${esc(c.ko.ending)}</p></section>`;
 }

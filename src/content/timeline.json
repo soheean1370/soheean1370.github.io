@@ -1,26 +1,30 @@
 [
   {
-    "when": "Class of 2022",
-    "title": "Council Rock High School North, PA",
+    "when": "2022년 졸업",
+    "title": "Council Rock High School North (미국 펜실베이니아)",
     "body": null,
     "superlative": true,
     "photo": null
   },
   {
     "when": "2023",
-    "title": "Pusan National University",
-    "body": "New school, new angle. Ran AIDeveloper, the CS academic club: a 50+ member Discord, study curriculum from beginner to advanced, and teams for hackathons."
+    "title": "부산대학교",
+    "body": "새 학교, 새 각도. 컴공 학술 동아리 AIDeveloper에서 50명 넘는 디스코드를 운영하고, 입문부터 심화까지 스터디 커리큘럼을 짜고, 해커톤 팀을 꾸렸어요."
   },
   {
     "when": "2023–2025",
-    "title": "The LLM chapter",
-    "body": "Before vision, I spent my time with LLMs 💬 — Ollama local-LLM project at the Open Source Contribution Academy, then Goorm Deep Dive Generative AI cohort 3.",
-    "badges": ["RAG", "Prompt Engineering", "LangChain"]
+    "title": "LLM 시절",
+    "body": "비전을 하기 전엔 LLM과 시간을 보냈어요 💬 오픈소스 컨트리뷰션 아카데미에서 Ollama 로컬 LLM을 다루고, 구름 딥다이브 생성형 AI 3기를 수료했어요.",
+    "badges": [
+      "RAG",
+      "Prompt Engineering",
+      "LangChain"
+    ]
   },
   {
-    "when": "Now",
+    "when": "지금",
     "title": "PNU CV Lab",
-    "body": "From language to images, from 2D to 3D.",
+    "body": "언어에서 이미지로, 2D에서 3D로.",
     "llmLine": true
   }
 ]
