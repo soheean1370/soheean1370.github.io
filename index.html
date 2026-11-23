@@ -3,50 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>안소희 — 사진 한 장, 모든 각도 </title>
-  <meta name="description" content="부산대 정보컴퓨터공학 · PNU CV Lab 학부연구생 · 새로운 시점 합성 & AI 백엔드" />
-  <meta property="og:title" content="안소희 — 사진 한 장, 모든 각도" />
-  <meta property="og:description" content="카메라가 없던 자리에서 보면, 이 사진은 어떤 모습일까? 사진 한 장이 3D 복도로 살아나는 포트폴리오." />
+  <title>안소희 — One Photo, Every Angle</title>
+  <meta name="description" content="AI 백엔드 개발자 · PNU CV Lab 학부연구생 · Novel View Synthesis. 사진 한 장이 3D 캠퍼스가 되는 포트폴리오." />
+  <meta property="og:title" content="안소희 — One Photo, Every Angle" />
+  <meta property="og:description" content="카메라가 없던 자리에서 보면, 이 사진은 어떤 모습일까? 사진 한 장이 3D 캠퍼스가 되는 포트폴리오." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://soheean1370.github.io/" />
   <meta property="og:image" content="https://soheean1370.github.io/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="폴라로이드 속 파스텔 복도 사진과 '사진 한 장, 모든 각도' 제목" />
   <meta property="og:locale" content="ko_KR" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#FFF8F1" />
+  <meta name="theme-color" content="#F3D6E4" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <link rel="stylesheet" href="/src/ui/styles/flat.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" />
+  <script>
+    // no WebGL or reduced motion → the 2D version (plan §7-6)
+    (function () {
+      var c = document.createElement('canvas');
+      var gl = c.getContext('webgl2') || c.getContext('webgl');
+      if (!gl || matchMedia('(prefers-reduced-motion: reduce)').matches) location.replace('/flat.html');
+    })();
+  </script>
 </head>
 <body>
-  <a class="skip-link" href="#hello">본문으로 바로가기</a>
-
-  <header class="bar">
-    <a class="bar-brand" href="#top"><span aria-hidden="true">✿</span> soheean1370</a>
-    <nav class="bar-views" aria-label="섹션">
-      <a href="#hello">Hello</a><a href="#research">Research</a><a href="#systems">Systems</a><a href="#stack">Stack</a><a href="#contact">Next Stop</a>
-    </nav>
-    <div class="bar-actions">
-      <a href="https://github.com/soheean1370" target="_blank" rel="noopener">GitHub</a>
-      <a href="/resume.pdf" download="안소희-이력서.pdf">이력서</a>
-      <span class="pill">3D 버전 준비 중</span>
-    </div>
-  </header>
-
-  <main id="content">
-<!--FLAT_CONTENT-->
-  </main>
-
-  <footer class="foot">
-    <p class="clock" id="clock" aria-label="부산과 필라델피아의 현재 시각">부산 --:-- · 필라델피아 --:--</p>
-    <p>Designed by Sohee · Built with React Three Fiber &amp; custom GLSL · coded with help from Claude Code</p>
-  </footer>
-
-  <script type="module" src="/src/flat.js"></script>
+  <a class="skip-link" href="/flat.html">본문으로 바로가기 (2D 버전)</a>
+  <div id="root"></div>
+  <noscript><p style="padding:24px;font-family:sans-serif">이 3D 포트폴리오는 자바스크립트가 필요합니다. <a href="/flat.html">2D 버전 보기 →</a></p></noscript>
+  <script type="module" src="/src/v2/main.tsx"></script>
 </body>
 </html>

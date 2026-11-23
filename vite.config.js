@@ -33,7 +33,6 @@ export default defineConfig({
       input: {
         main: resolve(root, 'index.html'),
         flat: resolve(root, 'flat.html'),
-        three: resolve(root, '3d.html'),
       },
     },
   },
