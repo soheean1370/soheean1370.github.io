@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Soheean High: Hallway Pass — soheean1370</title>
-  <meta name="description" content="안소희(soheean1370)의 포트폴리오 — 미국 하이틴 고등학교 복도를 걸으며 프로젝트를 둘러보는 2D 포트폴리오." />
+  <meta name="description" content="안소희(soheean1370)의 포트폴리오 — 미국 하이틴 고등학교 복도를 걸으며 프로젝트를 둘러보는 1인칭 3D 포트폴리오." />
   <meta name="theme-color" content="#FBF7F0" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎒</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,8 +27,7 @@
 
   <!-- ───────── Intro: Hallway Pass (student ID) ───────── -->
   <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle">
-    <div class="intro-sun" aria-hidden="true"></div>
-    <article class="idcard">
+        <article class="idcard">
       <span class="tape tape-tl" aria-hidden="true"></span>
       <span class="tape tape-br" aria-hidden="true"></span>
       <header class="idcard-head">
@@ -67,87 +66,28 @@
     </article>
     <div class="intro-actions">
       <button class="btn-primary" id="btnEnter" type="button">Enter the Hallway</button>
-      <p class="hint"><kbd>←</kbd><kbd>→</kbd> or <kbd>A</kbd><kbd>D</kbd> to walk · <kbd>Enter</kbd> to open</p>
+      <p class="hint"><kbd>W</kbd><kbd>S</kbd> / <kbd>↑</kbd><kbd>↓</kbd> walk · <kbd>A</kbd><kbd>D</kbd> / drag to look around · <kbd>Enter</kbd> open</p>
     </div>
   </div>
 
-  <!-- ───────── Game: the hallway ───────── -->
-  <main class="game" id="game" aria-label="학교 복도 — 방향키로 이동, Enter로 열기">
-    <div class="viewport" id="viewport">
-      <div class="world" id="world">
-        <div class="wall" aria-hidden="true">
-          <div class="window" style="left:520px"></div>
-          <div class="window" style="left:2280px"></div>
-          <div class="window" style="left:3560px"></div>
-          <div class="pennant" style="left:180px">GO SOHEEAN!</div>
-          <div class="poster" style="left:1180px">AI Club<br/><b>Fri 4PM</b></div>
-          <div class="poster p-pink" style="left:2050px">Prom<br/>is coming ♡</div>
-        </div>
-        <div class="floor" aria-hidden="true"></div>
-        <div class="sunbeams" aria-hidden="true"></div>
+  <!-- ───────── Game: first-person 3D hallway ───────── -->
+  <main class="game" id="game" aria-label="학교 복도 3D — W/S 또는 ↑↓로 걷기, A/D 또는 ←→·드래그로 둘러보기, Enter로 열기">
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="loading" id="loading" aria-hidden="true"><span>Unlocking the front doors…</span></div>
 
-        <!-- Stations: data-x = where the player stands to interact -->
-        <button class="station st-entrance" data-x="300" data-open="about" style="left:220px" type="button">
-          <span class="sign">Main Entrance</span>
-          <span class="board"><span class="mini-id">ID</span></span>
-          <span class="label">학생증 보기</span>
-        </button>
+    <button class="hud-prompt" id="hudPrompt" type="button" hidden></button>
 
-        <button class="station st-locker st-mine" data-x="880" data-open="p-firegen" style="left:820px" type="button">
-          <span class="sign">My Locker ★</span>
-          <span class="locker"><span class="dial" aria-hidden="true"></span><span class="vent"></span><span class="nameplate">SOHEEAN</span></span>
-          <span class="label">FireGenerators</span>
-        </button>
+    <nav class="directory" id="directory" aria-label="복도 안내판 — 누르면 그 앞까지 걸어가요"></nav>
 
-        <button class="station st-locker" data-x="1440" data-open="p-eatwise" style="left:1400px" type="button">
-          <span class="locker"><span class="vent"></span><span class="num">101</span></span>
-          <span class="label">EatWise</span>
-        </button>
-        <button class="station st-locker l-cream" data-x="1580" data-open="p-farm" style="left:1540px" type="button">
-          <span class="locker"><span class="vent"></span><span class="num">102</span></span>
-          <span class="label">농업 일자리 매칭</span>
-        </button>
-        <button class="station st-locker" data-x="1720" data-open="p-review" style="left:1680px" type="button">
-          <span class="locker"><span class="vent"></span><span class="num">103</span></span>
-          <span class="label">리뷰 별점 예측</span>
-        </button>
-        <button class="station st-locker l-cream" data-x="1860" data-open="p-campus" style="left:1820px" type="button">
-          <span class="locker"><span class="vent"></span><span class="num">104</span></span>
-          <span class="label">캠퍼스 제휴 앱</span>
-        </button>
-
-        <button class="station st-door d-cafe" data-x="2620" data-open="jukebox" style="left:2520px" type="button">
-          <span class="sign">Cafeteria</span>
-          <span class="door"><span class="door-win"></span><span class="jukebox-peek">♪</span></span>
-          <span class="label">주크박스 · About Me</span>
-        </button>
-
-        <button class="station st-door d-year" data-x="3220" data-open="yearbook" style="left:3120px" type="button">
-          <span class="sign">Yearbook Room</span>
-          <span class="door"><span class="door-win"></span></span>
-          <span class="label">졸업앨범실</span>
-        </button>
-
-        <button class="station st-door d-office" data-x="3860" data-open="office" style="left:3760px" type="button">
-          <span class="sign">Main Office</span>
-          <span class="door"><span class="door-win"></span></span>
-          <span class="label">교무실 · 성적표 발급</span>
-        </button>
-
-        <div class="player" id="player" aria-hidden="true">
-          <svg viewBox="0 0 60 120" class="player-svg">
-            <use href="#avatar-body"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <div class="minimap" aria-hidden="true"><span id="minimapDot"></span></div>
+    <p class="hud-hint" aria-hidden="true"><kbd>W</kbd><kbd>S</kbd> walk · <kbd>A</kbd><kbd>D</kbd> / drag look · <kbd>Enter</kbd> open</p>
 
     <div class="touch-controls" aria-hidden="true">
-      <button class="tc tc-left" id="tcLeft" type="button" tabindex="-1">◀</button>
-      <button class="tc tc-act" id="tcAct" type="button" tabindex="-1">OPEN</button>
-      <button class="tc tc-right" id="tcRight" type="button" tabindex="-1">▶</button>
+      <div class="tc-move">
+        <button class="tc" id="tcFwd" type="button" tabindex="-1">▲</button>
+        <button class="tc" id="tcBack" type="button" tabindex="-1">▼</button>
+      </div>
+      <button class="tc tc-act" id="tcAct" type="button" tabindex="-1" disabled>OPEN</button>
     </div>
   </main>
 
@@ -302,31 +242,16 @@
         <ellipse cx="46" cy="68" rx="4" ry="2.4" fill="#E8B4B8" opacity=".8"/><ellipse cx="74" cy="68" rx="4" ry="2.4" fill="#E8B4B8" opacity=".8"/>
         <path d="M55 71q5 4 10 0" stroke="#3B3633" stroke-width="2" fill="none" stroke-linecap="round"/>
       </g>
-      <g id="avatar-body">
-        <!-- hair back -->
-        <path d="M14 26c-2-16 8-24 16-24s18 8 16 24c-1 10-2 20-2 20H16s-1-10-2-20z" fill="#4a3a33"/>
-        <!-- legs -->
-        <g class="leg leg-l"><rect x="22" y="84" width="6" height="28" rx="3" fill="#f6dccb"/><rect x="20" y="108" width="10" height="6" rx="3" fill="#FBF7F0" stroke="#3B3633" stroke-width="1"/></g>
-        <g class="leg leg-r"><rect x="32" y="84" width="6" height="28" rx="3" fill="#f6dccb"/><rect x="30" y="108" width="10" height="6" rx="3" fill="#FBF7F0" stroke="#3B3633" stroke-width="1"/></g>
-        <!-- skirt -->
-        <path d="M17 70h26l5 20H12z" fill="#B7C9A8"/>
-        <!-- cardigan -->
-        <rect x="16" y="40" width="28" height="34" rx="9" fill="#E8B4B8"/>
-        <path d="M30 41v32" stroke="#d79ea3" stroke-width="1.5"/>
-        <!-- backpack strap -->
-        <path d="M20 42l4 26" stroke="#F6E3A1" stroke-width="4" stroke-linecap="round"/>
-        <!-- arm -->
-        <rect class="arm" x="38" y="44" width="7" height="24" rx="3.5" fill="#E8B4B8"/>
-        <!-- face -->
-        <ellipse cx="30" cy="24" rx="11" ry="12.5" fill="#f6dccb"/>
-        <path d="M18 20c3-10 21-12 24 0-6-4-17-5-24 0z" fill="#4a3a33"/>
-        <circle cx="34" cy="25" r="1.4" fill="#3B3633"/>
-        <ellipse cx="37" cy="29" rx="2.2" ry="1.3" fill="#E8B4B8"/>
-      </g>
     </defs>
   </svg>
 
   <div class="grain" aria-hidden="true"></div>
-  <script src="js/main.js" defer></script>
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+  <script type="module" src="js/hallway.js"></script>
 </body>
 </html>
