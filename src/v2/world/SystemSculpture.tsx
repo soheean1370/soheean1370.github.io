@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Text, Outlines } from '@react-three/drei';
+import { RoundedBox, Text } from '@react-three/drei';
 import { flowText } from '../../content/render.js';
 import { FONT_TTF } from './fonts';
 import { C } from '../palette';
@@ -79,8 +79,12 @@ export function SystemSculpture({ project, ...props }: { project: Project } & JS
           <group key={n.id} position={p}>
             <RoundedBox args={[BW, 0.9, 0.9]} radius={0.16} smoothness={4} castShadow receiveShadow>
               <meshStandardMaterial color={n.mine ? C.horizon : KIND[n.kind]} roughness={0.8} />
-              {n.mine && <Outlines thickness={0.045} color={C.pink} />}
             </RoundedBox>
+            {n.mine && (
+              <RoundedBox args={[BW + 0.16, 1.06, 1.06]} radius={0.2} smoothness={4}>
+                <meshBasicMaterial color={GLOW} side={THREE.BackSide} toneMapped={false} />
+              </RoundedBox>
+            )}
             <Text font={FONT_TTF} fontSize={0.19} maxWidth={BW - 0.2} textAlign="center" position={[0, 0, 0.47]} color={C.ink} anchorY="middle">
               {n.label}
             </Text>
