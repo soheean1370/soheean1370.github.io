@@ -10,7 +10,7 @@ const map = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
 const io = new IntersectionObserver((entries) => {
   for (const e of entries) {
     if (!e.isIntersecting) continue;
-    const id = e.target.id === 'more-projects' ? 'lockers' : e.target.id;
+    const id = e.target.id.startsWith('project-') ? 'systems' : e.target.id;
     links.forEach((a) => a.classList.toggle('is-active', a === map.get(id)));
   }
 }, { rootMargin: '-45% 0px -50% 0px' });

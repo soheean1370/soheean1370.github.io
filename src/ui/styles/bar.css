@@ -1,22 +1,17 @@
-/* ---------- bar ---------- */
 .bar {
   position: sticky; top: 0; z-index: 50; height: var(--bar-h);
   display: flex; align-items: center; gap: 16px; padding: 0 clamp(12px, 3vw, 28px);
-  background: rgba(255, 248, 241, .78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(122, 92, 88, .1);
+  background: rgba(251, 249, 254, .72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(62, 53, 80, .08);
 }
-.bar-brand { font-family: var(--hand); font-size: 1.5rem; font-weight: 700; text-decoration: none; color: var(--deep); white-space: nowrap; }
-.bar-views { display: flex; gap: 4px; margin: 0 auto; overflow-x: auto; scrollbar-width: none; }
-.bar-views a { font-family: var(--mono); font-size: .78rem; text-decoration: none; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
-.bar-views a:hover, .bar-views a.is-active { background: var(--blush); color: var(--deep); }
-.bar-actions { display: flex; gap: 12px; align-items: center; font-size: .85rem; font-weight: 600; white-space: nowrap; }
-.bar-actions a { text-decoration: none; }
+.bar-brand { font-weight: 800; font-size: 1.02rem; text-decoration: none; color: var(--ink); white-space: nowrap; letter-spacing: -.01em; }
+.bar-brand span { color: var(--pink); }
+.bar-views { display: flex; gap: 2px; margin: 0 auto; overflow-x: auto; scrollbar-width: none; }
+.bar-views a { font-size: .82rem; font-weight: 600; text-decoration: none; padding: 5px 11px; border-radius: 999px; white-space: nowrap; color: var(--ink-soft); }
+.bar-views a:hover, .bar-views a.is-active { background: var(--clay); color: var(--ink); }
+.bar-actions { display: flex; gap: 14px; align-items: center; font-size: .85rem; font-weight: 700; white-space: nowrap; }
+.bar-actions a { text-decoration: none; color: var(--ink); }
 .bar-actions a:hover { text-decoration: underline; }
-.pill { font-family: var(--mono); font-size: .72rem; padding: 3px 10px; border-radius: 999px; border: 1px dashed var(--cocoa); }
-@media (max-width: 820px) {
-  .bar { gap: 8px; }
-  .bar-views { display: none; }
-  .bar-actions { margin-left: auto; }
-}
-
-@media (max-width: 480px) { .bar .pill { display: none; } .bar-brand { font-size: 1.3rem; } }
+.pill { font-size: .75rem; padding: 4px 11px; border-radius: 999px; border: 1.5px solid var(--ink); }
+@media (max-width: 820px) { .bar { gap: 8px; } .bar-views { display: none; } .bar-actions { margin-left: auto; } }
+@media (max-width: 480px) { .bar .pill { display: none; } }

@@ -1,20 +1,20 @@
 :root {
-  --blush: #F7D6E0;
-  --lavender: #E2DAF5;
-  --sky: #D6E8F7;
-  --sage: #DCEFD6;
-  --peach: #FFE6D2;
-  --cream: #FFF8F1;
-  --cocoa: #7A5C58;
-  --deep: #4A3835;
+  /* v2 palette — blue-hour lilac clay (plan §5-1). Don't add colors outside this list. */
+  --clay: #D9D2EC;
+  --clay-shade: #B8AED6;
+  --sky: #8FA8D8;
+  --horizon: #F3D6E4;
+  --pink: #F7A8C4;
+  --yellow: #FFD98A;
+  --ink: #3E3550;
+  --ink-soft: #6B6182;
+  --glass: rgba(255, 255, 255, .55);
+  --paper: #FBF9FE;
 
-  --serif: "Instrument Serif", "Times New Roman", serif;
-  --sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
-  --hand: "Caveat", "Gaegu", cursive;
-  --hand-ko: "Gaegu", "Caveat", cursive;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --radius: 16px;
-  --shadow: 0 12px 32px rgba(74, 56, 53, .10), 0 2px 6px rgba(74, 56, 53, .06);
+  --radius: 18px;
+  --shadow: 0 16px 40px rgba(62, 53, 80, .14), 0 2px 6px rgba(62, 53, 80, .06);
   --bar-h: 56px;
 }
