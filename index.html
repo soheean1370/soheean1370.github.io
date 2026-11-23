@@ -1,257 +1,46 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Soheean High: Hallway Pass — soheean1370</title>
-  <meta name="description" content="안소희(soheean1370)의 포트폴리오 — 미국 하이틴 고등학교 복도를 걸으며 프로젝트를 둘러보는 1인칭 3D 포트폴리오." />
-  <meta name="theme-color" content="#FBF7F0" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎒</text></svg>" />
+  <title>Sohee An — One Photo, Every Angle </title>
+  <meta name="description" content="CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis & AI Backend" />
+  <meta property="og:title" content="Sohee An — One Photo, Every Angle" />
+  <meta property="og:description" content="CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis & AI Backend" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://soheean1370.github.io/" />
+  <meta name="theme-color" content="#FFF8F1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Gaegu:wght@400;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Gaegu:wght@400;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/src/ui/styles/flat.css" />
 </head>
-<body class="no-js">
-  <a class="skip-link" href="#portfolio">본문(전체 포트폴리오)으로 바로가기</a>
+<body>
+  <a class="skip-link" href="#front">Skip to content</a>
 
-  <!-- ───────── Top bar ───────── -->
-  <header class="topbar">
-    <div class="brand"><span class="brand-hand">Soheean High</span> <span class="brand-sub">Hallway Pass</span></div>
-    <button class="btn-skip" id="btnSkip" type="button" aria-pressed="false">
-      <span class="when-game">Skip to Portfolio →</span>
-      <span class="when-page">← Back to Hallway</span>
-    </button>
+  <header class="bar">
+    <a class="bar-brand" href="#top"><span aria-hidden="true">✿</span> soheean1370</a>
+    <nav class="bar-views" aria-label="Sections">
+      <a href="#front">front</a><a href="#side">side</a><a href="#lockers">lockers</a><a href="#toolkit">toolkit</a><a href="#back">back</a><a href="#hallpass">hall pass</a>
+    </nav>
+    <div class="bar-actions">
+      <a href="https://github.com/soheean1370" target="_blank" rel="noopener">GitHub</a>
+      <a href="/resume.pdf" download="Sohee-An-resume.pdf">Resume</a>
+      <span class="pill" title="Building tonight">3D · coming tonight</span>
+    </div>
   </header>
 
-  <!-- ───────── Intro: Hallway Pass (student ID) ───────── -->
-  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle">
-        <article class="idcard">
-      <span class="tape tape-tl" aria-hidden="true"></span>
-      <span class="tape tape-br" aria-hidden="true"></span>
-      <header class="idcard-head">
-        <span class="idcard-school">SOHEEAN HIGH SCHOOL</span>
-        <span class="idcard-kind">HALLWAY PASS · 2026</span>
-      </header>
-      <div class="idcard-body">
-        <figure class="polaroid">
-          <div class="avatar" aria-hidden="true">
-            <svg viewBox="0 0 120 120"><use href="#avatar-face"/></svg>
-          </div>
-          <figcaption>it's me :)</figcaption>
-        </figure>
-        <div class="idcard-info">
-          <h1 id="introTitle">안소희 <small>Soheean</small></h1>
-          <dl>
-            <div><dt>Nickname</dt><dd>soheean1370</dd></div>
-            <div><dt>Major</dt><dd>CSE, Pusan Nat'l Univ.</dd></div>
-            <div><dt>Alumni</dt><dd>Council Rock High School North '22</dd></div>
-          </dl>
-          <ul class="tags" aria-label="관심 분야">
-            <li class="t-pink">#Generative AI</li>
-            <li class="t-sage">#Machine Learning</li>
-            <li class="t-butter">#Context Engineering</li>
-            <li class="t-mint">#MLOps</li>
-            <li class="t-pink">#Multi-Modal AI</li>
-            <li class="t-sage">#Computer Vision</li>
-          </ul>
-          <a class="gh-link" href="https://github.com/soheean1370" target="_blank" rel="noopener">github.com/soheean1370 ↗</a>
-        </div>
-      </div>
-      <div class="idcard-foot">
-        <span class="barcode" aria-hidden="true"></span>
-        <span class="sticker" aria-hidden="true">Most Likely to<br/>Build an AI ✦</span>
-      </div>
-    </article>
-    <div class="intro-actions">
-      <button class="btn-primary" id="btnEnter" type="button">Enter the Hallway</button>
-      <p class="hint"><kbd>W</kbd><kbd>S</kbd> / <kbd>↑</kbd><kbd>↓</kbd> walk · <kbd>A</kbd><kbd>D</kbd> / drag to look around · <kbd>Enter</kbd> open</p>
-    </div>
-  </div>
-
-  <!-- ───────── Game: first-person 3D hallway ───────── -->
-  <main class="game" id="game" aria-label="학교 복도 3D — W/S 또는 ↑↓로 걷기, A/D 또는 ←→·드래그로 둘러보기, Enter로 열기">
-    <canvas id="scene" aria-hidden="true"></canvas>
-    <div class="vignette" aria-hidden="true"></div>
-    <div class="loading" id="loading" aria-hidden="true"><span>Unlocking the front doors…</span></div>
-
-    <button class="hud-prompt" id="hudPrompt" type="button" hidden></button>
-
-    <nav class="directory" id="directory" aria-label="복도 안내판 — 누르면 그 앞까지 걸어가요"></nav>
-
-    <p class="hud-hint" aria-hidden="true"><kbd>W</kbd><kbd>S</kbd> walk · <kbd>A</kbd><kbd>D</kbd> / drag look · <kbd>Enter</kbd> open</p>
-
-    <div class="touch-controls" aria-hidden="true">
-      <div class="tc-move">
-        <button class="tc" id="tcFwd" type="button" tabindex="-1">▲</button>
-        <button class="tc" id="tcBack" type="button" tabindex="-1">▼</button>
-      </div>
-      <button class="tc tc-act" id="tcAct" type="button" tabindex="-1" disabled>OPEN</button>
-    </div>
+  <main id="content">
+<!--FLAT_CONTENT-->
   </main>
 
-  <!-- ───────── Modal used by hallway stations ───────── -->
-  <dialog class="sheet" id="sheet" aria-labelledby="sheetTitle">
-    <button class="sheet-close" id="sheetClose" type="button" aria-label="닫기">×</button>
-    <div class="sheet-body" id="sheetBody"></div>
-  </dialog>
+  <footer class="foot">
+    <p class="clock" id="clock" aria-label="Local time in Busan and Philadelphia">Busan --:-- · Philly --:--</p>
+    <p>Built with Three.js, designed by Sohee, coded with help from Claude Code.</p>
+  </footer>
 
-  <!-- ───────── Full portfolio (Skip mode + no-JS fallback) ───────── -->
-  <div class="portfolio" id="portfolio" tabindex="-1">
-
-    <section class="pf-section" id="about" data-title="Hallway Pass">
-      <p class="eyebrow">Student ID</p>
-      <h2>안소희 <span class="hand">soheean1370</span></h2>
-      <p class="lead">부산대학교 정보컴퓨터공학부에 재학 중이며, 미국 Council Rock High School North를 졸업했습니다. 데이터에서 서비스까지 이어지는 <b>AI 파이프라인</b>을 만드는 일을 좋아합니다.</p>
-      <ul class="tags">
-        <li class="t-pink">#Generative AI</li><li class="t-sage">#Machine Learning</li><li class="t-butter">#Context Engineering</li>
-        <li class="t-mint">#MLOps</li><li class="t-pink">#Multi-Modal AI</li><li class="t-sage">#Computer Vision</li>
-      </ul>
-      <p class="links">
-        <a href="https://github.com/soheean1370" target="_blank" rel="noopener">GitHub ↗</a>
-        <a href="assets/resume.pdf" download="안소희-resume.pdf">Resume (PDF) ↓</a>
-      </p>
-    </section>
-
-    <section class="pf-section featured" id="p-firegen" data-title="My Locker — FireGenerators">
-      <p class="eyebrow">Featured Project · 2025.07 – 2025.09 · 6인 팀</p>
-      <h2>FireGenerators <span class="hand">AI 금융 문해력 · 투자 코칭 플랫폼</span></h2>
-      <div class="notes">
-        <div class="note n-butter">
-          <h3>문제 정의</h3>
-          <p class="todo">[초안] 금융 초보자는 자신의 금융 지식 수준을 알기 어렵고, 그래서 수준에 맞는 학습 콘텐츠나 투자 정보를 찾지 못한다.</p>
-        </div>
-        <div class="note n-pink">
-          <h3>역할</h3>
-          <p>금융 레벨 테스트 개발 &amp; 데이터 관리</p>
-        </div>
-        <div class="note n-mint wide">
-          <h3>한 일</h3>
-          <ul>
-            <li>정답률·응답 시간에 따라 난이도가 바뀌는 <b>적응형 OX/객관식 레벨 테스트</b> 설계·구현</li>
-            <li>GPT-5로 응답을 분석해 강점·약점·다음 학습 단계를 담은 <b>3문장 개인 리포트</b> 자동 생성</li>
-            <li>문항 난이도 보정과 LLM 요약 품질을 재는 <b>오프라인 평가 파이프라인</b> 구축, 프롬프트 반복 개선</li>
-            <li>Supabase <b>사용자 프로필 스키마</b> 설계 → 콘텐츠 큐레이션·주식/ETF 추천 로직에 연결</li>
-          </ul>
-        </div>
-        <div class="note n-sage">
-          <h3>기술</h3>
-          <p class="chips"><span>Streamlit</span><span>FastAPI</span><span>Supabase</span><span>PostgreSQL</span><span>Vector DB</span><span>Pinecone</span><span>GPT-5</span></p>
-        </div>
-        <div class="note n-cream">
-          <h3>결과</h3>
-          <p class="todo">[작성 필요] 대표 결과 수치</p>
-        </div>
-      </div>
-      <p class="links">
-        <a class="disabled" aria-disabled="true">Demo — 준비 중</a>
-        <a class="disabled" aria-disabled="true">Source — 준비 중</a>
-      </p>
-    </section>
-
-    <section class="pf-section" id="p-eatwise" data-title="Locker 101 — EatWise">
-      <p class="eyebrow">2025.06 – 2025.07 · 4인 팀 · AI OCR 개발</p>
-      <h2>EatWise <span class="hand">OCR 상품 정보 · 가격 비교</span></h2>
-      <ul>
-        <li>전자 가격표(ESL) 이미지 전처리 파이프라인 — 회전 보정, 노이즈 제거</li>
-        <li>PaddleOCR vs EasyOCR 벤치마크, 정답 라벨 대비 CER로 성능 평가</li>
-        <li>정규식 + Gemini로 비정형 OCR 결과를 상품·영양 정보 JSON으로 구조화</li>
-      </ul>
-      <p class="chips"><span>Python</span><span>OpenCV</span><span>PaddleOCR</span><span>EasyOCR</span><span>Gemini 2.0 Flash</span><span>FastAPI</span><span>Streamlit</span><span>Firebase</span></p>
-    </section>
-
-    <section class="pf-section" id="p-farm" data-title="Locker 102 — 농업 일자리 매칭">
-      <p class="eyebrow">2025.08 · 구름 딥다이브 해커톤 · 6인 팀 · AI 리드</p>
-      <h2>농업 일자리 매칭 플랫폼 <span class="hand">AI 추천 &amp; STT</span></h2>
-      <ul>
-        <li>Whisper STT로 음성 → 구인글 자동 생성 (생성 정확도 90%)</li>
-        <li>PyTorch 모델 + 키워드 매칭 하이브리드 추천으로 매칭률 25%↑</li>
-        <li>FastAPI ↔ Spring 연동 배포, 키워드 추천으로 검색 시간 40%↓</li>
-      </ul>
-      <p class="chips"><span>PyTorch</span><span>Whisper</span><span>FastAPI</span><span>Spring</span><span>React</span></p>
-    </section>
-
-    <section class="pf-section" id="p-review" data-title="Locker 103 — 리뷰 별점 예측">
-      <p class="eyebrow">2024.08 – 2024.12 · 부산대 · 6인 팀 · AI 리드</p>
-      <h2>리뷰 기반 별점 예측 서비스</h2>
-      <ul>
-        <li>텍스트 전처리(정제·토큰화) 파이프라인 + PyTorch 감성분석 모델 설계·최적화</li>
-        <li>리뷰 텍스트만으로 별점 예측 — 정확도 85%, 기존 별점 대비 일관성 20%↑</li>
-        <li>FastAPI ↔ Django 연동, 대시보드 시각화 — 사용자 만족도 4.6/5</li>
-      </ul>
-      <p class="chips"><span>PyTorch</span><span>FastAPI</span><span>Django</span><span>React</span></p>
-    </section>
-
-    <section class="pf-section" id="p-campus" data-title="Locker 104 — 캠퍼스 제휴 앱">
-      <p class="eyebrow">2024.05 – 2024.08 · 해커톤 · 4인 팀</p>
-      <h2>캠퍼스 제휴 · 지역 상권 정보 앱</h2>
-      <ul>
-        <li>웹 크롤링 기반 실시간 데이터 수집</li>
-        <li>Google Places API 위치 기반 추천</li>
-        <li>피드백 기반 UI/UX 개선, 신규 업체 업데이트 기능 — <b>해커톤 장려상</b></li>
-      </ul>
-      <p class="chips"><span>Kotlin</span><span>Google Places API</span><span>JavaScript</span></p>
-    </section>
-
-    <section class="pf-section" id="jukebox" data-title="Cafeteria Jukebox">
-      <p class="eyebrow">Cafeteria · About Me</p>
-      <h2>Jukebox <span class="hand">요즘 자주 듣는 노래</span></h2>
-      <p>코딩할 때도, 쉴 때도 노래를 틀어 둡니다. 미국에서 고등학교를 다니며 좋아하게 된 노래들이에요.</p>
-      <ol class="playlist todo">
-        <li>[곡명] — [아티스트] <a class="disabled" aria-disabled="true">듣기 ↗</a></li>
-        <li>[곡명] — [아티스트] <a class="disabled" aria-disabled="true">듣기 ↗</a></li>
-        <li>[곡명] — [아티스트] <a class="disabled" aria-disabled="true">듣기 ↗</a></li>
-      </ol>
-    </section>
-
-    <section class="pf-section" id="yearbook" data-title="Yearbook Room">
-      <p class="eyebrow">Yearbook</p>
-      <h2>Class of '22 → PNU CSE <span class="hand">Most Likely to Build an AI</span></h2>
-      <ol class="timeline">
-        <li><b>2018.09 – 2022.06</b> Council Rock High School North (미국 펜실베이니아)</li>
-        <li><b>2023.03 –</b> 부산대학교 정보컴퓨터공학부</li>
-        <li><b>2023.03 –</b> AIDeveloper 학술 동아리 — 50명+ 디스코드 커뮤니티 운영, GitHub 협업·코드리뷰 체계, 입문~심화 AI 커리큘럼 기획</li>
-        <li><b>2023.07 – 2023.10</b> 오픈소스 컨트리뷰션 아카데미 — Ollama 기반 로컬 LLM</li>
-        <li><b>2025.03 – 2025.09</b> 구름 딥다이브 생성형 AI 3기 수료</li>
-      </ol>
-    </section>
-
-    <section class="pf-section" id="office" data-title="Main Office">
-      <p class="eyebrow">Main Office</p>
-      <h2>성적표 발급 <span class="hand">a.k.a. my resume</span></h2>
-      <p>학력, 프로젝트, 활동, 기술 스택을 한 장에 정리한 이력서입니다.</p>
-      <p class="links"><a class="btn-primary" href="assets/resume.pdf" download="안소희-resume.pdf">Download Transcript (PDF) ↓</a></p>
-    </section>
-
-    <footer class="pf-footer">
-      <p>© 2026 soheean1370 · Made with HTML/CSS/JS · <a href="https://github.com/soheean1370/soheean1370.github.io" target="_blank" rel="noopener">source</a></p>
-    </footer>
-  </div>
-
-  <!-- ───────── Shared SVG art ───────── -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <g id="avatar-face">
-        <rect width="120" height="120" fill="#CFE8DF"/>
-        <path d="M22 120c4-26 20-38 38-38s34 12 38 38z" fill="#E8B4B8"/>
-        <path d="M30 62c-4-30 14-46 30-46s34 16 30 46c-2 18-6 30-6 30H36s-4-12-6-30z" fill="#4a3a33"/>
-        <ellipse cx="60" cy="58" rx="22" ry="25" fill="#f6dccb"/>
-        <path d="M37 50c6-18 40-22 46 0-10-8-34-10-46 0z" fill="#4a3a33"/>
-        <circle cx="51" cy="60" r="2.6" fill="#3B3633"/><circle cx="69" cy="60" r="2.6" fill="#3B3633"/>
-        <ellipse cx="46" cy="68" rx="4" ry="2.4" fill="#E8B4B8" opacity=".8"/><ellipse cx="74" cy="68" rx="4" ry="2.4" fill="#E8B4B8" opacity=".8"/>
-        <path d="M55 71q5 4 10 0" stroke="#3B3633" stroke-width="2" fill="none" stroke-linecap="round"/>
-      </g>
-    </defs>
-  </svg>
-
-  <div class="grain" aria-hidden="true"></div>
-  <script type="importmap">
-    { "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-    } }
-  </script>
-  <script type="module" src="js/hallway.js"></script>
+  <script type="module" src="/src/flat.js"></script>
 </body>
 </html>

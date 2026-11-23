@@ -1,0 +1,20 @@
+:root {
+  --blush: #F7D6E0;
+  --lavender: #E2DAF5;
+  --sky: #D6E8F7;
+  --sage: #DCEFD6;
+  --peach: #FFE6D2;
+  --cream: #FFF8F1;
+  --cocoa: #7A5C58;
+  --deep: #4A3835;
+
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --hand: "Caveat", "Gaegu", cursive;
+  --hand-ko: "Gaegu", "Caveat", cursive;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius: 16px;
+  --shadow: 0 12px 32px rgba(74, 56, 53, .10), 0 2px 6px rgba(74, 56, 53, .06);
+  --bar-h: 56px;
+}
