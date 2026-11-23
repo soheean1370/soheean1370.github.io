@@ -6,21 +6,92 @@
     "subtitle": "AI 금융 문해력·투자 코칭 플랫폼",
     "period": "2025.07–09",
     "team": "6인 팀",
-    "role": "금융 레벨 테스트 개발 & 데이터 관리",
-    "problem": "금융 초보자는 자기 수준을 몰라서, 너무 쉽거나 너무 어려운 조언을 받게 돼요.",
-    "flow": [
-      "퀴즈 답 + 응답 시간",
-      "적응형 난이도",
-      "GPT-5 3문장 리포트",
-      "Supabase 프로필",
-      "콘텐츠·ETF 추천"
+    "role": "금융 레벨 테스트 개발, 데이터 관리",
+    "problem": "금융 초보자는 자기 수준을 알기 어려워서, 너무 쉽거나 너무 어려운 조언을 받게 됩니다.",
+    "nodes": [
+      {
+        "id": "ui",
+        "label": "User (Streamlit)",
+        "kind": "front"
+      },
+      {
+        "id": "api",
+        "label": "FastAPI",
+        "kind": "api"
+      },
+      {
+        "id": "test",
+        "label": "Adaptive Test Engine",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "report",
+        "label": "GPT-5 Report",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "profile",
+        "label": "Supabase Profile",
+        "kind": "db",
+        "mine": true
+      },
+      {
+        "id": "pinecone",
+        "label": "Pinecone",
+        "kind": "db"
+      },
+      {
+        "id": "rec",
+        "label": "Content & ETF Recommender",
+        "kind": "api"
+      },
+      {
+        "id": "eval",
+        "label": "Offline Eval",
+        "kind": "model",
+        "mine": true
+      }
     ],
-    "built": [
-      "정답률과 응답 시간에 따라 난이도가 바뀌는 적응형 OX/객관식 레벨 테스트를 설계하고 구현했어요",
-      "GPT-5가 답을 분석해 강점·약점·다음에 배울 것을 3문장 리포트로 써 줘요",
-      "문항 난이도 보정과 리포트 품질을 재는 오프라인 평가 파이프라인을 만들고, 프롬프트를 반복 개선했어요",
-      "Supabase 사용자 프로필 스키마를 설계해서 콘텐츠 큐레이션과 주식/ETF 추천에 연결했어요"
+    "edges": [
+      [
+        "ui",
+        "api"
+      ],
+      [
+        "api",
+        "test"
+      ],
+      [
+        "test",
+        "report"
+      ],
+      [
+        "report",
+        "profile"
+      ],
+      [
+        "profile",
+        "pinecone"
+      ],
+      [
+        "profile",
+        "rec"
+      ],
+      [
+        "eval",
+        "report"
+      ]
     ],
+    "decisions": [
+      "정답률과 응답 시간을 함께 반영해 난이도 조절 — 빠르게 맞힌 답과 오래 고민하다 맞힌 답을 같게 보지 않기 위해",
+      "LLM 출력을 강점·약점·다음 단계의 3문장 리포트로 고정 — 짧고, 서로 비교할 수 있고, 평가할 수 있게",
+      "난이도 보정과 요약 품질을 재는 오프라인 평가 파이프라인을 만들고, 평가 결과를 기준으로 프롬프트 개선",
+      "테스트 결과가 콘텐츠 큐레이션과 ETF 추천으로 이어지도록 Supabase 프로필 스키마 설계"
+    ],
+    "result": "레벨 테스트 → 개인 리포트 → 추천으로 이어지는 전체 흐름 완성, 평가 기반 프롬프트 개선으로 리포트 일관성 향상",
+    "resultNumbers": null,
     "stack": [
       "Streamlit",
       "FastAPI",
@@ -28,26 +99,100 @@
       "Pinecone",
       "GPT-5"
     ],
-    "result": "적응형 레벨 테스트 → GPT-5 개인 리포트 → 추천까지 이어지는 흐름을 완성했고, 오프라인 평가 파이프라인으로 리포트의 신뢰성과 일관성을 반복해서 높였어요.",
-    "resultNumbers": null,
     "links": [
       {
         "label": "소스 코드",
         "url": "https://github.com/soheean1370/FireGenerators"
+      },
+      {
+        "label": "데모",
+        "url": null
       }
     ],
-    "noDemoNote": "라이브 데모는 없어요. 저장소 README에 스크린샷이 있어요."
+    "linkNote": "라이브 데모 없음 (저장소 README에 스크린샷)"
   },
   {
     "id": "eatwise",
     "title": "EatWise",
-    "subtitle": "OCR 상품 정보·가격 비교",
+    "subtitle": "OCR 기반 상품 정보·가격 비교",
     "period": "2025.06–07",
     "team": "4인 팀",
-    "role": "AI · OCR 개발",
-    "summary": "전자 가격표 사진 → 회전 보정·노이즈 제거 → OCR → Gemini로 상품·영양 정보 JSON → 온라인 최저가 비교까지.",
-    "proof": "PaddleOCR vs EasyOCR를 문자 오류율(CER)로 비교",
+    "role": "AI OCR 개발",
+    "problem": "전자 가격표 사진에서 상품·영양 정보를 읽어 내고, 온라인 최저가와 비교합니다.",
+    "nodes": [
+      {
+        "id": "img",
+        "label": "ESL photo",
+        "kind": "input"
+      },
+      {
+        "id": "cv",
+        "label": "OpenCV preprocess",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "ocr",
+        "label": "PaddleOCR vs EasyOCR",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "llm",
+        "label": "Gemini 2.0 Flash → JSON",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "api",
+        "label": "FastAPI",
+        "kind": "api"
+      },
+      {
+        "id": "crawl",
+        "label": "Price crawl",
+        "kind": "api"
+      },
+      {
+        "id": "ui",
+        "label": "Streamlit / Firebase",
+        "kind": "front"
+      }
+    ],
+    "edges": [
+      [
+        "img",
+        "cv"
+      ],
+      [
+        "cv",
+        "ocr"
+      ],
+      [
+        "ocr",
+        "llm"
+      ],
+      [
+        "llm",
+        "api"
+      ],
+      [
+        "api",
+        "crawl"
+      ],
+      [
+        "crawl",
+        "ui"
+      ]
+    ],
+    "decisions": [
+      "OCR 엔진을 감으로 고르지 않고, 정답 라벨과 CER(문자 오류율)로 벤치마크해서 선택",
+      "OCR 앞단에 이미지 전처리(회전 보정, 노이즈 제거) 단계 구성"
+    ],
+    "result": "이미지 전처리 → OCR → LLM 후처리 → 저장까지 이어지는 AI 파이프라인 구축",
+    "resultNumbers": "",
     "stack": [
+      "Python",
       "OpenCV",
       "PaddleOCR",
       "EasyOCR",
@@ -65,23 +210,104 @@
         "label": "데모 영상",
         "url": "https://www.youtube.com/shorts/AbGvId-CgKM"
       }
-    ],
-    "note": "사진이 입력인 파이프라인"
+    ]
   },
   {
     "id": "farmforyou",
     "title": "FarmForYou",
-    "subtitle": "팜포유 · 농업 일자리 매칭",
+    "subtitle": "농업 일자리 AI 매칭 (팜포유)",
     "period": "2025.08",
-    "team": "구름 해커톤 · 6인 팀",
+    "team": "구름 딥다이브 해커톤 · 6인 팀",
     "role": "AI 담당",
-    "summary": "말하면 구인글이 써지고, 농가와 구직자를 AI가 이어 줘요.",
-    "proof": "생성 정확도 90% · 매칭률 +25% · 검색 시간 −40%",
+    "problem": "음성으로 구인글을 자동 작성하고, 농가와 구직자를 AI로 연결하는 서비스입니다.",
+    "nodes": [
+      {
+        "id": "voice",
+        "label": "Voice",
+        "kind": "input"
+      },
+      {
+        "id": "stt",
+        "label": "Whisper STT",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "gen",
+        "label": "Job post generator",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "rec",
+        "label": "Hybrid recommender",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "pred",
+        "label": "Demand predictor",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "api",
+        "label": "FastAPI",
+        "kind": "api"
+      },
+      {
+        "id": "spring",
+        "label": "Spring Boot",
+        "kind": "api"
+      },
+      {
+        "id": "ui",
+        "label": "React",
+        "kind": "front"
+      }
+    ],
+    "edges": [
+      [
+        "voice",
+        "stt"
+      ],
+      [
+        "stt",
+        "gen"
+      ],
+      [
+        "gen",
+        "rec"
+      ],
+      [
+        "rec",
+        "pred"
+      ],
+      [
+        "pred",
+        "api"
+      ],
+      [
+        "api",
+        "spring"
+      ],
+      [
+        "spring",
+        "ui"
+      ]
+    ],
+    "decisions": [
+      "AI 기능을 FastAPI 마이크로서비스로 분리해 Spring 백엔드와 연동",
+      "PyTorch 모델과 키워드 매칭을 섞은 하이브리드 추천"
+    ],
+    "result": "구인글 생성 정확도 90% · 매칭률 25% 향상 · 적합도 20% 향상 · 검색 시간 40% 단축",
+    "resultNumbers": "",
     "stack": [
-      "Whisper",
       "PyTorch",
+      "Whisper",
       "FastAPI",
-      "Spring Boot"
+      "Spring Boot",
+      "React"
     ],
     "links": [
       {
@@ -92,17 +318,70 @@
   },
   {
     "id": "review-stars",
-    "title": "리뷰 → 별점",
+    "title": "Review → Star Rating",
     "subtitle": "리뷰 텍스트로 별점 예측",
     "period": "2024.08–12",
     "team": "부산대 SW 스터디 · 6인 팀",
-    "role": "PyTorch 담당",
-    "summary": "맥도날드 영어 리뷰만 읽고 별점을 맞히는 웹 데모예요.",
-    "proof": "정확도 85% · 사용자 만족도 4.6/5",
+    "role": "PyTorch 모델 담당",
+    "problem": "리뷰 텍스트만으로 별점을 예측하는 웹 서비스입니다.",
+    "nodes": [
+      {
+        "id": "txt",
+        "label": "Review text",
+        "kind": "input"
+      },
+      {
+        "id": "pre",
+        "label": "Preprocess & tokenize",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "model",
+        "label": "PyTorch / transformers",
+        "kind": "model",
+        "mine": true
+      },
+      {
+        "id": "api",
+        "label": "Django (+ Celery, Redis)",
+        "kind": "api"
+      },
+      {
+        "id": "ui",
+        "label": "Next.js",
+        "kind": "front"
+      }
+    ],
+    "edges": [
+      [
+        "txt",
+        "pre"
+      ],
+      [
+        "pre",
+        "model"
+      ],
+      [
+        "model",
+        "api"
+      ],
+      [
+        "api",
+        "ui"
+      ]
+    ],
+    "decisions": [
+      "텍스트 정제·토큰화 전처리 파이프라인을 따로 두고 모델을 최적화"
+    ],
+    "result": "예측 정확도 85% · 사용자 만족도 4.6/5",
+    "resultNumbers": "",
     "stack": [
       "PyTorch",
       "transformers",
       "Django",
+      "Celery",
+      "Redis",
       "Next.js",
       "Docker"
     ],
@@ -114,39 +393,70 @@
     ]
   },
   {
-    "id": "withpnu",
-    "title": "WithPNU",
-    "subtitle": "캠퍼스 제휴 정보 앱",
-    "period": "2024",
-    "team": "부산대 SW 해커톤 · 4인 팀",
-    "role": "앱 개발",
-    "summary": "여기저기 흩어진 학생·상가 제휴 정보를 지도와 카테고리로 한 앱에 모았어요.",
-    "proof": "해커톤 장려상 🏅",
-    "stack": [
-      "Kotlin",
-      "Firebase",
-      "Google Places API"
-    ],
-    "links": [
-      {
-        "label": "소스 코드",
-        "url": "https://github.com/soheean1370/WithPNU"
-      }
-    ]
-  },
-  {
     "id": "qroom",
     "title": "Qroom",
-    "subtitle": "오프라인 강의 익명 질문 서비스",
+    "subtitle": "오프라인 강의용 익명 질문 서비스",
     "period": "2026",
     "team": "2인 팀",
     "role": "프론트엔드",
-    "summary": "로그인 없이 4자리 코드나 QR로 들어와서 실시간으로 질문하고, 피드백 버튼을 누르면, AI가 질문 문장을 다듬어 줘요.",
-    "proof": "지금 바로 써볼 수 있어요",
     "live": true,
+    "problem": "오프라인 강의에서 학생이 익명으로 질문하고 피드백을 남길 수 있는 서비스입니다.",
+    "nodes": [
+      {
+        "id": "join",
+        "label": "Join code / QR",
+        "kind": "input"
+      },
+      {
+        "id": "fe",
+        "label": "Frontend",
+        "kind": "front",
+        "mine": true
+      },
+      {
+        "id": "rt",
+        "label": "Supabase Realtime",
+        "kind": "api"
+      },
+      {
+        "id": "fn",
+        "label": "Edge Functions",
+        "kind": "api"
+      },
+      {
+        "id": "db",
+        "label": "Postgres (RLS)",
+        "kind": "db"
+      }
+    ],
+    "edges": [
+      [
+        "join",
+        "fe"
+      ],
+      [
+        "fe",
+        "rt"
+      ],
+      [
+        "rt",
+        "fn"
+      ],
+      [
+        "fn",
+        "db"
+      ]
+    ],
+    "decisions": [
+      "로그인 없이 4자리 코드·QR로 입장",
+      "질문 문장을 AI가 다듬는 Edge Function(ai-correct)"
+    ],
+    "result": "라이브 데모 운영 중",
+    "resultNumbers": "",
     "stack": [
       "Supabase Realtime",
       "Edge Functions",
+      "Postgres",
       "Vercel"
     ],
     "links": [
@@ -157,6 +467,69 @@
       {
         "label": "소스 코드",
         "url": "https://github.com/soheean1370/Qroom"
+      }
+    ]
+  },
+  {
+    "id": "withpnu",
+    "title": "WithPNU",
+    "subtitle": "캠퍼스 제휴 정보 앱",
+    "period": "2024",
+    "team": "부산대 SW 해커톤 · 4인 팀",
+    "role": null,
+    "problem": "흩어져 있는 학생 대상 제휴·상권 정보를 한 앱에 모은 서비스입니다.",
+    "nodes": [
+      {
+        "id": "crawl",
+        "label": "Crawler",
+        "kind": "input"
+      },
+      {
+        "id": "fb",
+        "label": "Firebase",
+        "kind": "db"
+      },
+      {
+        "id": "app",
+        "label": "Kotlin app",
+        "kind": "front"
+      },
+      {
+        "id": "map",
+        "label": "Google Places API",
+        "kind": "api"
+      }
+    ],
+    "edges": [
+      [
+        "crawl",
+        "fb"
+      ],
+      [
+        "fb",
+        "app"
+      ],
+      [
+        "map",
+        "app"
+      ]
+    ],
+    "decisions": [
+      "웹 크롤링으로 제휴 정보를 실시간 수집",
+      "Google Places API로 위치 기반 추천"
+    ],
+    "result": "해커톤 장려상 🏅",
+    "resultNumbers": "",
+    "stack": [
+      "Kotlin",
+      "Firebase",
+      "Google Places API",
+      "JavaScript"
+    ],
+    "links": [
+      {
+        "label": "소스 코드",
+        "url": "https://github.com/soheean1370/WithPNU"
       }
     ]
   }

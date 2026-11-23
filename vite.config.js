@@ -14,7 +14,7 @@ function flatContent() {
     async transformIndexHtml(html) {
       if (!html.includes('<!--FLAT_CONTENT-->')) return html;
       const { renderFlat } = await import(`${pathToFileURL(resolve(root, 'src/content/render.js')).href}?t=${Date.now()}`);
-      const data = Object.fromEntries(['profile', 'copy', 'projects', 'research', 'toolkit', 'timeline'].map((n) => [n, read(n)]));
+      const data = Object.fromEntries(['profile', 'copy', 'projects', 'research', 'stack'].map((n) => [n, read(n)]));
       return html.replace('<!--FLAT_CONTENT-->', renderFlat(data));
     },
     handleHotUpdate({ file, server }) {

@@ -4,28 +4,18 @@
   "handle": "soheean1370",
   "photo": "/photos/profile.webp",
   "photoAlt": "안소희 프로필 사진",
+  "tagline": "AI 백엔드 개발자 · PNU CV Lab 학부연구생 · Novel View Synthesis",
+  "taglineEn": "AI Backend Developer · Undergrad Researcher @ PNU CV Lab · Novel View Synthesis",
+  "lines": [
+    "부산대학교 정보컴퓨터공학부 (2023–) · PNU CV Lab 학부연구생",
+    "미국 펜실베이니아 Council Rock High School North 졸업 (2022)"
+  ],
   "interests": [
-    "새로운 시점 합성 (NVS)",
-    "3D 비전",
-    "생성 모델",
-    "컴퓨터 비전",
-    "AI 백엔드"
+    "Novel View Synthesis",
+    "3D Vision",
+    "Generative Models",
+    "AI Backend"
   ],
-  "nowLearning": [
-    "Diffusion",
-    "NeRF",
-    "3D Gaussian Splatting"
-  ],
-  "idFront": {
-    "school": "부산대학교",
-    "degree": "정보컴퓨터공학부 · 2023–",
-    "role": "PNU CV Lab 학부연구생"
-  },
-  "idBack": {
-    "school": "Council Rock High School North",
-    "class": "2022년 졸업",
-    "place": "미국 펜실베이니아 뉴타운"
-  },
   "links": {
     "github": "https://github.com/soheean1370",
     "email": "soheean1370@gmail.com",

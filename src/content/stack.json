@@ -1,0 +1,54 @@
+{
+  "rows": [
+    {
+      "name": "AI / ML",
+      "items": [
+        "PyTorch",
+        "Hugging Face",
+        "transformers",
+        "OpenCV",
+        "scikit-learn"
+      ]
+    },
+    {
+      "name": "LLM",
+      "items": [
+        "GPT-5",
+        "Gemini",
+        "RAG",
+        "LangChain",
+        "Ollama",
+        "Prompt / Eval"
+      ]
+    },
+    {
+      "name": "Backend / Data",
+      "items": [
+        "FastAPI",
+        "Python",
+        "Supabase",
+        "PostgreSQL",
+        "Pinecone",
+        "Firebase",
+        "Docker"
+      ]
+    },
+    {
+      "name": "Base",
+      "items": [
+        "C++",
+        "C",
+        "NumPy",
+        "Pandas",
+        "Git"
+      ]
+    }
+  ],
+  "thisSite": [
+    "React Three Fiber",
+    "drei",
+    "custom GLSL",
+    "Vite",
+    "GitHub Actions"
+  ]
+}
