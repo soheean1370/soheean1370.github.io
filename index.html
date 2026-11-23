@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Sohee An — One Photo, Every Angle </title>
+  <title>Sohee An — One Photo, Every Angle</title>
   <meta name="description" content="CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis & AI Backend" />
   <meta property="og:title" content="Sohee An — One Photo, Every Angle" />
   <meta property="og:description" content="CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis & AI Backend" />
@@ -15,32 +15,63 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Gaegu:wght@400;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <link rel="stylesheet" href="/src/ui/styles/flat.css" />
+  <link rel="stylesheet" href="/src/ui/styles/app.css" />
 </head>
 <body>
-  <a class="skip-link" href="#front">Skip to content</a>
+  <a class="skip-link" href="/flat.html">Skip to content (flat version)</a>
 
   <header class="bar">
-    <a class="bar-brand" href="#top"><span aria-hidden="true">✿</span> soheean1370</a>
-    <nav class="bar-views" aria-label="Sections">
-      <a href="#front">front</a><a href="#side">side</a><a href="#lockers">lockers</a><a href="#toolkit">toolkit</a><a href="#back">back</a><a href="#hallpass">hall pass</a>
+    <a class="bar-brand" href="#" data-goto="0"><span aria-hidden="true">✿</span> soheean1370</a>
+    <nav class="bar-views" aria-label="Scenes" id="views">
+      <a href="#front" data-goto="front">front</a><a href="#side" data-goto="side">side</a><a href="#lockers" data-goto="lockers">lockers</a><a href="#toolkit" data-goto="toolkit">toolkit</a><a href="#back" data-goto="back">back</a><a href="#hallpass" data-goto="hallpass">hall pass</a>
     </nav>
     <div class="bar-actions">
       <a href="https://github.com/soheean1370" target="_blank" rel="noopener">GitHub</a>
       <a href="/resume.pdf" download="Sohee-An-resume.pdf">Resume</a>
-      <span class="pill" title="Building tonight">3D · coming tonight</span>
+      <a class="pill" href="/flat.html">2D</a>
     </div>
   </header>
 
-  <main id="content">
-<!--FLAT_CONTENT-->
-  </main>
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="scroll-space" id="scroll-space" aria-hidden="true"></div>
 
-  <footer class="foot">
-    <p class="clock" id="clock" aria-label="Local time in Busan and Philadelphia">Busan --:-- · Philly --:--</p>
-    <p>Built with Three.js, designed by Sohee, coded with help from Claude Code.</p>
-  </footer>
+  <!-- HUD -->
+  <div class="hud" id="hud">
+    <div class="hud-intro" id="intro">
+      <p class="intro-q">what would this photo look like from where the camera never was?</p>
+      <p class="intro-who"><span class="hand">Sohee An · soheean1370</span></p>
+      <p class="intro-tag">CS @ Pusan National University · Undergrad researcher @ PNU CV Lab · Novel View Synthesis &amp; AI Backend</p>
+    </div>
+    <p class="hud-scroll" id="scrollHint">scroll to step inside ↓</p>
+    <p class="hud-center" id="centerText" aria-live="polite"></p>
+    <div class="hud-bl">
+      <p class="hud-stage" id="stage" aria-live="polite"></p>
+      <p class="hud-scene" id="sceneName"></p>
+      <p class="hud-clock" id="clock">Busan --:-- · Philly --:--</p>
+    </div>
+    <div class="hud-br">
+      <ol class="film" id="film" aria-hidden="true"></ol>
+      <p class="hud-hint">press <kbd>V</kbd> to see the points</p>
+    </div>
+    <button class="hover-tip" id="hoverTip" type="button" hidden></button>
+  </div>
 
-  <script type="module" src="/src/flat.js"></script>
+  <!-- every clickable object also exists as a real button (Tab / screen readers) -->
+  <nav class="sr-only" aria-label="Objects in the hallway" id="objectButtons"></nav>
+
+  <aside class="panel-wrap" id="panel" aria-hidden="true">
+    <div class="panel-card" role="dialog" aria-modal="true" aria-labelledby="panelTitle" tabindex="-1">
+      <button class="panel-close" id="panelClose" type="button" aria-label="Close">×</button>
+      <div class="panel-body" id="panelBody"></div>
+    </div>
+  </aside>
+
+  <div class="loader" id="loader">
+    <div class="loader-photo"><span id="loaderPct">developing…</span></div>
+    <a class="loader-skip" id="loaderSkip" href="/flat.html">skip to flat version →</a>
+  </div>
+
+  <noscript><p class="noscript">This 3D portfolio needs JavaScript. <a href="/flat.html">Open the flat version →</a></p></noscript>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
