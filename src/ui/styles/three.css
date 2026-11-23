@@ -1,0 +1,6 @@
+@import "./tokens.css";
+@import "./bar.css";
+html, body, #root { margin: 0; height: 100%; }
+body { font-family: var(--sans); color: var(--ink); background: var(--horizon); overflow: hidden; }
+#root { position: fixed; inset: 0; }
+.bar { position: fixed; left: 0; right: 0; background: rgba(251, 249, 254, .45); }
