@@ -258,7 +258,6 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
         ${CURSOR}
       </div>
     </div>
-    ${p.highlights && p.highlights.length ? `<ul class="highs" aria-label="주요 이력">${p.highlights.map((h) => `<li><span class="h-k">${esc(h.k)}</span><strong>${esc(h.v)}</strong><span class="h-s">${esc(h.s)}</span></li>`).join('')}</ul>` : ''}
   </section>
 
   <section class="r-sec" id="projects" aria-labelledby="t-projects">

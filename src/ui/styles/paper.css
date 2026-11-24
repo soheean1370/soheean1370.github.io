@@ -307,3 +307,11 @@ ul { padding-left: 1.15em; }
 }
 @media (max-width: 480px) { .highs { grid-template-columns: 1fr; } }
 .folder-tab { top: -30px; height: 34px; padding: 0 44px 0 16px; font: 700 .82rem/34px var(--sans); clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%); }
+
+/* round 3: back to Pretendard for every heading (readability first) */
+:root { --display: var(--sans); }
+.folder h1 { font-weight: 900; letter-spacing: -.03em; font-size: clamp(2.6rem, 6vw, 3.6rem); }
+.sec-label, .feat-head h3, .file-head h3, .gi-group h3, .gi-top strong, .ending { font-weight: 800; letter-spacing: -.02em; }
+.note p { font-weight: 800; letter-spacing: -.01em; }
+.q { font-weight: 800; letter-spacing: -.02em; }
+.foot a { margin-left: 10px; color: var(--ink-soft); }

@@ -3,5 +3,5 @@
   "questionEn": "what would this photo look like from where the camera never was?",
   "about": "해커톤과 팀 프로젝트 10개 이상에서 OCR(사진 속 글자 인식), LLM 리포트, 음성 인식, 추천 같은 AI 기능을 맡아 실제로 돌아가는 서비스에 붙였습니다. 지금은 PNU CV Lab에서 사진 한 장으로 새로운 시점을 만드는 Novel View Synthesis를 공부하고 있습니다.",
   "ending": "방문해 주셔서 감사합니다",
-  "footer": "3D 버전은 React Three Fiber와 직접 쓴 셰이더로 만들었습니다. 코드는 Claude Code의 도움을 받아 작성했습니다."
+  "footer": "© 2026 soheean1370"
 }
