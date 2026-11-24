@@ -14,17 +14,14 @@
   "research": [
     {
       "title": "PNU CV Lab 학부연구생",
-      "period": null,
+      "period": "2026.09 ~",
       "note": "셀카 한 장으로 시점을 바꾸는 문제를 공부하고 있습니다."
     }
   ],
   "activities": [
     {
       "title": "PRE-SOMA (부산 AI SW마에스트로 예비캠프)",
-      "period": "2026.11.02 ~ 12.28",
-      "items": [
-        "참여 중"
-      ]
+      "period": "2026.11.02 ~ 12.28 (참여 중)"
     },
     {
       "title": "오픈소스 컨트리뷰션 아카데미, Ollama 로컬 LLM",

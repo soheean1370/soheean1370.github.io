@@ -84,13 +84,8 @@
         "report"
       ]
     ],
-    "decisions": [
-      "정답률과 응답 시간을 함께 반영해 난이도를 조절했습니다. 빠르게 맞힌 답과 오래 고민하다 맞힌 답을 같게 보지 않기 위해서입니다.",
-      "LLM 리포트를 강점, 약점, 다음 단계의 3문장으로 고정했습니다. 짧고, 서로 비교할 수 있고, 평가할 수 있게 하기 위해서입니다.",
-      "프롬프트는 감으로 고치지 않고 오프라인 평가 결과를 기준으로 고쳤습니다.",
-      "테스트 결과가 콘텐츠 큐레이션과 ETF 추천에 바로 쓰이도록 프로필 스키마를 먼저 설계했습니다."
-    ],
-    "result": "레벨 테스트에서 개인 리포트, 추천까지 이어지는 전체 흐름을 완성했고, 평가 결과를 보며 프롬프트를 고쳐 리포트의 일관성을 높였습니다.",
+    "decisions": [],
+    "result": "테스트 결과로 사용자를 Beginner, Intermediate, Advanced 3단계로 나누고, 단계별 가이드와 금융 지식 요약 리포트를 보여 주는 흐름을 완성했습니다.",
     "resultNumbers": "",
     "stack": [
       "Streamlit",
@@ -104,18 +99,23 @@
       {
         "label": "소스 코드",
         "url": "https://github.com/soheean1370/FireGenerators"
+      },
+      {
+        "label": "시연 영상",
+        "url": "https://www.youtube.com/watch?v=EFqjy93Nl4A"
       }
     ],
-    "linkNote": "라이브 데모는 없고, 저장소 README에 스크린샷이 있습니다.",
+    "linkNote": null,
     "summary": "금융 초보자의 수준을 먼저 재고, 그 수준에 맞는 리포트와 추천을 주는 서비스입니다.",
     "did": [
-      "정답률과 응답 시간에 따라 문제 난이도가 바뀌는 OX, 객관식 금융 레벨 테스트를 설계하고 구현했습니다.",
-      "GPT-5로 응답을 분석해 강점, 약점, 다음 학습 단계를 담은 3문장 개인 리포트를 자동으로 만드는 파이프라인을 만들었습니다.",
-      "난이도 보정과 리포트 품질을 재는 오프라인 평가 파이프라인을 만들고, 그 결과로 프롬프트를 고쳤습니다.",
-      "퀴즈 결과와 지식 수준을 저장하는 Supabase 프로필 스키마를 설계했습니다."
+      "정답률과 응답 시간에 따라 난이도가 바뀌는 10문항 OX, 객관식 레벨 테스트를 만들었습니다. 빠르게 맞힌 답과 오래 고민하다 맞힌 답을 같게 보지 않기 위해서입니다.",
+      "점수는 단순 정답률이 아니라 문항별 가중치로 누적했습니다. 핵심 문항을 정확히 이해했는지가 총점에 더 크게 반영되도록 하기 위해서입니다.",
+      "GPT-5 리포트를 강점, 약점, 다음 단계의 3문장으로 고정하고, 오프라인 평가 결과를 보며 프롬프트를 고쳤습니다. 형식이 같아야 리포트끼리 비교하고 평가할 수 있기 때문입니다.",
+      "결과를 저장하는 Supabase 프로필 스키마를 먼저 설계했습니다. 콘텐츠 큐레이션과 ETF 추천이 같은 데이터를 바로 쓰게 하기 위해서입니다."
     ],
     "lesson": null,
-    "screenshot": null
+    "screenshot": "/projects/firegenerators-levels.jpg",
+    "screenshotAlt": "FireGenerators 결과 화면. 같은 퀴즈를 마친 세 사용자가 Beginner, Intermediate, Advanced 단계로 나뉘고 단계별 가이드와 지식 요약이 표시된 모습"
   },
   {
     "id": "eatwise",
@@ -220,7 +220,12 @@
     ],
     "summary": null,
     "did": null,
-    "lesson": null
+    "lesson": null,
+    "cardDid": [
+      "OCR 엔진을 정답 라벨과 CER(문자 오류율)로 비교해 골랐습니다.",
+      "OCR 결과를 정규식과 Gemini로 상품, 영양 정보 JSON으로 정리했습니다."
+    ],
+    "cardResult": "이미지 전처리부터 OCR, LLM 후처리, 저장까지 이어지는 파이프라인을 만들었습니다."
   },
   {
     "id": "farmforyou",
@@ -327,7 +332,12 @@
     ],
     "summary": null,
     "did": null,
-    "lesson": null
+    "lesson": null,
+    "cardDid": [
+      "Whisper로 음성을 받아 구인글을 자동으로 만들었습니다.",
+      "PyTorch 모델과 키워드 매칭을 섞은 추천을 FastAPI로 Spring 백엔드에 붙였습니다."
+    ],
+    "cardResult": "음성 구인글 작성, 추천, 모집 인원과 임금 예측 기능을 서비스에 붙였습니다."
   },
   {
     "id": "review-stars",
@@ -406,7 +416,11 @@
     ],
     "summary": null,
     "did": null,
-    "lesson": null
+    "lesson": null,
+    "cardDid": [
+      "텍스트 정제와 토큰화 전처리를 따로 두고 PyTorch 별점 예측 모델을 만들었습니다."
+    ],
+    "cardResult": "모델을 FastAPI로 Django 서비스에 연결해 예측 결과를 대시보드로 보여 줬습니다."
   },
   {
     "id": "qroom",
@@ -487,7 +501,11 @@
     ],
     "summary": null,
     "did": null,
-    "lesson": null
+    "lesson": null,
+    "cardDid": [
+      "로그인 없이 4자리 코드나 QR로 바로 입장하는 화면을 만들었습니다."
+    ],
+    "cardResult": "라이브 데모를 운영하고 있습니다."
   },
   {
     "id": "withpnu",
@@ -592,6 +610,11 @@
     ],
     "summary": null,
     "did": null,
-    "lesson": null
+    "lesson": null,
+    "cardDid": [
+      "부산대 웹메일 인증과 관리자 권한 분리를 맡았습니다.",
+      "흩어진 제휴 공지를 크롤링하고, 가게 위치를 지도 마커로 보여 줬습니다."
+    ],
+    "cardResult": "전 화면을 구현했고, 해커톤 장려상을 받았습니다."
   }
 ]

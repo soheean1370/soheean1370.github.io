@@ -155,20 +155,19 @@ const sec = (id, num, title, body) => `
 function featuredBlock(pr) {
   return `
   <article class="feat">
+    <p class="feat-label">대표 프로젝트</p>
     <h3 class="feat-title">${esc(pr.title)}${pr.live ? ' <span class="live">LIVE</span>' : ''} <span class="proj-sub">${esc(pr.subtitle)}</span></h3>
     ${pr.summary ? `<p class="feat-sum">${esc(pr.summary)}</p>` : ''}
     <p class="proj-meta">${meta(pr)}</p>
-    ${pr.screenshot ? `<img class="feat-shot" src="${esc(pr.screenshot)}" alt="${esc(pr.title)} 화면" loading="lazy" />` : ''}
-    <dl class="case">
+    <p class="proj-stack">${esc(pr.stack.join(', '))}</p>
+    ${pr.screenshot ? `<img class="feat-shot" src="${esc(pr.screenshot)}" alt="${esc(pr.screenshotAlt || pr.title + ' 화면')}" width="1532" height="420" loading="lazy" />` : ''}
+    <dl class="case case-flat">
       ${row('문제 정의', esc(pr.problem))}
-      ${row('내가 한 일', list(pr.did))}
-      ${row('기술적 결정과 이유', list(pr.decisions))}
+      ${row('내가 한 일과 이유', list(pr.did))}
       ${row('결과', esc(pr.result))}
       ${row('아쉬운 점', pr.lesson ? esc(pr.lesson) : '')}
-      ${row('구조', `<p>${flowSentence(pr)}</p>${mineSentence(pr)}`)}
-      ${row('기술 스택', esc(pr.stack.join(', ')))}
-      ${row('링크', links(pr))}
     </dl>
+    ${links(pr)}
   </article>`;
 }
 
@@ -178,17 +177,11 @@ function projectCard(pr) {
     <h3 class="proj-head">${esc(pr.title)}${pr.live ? ' <span class="live">LIVE</span>' : ''}</h3>
     <p class="proj-sub">${esc(pr.subtitle)}</p>
     <p class="proj-meta">${meta(pr)}</p>
+    <p class="proj-label">내가 한 일</p>
+    ${list(pr.cardDid || pr.decisions.slice(0, 2))}
+    <p class="proj-label">결과</p>
+    <p class="proj-result">${esc(pr.cardResult || pr.result)}</p>
     ${links(pr)}
-    <details>
-      <summary>구조와 기술적 결정 보기</summary>
-      <dl class="case">
-        ${row('문제 정의', esc(pr.problem))}
-        ${row('구조', `<p>${flowSentence(pr)}</p>${mineSentence(pr)}`)}
-        ${row('기술적 결정', list(pr.decisions))}
-        ${row('결과', esc(pr.result))}
-        ${row('기술 스택', esc(pr.stack.join(', ')))}
-      </dl>
-    </details>
   </article>`;
 }
 
@@ -202,19 +195,15 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
     <h2 class="r-title"><span class="r-num">00</span>소개</h2>
     <div class="r-hero-grid">
       <div>
-        <p class="r-handle">닉네임 ${esc(p.handle)}</p>
-        <h1>${esc(p.nameKo)} <span class="r-en">${esc(p.name)}</span></h1>
+        <h1>${esc(p.nameKo)} <span class="r-en">${esc(p.name)}, ${esc(p.handle)}</span></h1>
         <p class="r-tagline">${esc(p.tagline)}</p>
         <ul class="lines">${p.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
         <p class="r-headline">${esc(p.headline)}</p>
         <p class="lead">${esc(c.about)}</p>
-        ${chips(p.interests, 'chip chip-accent')}
         <p class="btn-row">
           ${btn('GitHub ↗', p.links.github, { solid: true })}
           ${btn(p.links.email, `mailto:${p.links.email}`)}
           ${RESUME(p)}
-          ${btn('Velog ↗', p.links.velog)}
-          ${btn('PNU CV Lab ↗', p.links.lab)}
         </p>
       </div>
       <figure class="polaroid r-photo">
@@ -222,20 +211,15 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
         <figcaption>${esc(p.nameKo)}, ${esc(p.handle)}</figcaption>
       </figure>
     </div>
-    <a class="r-3d" href="/3d.html">
-      <span class="r-3d-k">3D 버전 (선택)</span>
-      <span class="r-3d-t">${esc(c.question)}</span>
-      <span class="r-3d-s">사진 한 장이 점 구름이 되고, 걸어 다닐 수 있는 3D 캠퍼스가 되는 버전도 있습니다. 내용은 이 페이지와 같습니다.</span>
-    </a>
   </section>
-  ${sec('focus', '01', '관심 분야', interestBlock(p, r))}
-  ${sec('research', '02', '연구 활동', `
-    <p class="lead">${esc(r.status)}</p>
+  ${sec('research', '01', '연구', `
+    ${chips(p.interests, 'chip chip-accent')}
+    ${interestBlock(p, r)}
     ${r.activities && r.activities.length ? `<p class="label">발표와 세미나</p>${activityList(r)}` : ''}
+    <p class="r-status">${esc(r.status)}</p>
     ${paperBoard(r)}`)}
-  ${sec('systems', '03', '대표 프로젝트', featuredBlock(featured))}
-  ${sec('projects', '04', '다른 프로젝트', `<div class="proj-grid">${others.map(projectCard).join('')}</div>`)}
-  ${sec('resume', '05', '이력', `
+  ${sec('projects', '02', '프로젝트', `${featuredBlock(featured)}<div class="proj-grid">${others.map(projectCard).join('')}</div>`)}
+  ${sec('resume', '03', '이력', `
     <div class="cv">
       <div class="cv-row"><h3>학력</h3>${cvList(resume.education)}</div>
       ${resume.research && resume.research.length ? `<div class="cv-row"><h3>연구</h3>${cvList(resume.research)}</div>` : ''}
@@ -243,6 +227,6 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
       <div class="cv-row"><h3>기술</h3>${skillList(stack)}</div>
     </div>
     <h3 class="contact-h">연락처</h3>
-    <p class="btn-row">${btn('GitHub ↗', p.links.github, { solid: true })}${btn(p.links.email, `mailto:${p.links.email}`)}${RESUME(p)}</p>`)}
+    <p class="btn-row">${btn('GitHub ↗', p.links.github, { solid: true })}${btn(p.links.email, `mailto:${p.links.email}`)}${RESUME(p)}${btn('Velog ↗', p.links.velog)}${btn('PNU CV Lab ↗', p.links.lab)}<a class="btn" href="/3d.html">3D 버전 보기</a></p>`)}
   <p class="ending">${esc(c.ending)}</p>`;
 }

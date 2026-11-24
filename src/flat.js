@@ -1,7 +1,7 @@
 // Highlights the current section in the top menu.
 const links = [...document.querySelectorAll('.bar-views a')];
 const map = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
-const alias = { projects: 'systems' };
+const alias = {};
 const io = new IntersectionObserver((entries) => {
   for (const e of entries) {
     if (!e.isIntersecting) continue;

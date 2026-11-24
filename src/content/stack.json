@@ -41,7 +41,7 @@
       "name": "화면",
       "items": [
         "Streamlit",
-        "Kotlin"
+        "Android (Kotlin)"
       ],
       "where": "FireGenerators, EatWise, WithPNU"
     },
