@@ -54,24 +54,5 @@
     }
   ],
   "nowLearning": null,
-  "activities": [
-    {
-      "date": "2026.10.02",
-      "title": "연구실 관심 분야 발표",
-      "body": "셀카 시점 바꾸기 연구를 네 갈래(원본 사진 변형, 3D GAN inversion, feed-forward 3D, diffusion)로 나눠 정리해 발표했습니다.",
-      "url": null
-    },
-    {
-      "date": "2026.10.16",
-      "title": "논문 세미나",
-      "body": "NeRF(ECCV 2020)를 약 30분 동안 발표하고, 후속 흐름으로 NeRF-W와 SHARP를 소개했습니다.",
-      "url": null
-    },
-    {
-      "date": "2026.10.27",
-      "title": "랩미팅",
-      "body": "셀카의 시점을 바꾸면 얼굴뿐 아니라 배경도 함께 바뀌어야 한다는 문제를 정리하고, 공개 모델부터 직접 돌려 보기로 계획했습니다.",
-      "url": null
-    }
-  ]
+  "activities": []
 }

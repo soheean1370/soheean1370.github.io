@@ -258,6 +258,7 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
         ${CURSOR}
       </div>
     </div>
+    ${p.highlights && p.highlights.length ? `<ul class="highs" aria-label="주요 이력">${p.highlights.map((h) => `<li><span class="h-k">${esc(h.k)}</span><strong>${esc(h.v)}</strong><span class="h-s">${esc(h.s)}</span></li>`).join('')}</ul>` : ''}
   </section>
 
   <section class="r-sec" id="projects" aria-labelledby="t-projects">
@@ -275,18 +276,7 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
       ${r.angle ? `<p class="mini">내 생각</p><p class="angle">${esc(r.angle)}</p>` : ''}
       ${p.now ? `<p class="mini">NOW</p><p>${esc(p.now)}</p>` : ''}
       ${p.next && p.next.length ? `<p class="mini">NEXT</p><ul class="todo-list">${p.next.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
-      ${r.activities && r.activities.length ? `
-      <p class="mini">발표와 세미나</p>
-      <div class="finder" role="table" aria-label="발표와 세미나 기록">
-        <div class="finder-row finder-h" role="row"><span role="columnheader">날짜</span><span role="columnheader">이름</span></div>
-        ${r.activities.map((a) => `<div class="finder-row" role="row"><span role="cell" class="f-date">${esc(a.date)}</span><span role="cell"><strong>${esc(a.title)}</strong><small>${esc(a.body)}</small></span></div>`).join('')}
-      </div>` : ''}
       <p class="status">${esc(r.status)}</p>
-      <p class="mini">논문 정리</p>
-      <p class="muted">${esc(r.surveyNote)}</p>
-      <div class="stickies">${r.groups.map((g) => `
-        <article class="sticky"><h3>${esc(g.plain || g.title)}</h3><p class="en-s">${esc(g.title)}</p><p>${esc(g.note || '')}</p></article>`).join('')}
-      </div>
     </div>
   </section>
 
