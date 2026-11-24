@@ -1,7 +1,7 @@
 {
   "question": "카메라가 없던 자리에서 보면, 이 사진은 어떤 모습일까?",
   "questionEn": "what would this photo look like from where the camera never was?",
-  "about": "안녕하세요, 안소희입니다. 펜실베이니아에서 고등학교를 다니고 부산에서 대학을 다니며, 두 곳의 시선으로 세상을 봐 왔습니다. 지금은 사진 한 장으로 다른 각도의 모습을 만드는 Novel View Synthesis를 공부하고 있고, 모델의 결과를 사람이 실제로 쓸 수 있는 서비스로 만드는 AI 백엔드 개발을 하고 있습니다.",
+  "about": "부산대학교 정보컴퓨터공학부에서 공부하고 있습니다. 2024년부터 팀 프로젝트 6개에 참여했고, 그중 4개에서 AI 파트(OCR 파이프라인, LLM 리포트, 음성 인식·추천, 별점 예측 모델)를 맡아 모델을 API에 붙여 실제로 동작하는 서비스로 만들었습니다. 지금은 PNU CV Lab 학부연구생으로 사진 한 장에서 새로운 시점을 만드는 Novel View Synthesis를 공부하고 있습니다.",
   "ending": "방문해 주셔서 감사합니다 ✿",
   "footer": "Designed by Sohee · Built with React Three Fiber & custom GLSL · coded with help from Claude Code"
 }

@@ -41,10 +41,12 @@ export function helloPanel(p, c) {
       <ul class="lines">${p.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
     </div>
   </div>
+  <p class="headline">${esc(p.headline)}</p>
   <p class="lead">${esc(c.about)}</p>
-  <p class="label">관심 분야</p>
-  ${chips(p.interests, 'chip chip-accent')}
-  <p class="btn-row">${btn('GitHub ↗', p.links.github, { solid: true })}${btn('PNU CV Lab ↗', p.links.lab)}${btn('Velog ↗', p.links.velog)}${btn('네이버 블로그 ↗', p.links.naver)}</p>`;
+  <p class="label">현재 관심 분야</p>
+  <div class="focus">${p.focus.map((f) => `<article class="focus-card"><h3>${esc(f.title)}</h3><p>${esc(f.body)}</p></article>`).join('')}</div>
+  <dl class="now-next"><div><dt>NOW</dt><dd>${esc(p.now)}</dd></div><div><dt>NEXT</dt><dd>${esc(p.next)}</dd></div></dl>
+  <p class="btn-row">${btn('GitHub ↗', p.links.github, { solid: true })}${btn('PNU CV Lab ↗', p.links.lab)}${btn('Velog ↗', p.links.velog)}</p>`;
 }
 
 export function researchPanel(r) {
@@ -103,7 +105,7 @@ export function contactPanel(p) {
     ${btn(`✉ ${p.links.email}`, `mailto:${p.links.email}`)}
     ${btn('GitHub ↗', p.links.github)}
     ${btn('Velog ↗', p.links.velog)}
-    ${btn('네이버 블로그 ↗', p.links.naver)}
+    ${btn('PNU CV Lab ↗', p.links.lab)}
   </p>`;
 }
 
@@ -121,6 +123,7 @@ export function renderFlat({ profile: p, copy: c, projects, research, stack }) {
       <p class="hero-q">${esc(c.question)}</p>
       <h1>${esc(p.nameKo)} <span class="hero-handle">${esc(p.handle)}</span></h1>
       <p class="hero-tagline">${esc(p.tagline)}</p>
+      <p class="headline">${esc(p.headline)}</p>
       ${chips(p.interests, 'chip chip-accent')}
       <p class="btn-row">
         ${btn('GitHub ↗', p.links.github, { solid: true })}

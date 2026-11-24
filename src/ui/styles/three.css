@@ -116,3 +116,14 @@ kbd { font-family: var(--mono); font-size: .72em; padding: 1px 6px; border: 1px 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 8px; }
 .skip-link:focus { left: 8px; }
+
+/* hello: headline, focus cards, now/next */
+.headline { font-size: 1.25rem; font-weight: 800; letter-spacing: -.01em; margin: 14px 0 4px; }
+.focus { display: grid; gap: 10px; margin-top: 8px; }
+.focus-card { border: 1px solid rgba(62,53,80,.14); border-radius: 12px; padding: 12px 14px; background: rgba(255,255,255,.45); }
+.focus-card h3 { font-size: .95rem; margin: 0 0 4px; }
+.focus-card p { margin: 0; font-size: .9rem; line-height: 1.6; }
+.now-next { display: grid; gap: 6px; margin: 14px 0 0; }
+.now-next div { display: flex; gap: 10px; align-items: baseline; }
+.now-next dt { font: 800 .72rem/1 var(--mono, monospace); letter-spacing: .08em; color: var(--ink); background: var(--horizon); border-radius: 6px; padding: 4px 6px; min-width: 42px; text-align: center; }
+.now-next dd { margin: 0; font-size: .92rem; font-weight: 600; }
