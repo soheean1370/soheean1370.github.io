@@ -27,7 +27,7 @@ export function Panel() {
   }, [panel]);
   return (
     <aside className={`v2-panel${panel ? ' open' : ''}`} aria-hidden={!panel} onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
-      <div className="v2-panel-card" role="dialog" aria-modal="true" aria-label="상세 정보" tabIndex={-1} ref={card}>
+      <div className="v2-panel-card" data-lenis-prevent="" role="dialog" aria-modal="true" aria-label="상세 정보" tabIndex={-1} ref={card}>
         <button className="v2-panel-close" type="button" aria-label="닫기" onClick={close}>×</button>
         {panel && <div className="v2-panel-body" dangerouslySetInnerHTML={{ __html: html(panel) }} />}
       </div>
