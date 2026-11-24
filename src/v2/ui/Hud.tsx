@@ -17,7 +17,7 @@ export function TopBar() {
   }, []);
   return (
     <header className="bar">
-      <a className="bar-brand" href="#" onClick={(e) => { e.preventDefault(); scrollToP(0, 3); }}><span aria-hidden="true">✿</span> soheean1370</a>
+      <a className="bar-brand" href="#" onClick={(e) => { e.preventDefault(); scrollToP(0, 3); }}>soheean1370</a>
       <nav className="bar-views" aria-label="구간">
         {SECTIONS.map((s, i) => (
           <a key={s.key} href={`#${s.key}`} className={active === s.key ? 'is-active' : ''} onClick={(e) => { e.preventDefault(); scrollToP(s.p); }}>
@@ -27,7 +27,7 @@ export function TopBar() {
       </nav>
       <div className="bar-actions">
         <a href={profile.links.github} target="_blank" rel="noopener">GitHub</a>
-        <a href={profile.links.resume} download="안소희-이력서.pdf">이력서 ⬇</a>
+        <a href={profile.links.resume} download="안소희-이력서.pdf">이력서</a>
         <a className="pill" href="/">2D 이력서</a>
       </div>
     </header>
@@ -72,7 +72,7 @@ export function Hud() {
         <p className="hud-stage" ref={stage} aria-live="polite" />
         <p className="hud-cam" ref={cam} />
       </div>
-      <p className="hud-br"><kbd>V</kbd> 점으로 보기 · <kbd>D</kbd> 개발자 정보</p>
+      <p className="hud-br"><kbd>V</kbd> 점으로 보기, <kbd>D</kbd> 개발자 정보</p>
     </div>
   );
 }

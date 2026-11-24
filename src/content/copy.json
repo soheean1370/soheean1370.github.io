@@ -1,7 +1,7 @@
 {
   "question": "카메라가 없던 자리에서 보면, 이 사진은 어떤 모습일까?",
   "questionEn": "what would this photo look like from where the camera never was?",
-  "about": "부산대학교 정보컴퓨터공학부에서 공부하고 있습니다. 2024년부터 해커톤과 팀 프로젝트를 10개 이상 해 왔고, 그 과정에서 OCR 파이프라인·LLM 리포트·음성 인식과 추천·별점 예측 모델 같은 AI 기능을 FastAPI로 서비스에 붙이는 일을 주로 맡았습니다. 지금은 LLM을 중심으로 AI 백엔드를 만들면서, PNU CV Lab 학부연구생으로 사진 한 장에서 새로운 시점을 만드는 Novel View Synthesis를 공부하고 있습니다.",
-  "ending": "방문해 주셔서 감사합니다 ✿",
-  "footer": "Designed by Sohee · Built with React Three Fiber & custom GLSL · coded with help from Claude Code"
+  "about": "부산대학교 정보컴퓨터공학부 학생이고, PNU CV Lab에서 학부연구생으로 Novel View Synthesis(사진 한 장으로 새로운 시점 만들기)를 공부하고 있습니다. 연구실에 오기 전에는 해커톤과 팀 프로젝트를 10개 이상 했고, 그중 OCR, LLM 리포트, 음성 인식과 추천, 별점 예측 같은 AI 부분을 맡아 실제로 돌아가는 서비스에 붙였습니다. 요즘도 LLM을 중심으로 한 AI 백엔드 작업을 함께 하고 있습니다.",
+  "ending": "방문해 주셔서 감사합니다",
+  "footer": "3D 버전은 React Three Fiber와 직접 쓴 셰이더로 만들었습니다. 코드는 Claude Code의 도움을 받아 작성했습니다."
 }

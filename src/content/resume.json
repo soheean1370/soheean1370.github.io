@@ -2,80 +2,73 @@
   "education": [
     {
       "title": "부산대학교 정보컴퓨터공학부",
-      "period": "2023.03 –",
-      "note": "재학 · PNU CV Lab 학부연구생"
+      "period": "2023 ~",
+      "note": "2023년 입학, 재학 중"
     },
     {
       "title": "Council Rock High School North (미국 펜실베이니아)",
-      "period": "2018.09 – 2022.06",
-      "note": "졸업"
+      "period": "~ 2022",
+      "note": "2022년 졸업"
+    }
+  ],
+  "research": [
+    {
+      "title": "PNU CV Lab 학부연구생",
+      "period": null,
+      "note": "셀카 한 장으로 시점을 바꾸는 문제를 공부하고 있습니다."
     }
   ],
   "activities": [
     {
-      "title": "구름 딥다이브 — 생성형 AI 3기",
-      "period": "2025.03 – 2025.09",
+      "title": "PRE-SOMA (부산 AI SW마에스트로 예비캠프)",
+      "period": "2026.11.02 ~ 12.28",
       "items": [
-        "LLM, RAG, AI 서비스 개발 중심의 집중 과정 수료",
-        "Python·PyTorch·FastAPI·LLM API로 AI 기능을 개발하고 배포"
+        "참여 중"
       ]
     },
     {
-      "title": "AIDeveloper — 부산대 정보컴퓨터공학부 학술 동아리",
-      "period": "2023.03 –",
-      "items": [
-        "50명 이상 디스코드 커뮤니티 운영 (딥러닝·컴퓨터 비전·NLP 채널)",
-        "GitHub 협업 흐름과 코드 리뷰 방식을 만들고, 입문–심화 AI 커리큘럼과 해커톤 팀 구성 운영"
-      ]
-    },
-    {
-      "title": "오픈소스 컨트리뷰션 아카데미 — Ollama 로컬 LLM",
-      "period": "2023.07 – 2023.10",
+      "title": "오픈소스 컨트리뷰션 아카데미, Ollama 로컬 LLM",
+      "period": "2026.04 ~ 2026.06",
       "items": [
         "Ollama로 오픈소스 LLM을 로컬에 띄워 추론 실험",
-        "브랜치·PR 기반 오픈소스 협업 흐름 실습"
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "name": "AI / ML",
-      "items": [
-        "Machine Learning",
-        "Deep Learning",
-        "NLP",
-        "Computer Vision",
-        "OCR",
-        "RAG"
+        "브랜치와 PR 기반의 오픈소스 협업 흐름 실습"
       ]
     },
     {
-      "name": "LLM",
+      "title": "구름 딥다이브 해커톤",
+      "period": "2025.08",
       "items": [
-        "GPT-5",
-        "Gemini",
-        "Prompt Engineering",
-        "LLM Evaluation",
-        "Ollama"
+        "FarmForYou에서 AI 담당"
       ]
     },
     {
-      "name": "Backend",
+      "title": "구름 딥다이브 생성형 AI 3기",
+      "period": "2025.03 ~ 2025.09",
       "items": [
-        "FastAPI",
-        "Supabase",
-        "PostgreSQL",
-        "Pinecone",
-        "Firebase"
+        "LLM, RAG, AI 서비스 개발 중심의 집중 과정 수료",
+        "Python, PyTorch, FastAPI, LLM API로 AI 기능을 개발하고 배포"
       ]
     },
     {
-      "name": "Languages",
+      "title": "부산대 SW 스터디",
+      "period": "2024.08 ~ 2024.12",
       "items": [
-        "Python",
-        "C++",
-        "Kotlin",
-        "HTML/CSS"
+        "별점 예측 서비스에서 PyTorch 모델 담당"
+      ]
+    },
+    {
+      "title": "제5회 부산대 SW 융합 해커톤",
+      "period": "2024.05 ~ 2024.08",
+      "items": [
+        "WithPNU로 장려상 수상"
+      ]
+    },
+    {
+      "title": "AIDeveloper (부산대 정보컴퓨터공학부 학술 동아리)",
+      "period": "2023.03 ~",
+      "items": [
+        "50명 이상이 모인 디스코드 커뮤니티 운영",
+        "GitHub 협업 흐름과 코드 리뷰 방식, 입문부터 심화까지의 AI 커리큘럼 운영"
       ]
     }
   ]

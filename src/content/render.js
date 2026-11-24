@@ -1,21 +1,24 @@
 // Renders src/content/*.json to HTML strings.
-// Used at build time for flat.html (readable without JS) and at runtime for the 3D panels,
-// so every piece of text lives in exactly one place.
+// Used at build time for the 2D page (index.html, readable without JS) and at runtime
+// for the 3D panels, so every piece of text lives in exactly one place.
+// Anything that is null/empty in the JSON is simply not rendered.
 
 const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' };
 export const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) => ESC[c]);
 
 export function btn(label, url, { solid = false, download } = {}) {
-  if (!url) return `<span class="btn is-todo" aria-disabled="true">${esc(label)} <small>준비 중</small></span>`;
+  if (!url) return '';
   const attrs = download
     ? `href="${esc(url)}" download="${esc(download)}"`
     : url.startsWith('mailto:') ? `href="${esc(url)}"` : `href="${esc(url)}" target="_blank" rel="noopener"`;
   return `<a class="btn${solid ? ' btn-solid' : ''}" ${attrs}>${esc(label)}</a>`;
 }
-const chips = (items, cls = 'chip') => `<ul class="chips">${items.map((t) => `<li class="${cls}">${esc(t)}</li>`).join('')}</ul>`;
+const chips = (items, cls = 'chip') => (items && items.length ? `<ul class="chips">${items.map((t) => `<li class="${cls}">${esc(t)}</li>`).join('')}</ul>` : '');
 const kicker = (t) => `<p class="kicker">${esc(t)}</p>`;
+const list = (items) => (items && items.length ? `<ul>${items.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>` : '');
+const RESUME = (p) => btn('이력서 PDF', p.links.resume, { download: '안소희-이력서.pdf' });
 
-/** architecture text in data-flow order: "A → B → C" */
+/** node labels in data-flow order (used by the 3D sculptures too) */
 export function flowText(pr) {
   const label = Object.fromEntries(pr.nodes.map((n) => [n.id, n.label]));
   const order = [];
@@ -25,36 +28,37 @@ export function flowText(pr) {
   pr.nodes.filter((n) => !incoming.has(n.id)).forEach((n) => visit(n.id));
   return order.map((id) => label[id]);
 }
+const flowSentence = (pr) => `데이터는 ${flowText(pr).map(esc).join(', ')} 순서로 흐릅니다.`;
+const mineSentence = (pr) => {
+  const mine = pr.nodes.filter((n) => n.mine).map((n) => esc(n.label));
+  return mine.length ? `<p class="mine">제가 맡은 부분: ${mine.join(', ')}</p>` : '';
+};
+const row = (dt, dd) => (dd ? `<div><dt>${dt}</dt><dd>${dd}</dd></div>` : '');
+const meta = (pr) => [pr.period, pr.team, pr.role].filter(Boolean).map(esc).join(', ');
+const links = (pr) => {
+  const b = pr.links.map((l, i) => btn(`${l.label} ↗`, l.url, { solid: i === 0 })).join('');
+  return b || pr.linkNote ? `<p class="btn-row">${b}</p>${pr.linkNote ? `<p class="muted">${esc(pr.linkNote)}</p>` : ''}` : '';
+};
 
-/* ---------- sections ---------- */
-export function helloPanel(p, c) {
+/* ---------- shared blocks ---------- */
+function interestBlock(p, r) {
   return `
-  ${kicker('HELLO')}
-  <div class="hello">
-    <figure class="polaroid hello-photo">
-      <img src="${esc(p.photo)}" alt="${esc(p.photoAlt)}" width="800" height="1040" loading="lazy" />
-      <figcaption>${esc(p.nameKo)} · ${esc(p.handle)}</figcaption>
-    </figure>
-    <div>
-      <h2>${esc(p.nameKo)} <span class="sub">${esc(p.name)} · 닉네임 ${esc(p.handle)}</span></h2>
-      <ul class="lines">${p.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
-    </div>
-  </div>
-  <p class="headline">${esc(p.headline)}</p>
-  <p class="lead">${esc(c.about)}</p>
-  <p class="label">현재 관심 분야</p>
-  <div class="focus">${p.focus.map((f) => `<article class="focus-card"><h3>${esc(f.title)}</h3><p>${esc(f.body)}</p></article>`).join('')}</div>
-  <dl class="now-next"><div><dt>NOW</dt><dd>${esc(p.now)}</dd></div><div><dt>NEXT</dt><dd>${esc(p.next)}</dd></div></dl>
-  <p class="btn-row">${btn('GitHub ↗', p.links.github, { solid: true })}${btn('PNU CV Lab ↗', p.links.lab)}${btn('Velog ↗', p.links.velog)}</p>`;
+  <div class="question"><p class="label">큰 질문</p><p class="q-text">${esc(p.question)}</p></div>
+  ${r.angle ? `<div class="question"><p class="label">내 생각</p><p class="q-angle">${esc(r.angle)}</p></div>` : ''}
+  <dl class="now-next">
+    ${p.now ? `<div><dt>NOW</dt><dd>${esc(p.now)}</dd></div>` : ''}
+    ${p.next && p.next.length ? `<div><dt>NEXT</dt><dd>${list(p.next)}</dd></div>` : ''}
+  </dl>`;
 }
 
-export function researchPanel(r) {
+function activityList(r) {
+  if (!r.activities || !r.activities.length) return '';
+  return `<ol class="timeline">${r.activities.map((a) => `
+    <li><span class="cv-when">${esc(a.date)}</span><div><strong>${esc(a.title)}</strong><p>${esc(a.body)}</p>${a.url ? btn('자료 보기 ↗', a.url) : ''}</div></li>`).join('')}</ol>`;
+}
+
+function paperBoard(r) {
   return `
-  ${kicker('RESEARCH')}
-  <h2>공부하고 있는 문제</h2>
-  <p class="lead">${esc(r.problem)}</p>
-  <blockquote class="pull">${esc(r.angle)}<span lang="en">${esc(r.angleEn)}</span></blockquote>
-  <p class="muted">${esc(r.status)}</p>
   <p class="label">논문 정리</p>
   <p class="muted">${esc(r.surveyNote)}</p>
   <div class="board">
@@ -65,25 +69,60 @@ export function researchPanel(r) {
       ${g.note ? `<p class="note">${esc(g.note)}</p>` : ''}
     </article>`).join('')}
   </div>
-  <p class="label">지금 공부 중</p>
-  ${chips(r.nowLearning, 'chip chip-soft')}`;
+  ${r.nowLearning && r.nowLearning.length ? `<p class="label">지금 공부 중</p>${chips(r.nowLearning, 'chip chip-soft')}` : ''}`;
+}
+
+function skillList(s) {
+  return `<dl class="cv-skills">${s.rows.map((r) => `<div><dt>${esc(r.name)}</dt><dd>${r.items.map(esc).join(', ')}<small>${esc(r.where)}</small></dd></div>`).join('')}
+    ${s.llmUse ? `<div><dt>${esc(s.llmUse.name)}</dt><dd>${esc(s.llmUse.text)}<small>${esc(s.llmUse.where)}</small></dd></div>` : ''}</dl>`;
+}
+
+/* ---------- 3D panels ---------- */
+export function helloPanel(p, c, r) {
+  return `
+  ${kicker('HELLO')}
+  <div class="hello">
+    <figure class="polaroid hello-photo">
+      <img src="${esc(p.photo)}" alt="${esc(p.photoAlt)}" width="800" height="1040" loading="lazy" />
+      <figcaption>${esc(p.nameKo)}, ${esc(p.handle)}</figcaption>
+    </figure>
+    <div>
+      <h2>${esc(p.nameKo)} <span class="sub">${esc(p.name)}, 닉네임 ${esc(p.handle)}</span></h2>
+      <ul class="lines">${p.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
+    </div>
+  </div>
+  <p class="headline">${esc(p.headline)}</p>
+  <p class="lead">${esc(c.about)}</p>
+  ${chips(p.interests, 'chip chip-accent')}
+  ${r ? interestBlock(p, r) : ''}
+  <p class="btn-row">${btn('GitHub ↗', p.links.github, { solid: true })}${btn('PNU CV Lab ↗', p.links.lab)}${btn('Velog ↗', p.links.velog)}</p>`;
+}
+
+export function researchPanel(r) {
+  return `
+  ${kicker('RESEARCH')}
+  <h2>공부하고 있는 문제</h2>
+  <p class="lead">${esc(r.problem)}</p>
+  <blockquote class="pull">${esc(r.angle)}<span lang="en">${esc(r.angleEn)}</span></blockquote>
+  <p class="muted">${esc(r.status)}</p>
+  ${r.activities && r.activities.length ? `<p class="label">발표와 세미나</p>${activityList(r)}` : ''}
+  ${paperBoard(r)}`;
 }
 
 export function projectPanel(pr) {
-  const mine = pr.nodes.filter((n) => n.mine).map((n) => n.label);
-  const result = esc(pr.result);
   return `
-  ${kicker(pr.featured ? 'SYSTEMS · 대표 프로젝트' : 'SYSTEMS')}
+  ${kicker(pr.featured ? '대표 프로젝트' : 'SYSTEMS')}
   <h2>${esc(pr.title)}${pr.live ? ' <span class="live">LIVE</span>' : ''} <span class="sub">${esc(pr.subtitle)}</span></h2>
-  <p class="meta">${esc(pr.period)} · ${esc(pr.team)}</p>
+  <p class="meta">${meta(pr)}</p>
   <dl class="case">
-    <div><dt>문제 정의</dt><dd>${esc(pr.problem)}</dd></div>
-    <div><dt>구조</dt><dd><ol class="flow" aria-label="데이터 흐름">${flowText(pr).map((s) => `<li>${esc(s)}</li>`).join('')}</ol></dd></div>
-    ${pr.role || mine.length ? `<div><dt>내 역할</dt><dd>${esc(pr.role || '')}${mine.length ? `<p class="mine">담당 블록: ${mine.map(esc).join(', ')}</p>` : ''}</dd></div>` : ''}
-    <div><dt>기술적 결정</dt><dd><ul>${pr.decisions.map((d) => `<li>${esc(d)}</li>`).join('')}</ul></dd></div>
-    <div><dt>결과</dt><dd>${result}</dd></div>
-    <div><dt>기술 스택</dt><dd>${chips(pr.stack)}</dd></div>
-    <div><dt>링크</dt><dd><p class="btn-row">${pr.links.map((l, i) => btn(`${l.label}${l.url ? ' ↗' : ''}`, l.url, { solid: i === 0 })).join('')}</p>${pr.linkNote ? `<p class="muted">${esc(pr.linkNote)}</p>` : ''}</dd></div>
+    ${row('문제 정의', esc(pr.problem))}
+    ${row('구조', `<p>${flowSentence(pr)}</p>${mineSentence(pr)}`)}
+    ${row('내가 한 일', list(pr.did))}
+    ${row('기술적 결정', list(pr.decisions))}
+    ${row('결과', esc(pr.result))}
+    ${row('아쉬운 점', pr.lesson ? esc(pr.lesson) : '')}
+    ${row('기술 스택', chips(pr.stack))}
+    ${row('링크', links(pr))}
   </dl>`;
 }
 
@@ -91,8 +130,7 @@ export function stackPanel(s) {
   return `
   ${kicker('STACK')}
   <h2>기술 스택</h2>
-  <div class="rows">${s.rows.map((r) => `<div class="row"><p class="label">${esc(r.name)}</p>${chips(r.items, 'chip chip-badge')}</div>`).join('')}</div>
-  <p class="muted">이 사이트: ${s.thisSite.map(esc).join(' · ')}</p>`;
+  ${skillList(s)}`;
 }
 
 export function contactPanel(p) {
@@ -100,74 +138,111 @@ export function contactPanel(p) {
   ${kicker('NEXT STOP')}
   <h2>연락처와 이력서</h2>
   <p class="btn-row">
-    ${btn('⬇ 이력서 다운로드 (PDF)', p.links.resume, { solid: true, download: '안소희-이력서.pdf' })}
-    ${btn(`✉ ${p.links.email}`, `mailto:${p.links.email}`)}
+    ${btn('이력서 PDF 내려받기', p.links.resume, { solid: true, download: '안소희-이력서.pdf' })}
+    ${btn(p.links.email, `mailto:${p.links.email}`)}
     ${btn('GitHub ↗', p.links.github)}
     ${btn('Velog ↗', p.links.velog)}
-    ${btn('PNU CV Lab ↗', p.links.lab)}
   </p>`;
 }
 
-/* ---------- whole flat page (default 2D resume) ---------- */
+/* ---------- 2D page (default) ---------- */
 const sec = (id, num, title, body) => `
   <section class="r-sec" id="${id}">
     <h2 class="r-title"><span class="r-num">${num}</span>${esc(title)}</h2>
     ${body}
   </section>`;
 
-function projectSummary(pr) {
+function featuredBlock(pr) {
   return `
-  <details class="proj" id="project-${esc(pr.id)}">
-    <summary>
-      <span class="proj-head"><strong>${esc(pr.title)}</strong>${pr.live ? ' <span class="live">LIVE</span>' : ''} <span class="proj-sub">${esc(pr.subtitle)}</span></span>
-      <span class="proj-meta">${esc(pr.period)} · ${esc(pr.team)}${pr.role ? ` · ${esc(pr.role)}` : ''}</span>
-      <span class="proj-result">${esc(pr.result)}</span>
-    </summary>
-    <div class="proj-body">${projectPanel(pr)}</div>
-  </details>`;
+  <article class="feat">
+    <h3 class="feat-title">${esc(pr.title)}${pr.live ? ' <span class="live">LIVE</span>' : ''} <span class="proj-sub">${esc(pr.subtitle)}</span></h3>
+    ${pr.summary ? `<p class="feat-sum">${esc(pr.summary)}</p>` : ''}
+    <p class="proj-meta">${meta(pr)}</p>
+    ${pr.screenshot ? `<img class="feat-shot" src="${esc(pr.screenshot)}" alt="${esc(pr.title)} 화면" loading="lazy" />` : ''}
+    <dl class="case">
+      ${row('문제 정의', esc(pr.problem))}
+      ${row('내가 한 일', list(pr.did))}
+      ${row('기술적 결정과 이유', list(pr.decisions))}
+      ${row('결과', esc(pr.result))}
+      ${row('아쉬운 점', pr.lesson ? esc(pr.lesson) : '')}
+      ${row('구조', `<p>${flowSentence(pr)}</p>${mineSentence(pr)}`)}
+      ${row('기술 스택', esc(pr.stack.join(', ')))}
+      ${row('링크', links(pr))}
+    </dl>
+  </article>`;
 }
 
-export function renderFlat({ profile: p, copy: c, projects, research, stack, resume }) {
+function projectCard(pr) {
+  return `
+  <article class="proj" id="project-${esc(pr.id)}">
+    <h3 class="proj-head">${esc(pr.title)}${pr.live ? ' <span class="live">LIVE</span>' : ''}</h3>
+    <p class="proj-sub">${esc(pr.subtitle)}</p>
+    <p class="proj-meta">${meta(pr)}</p>
+    ${links(pr)}
+    <details>
+      <summary>구조와 기술적 결정 보기</summary>
+      <dl class="case">
+        ${row('문제 정의', esc(pr.problem))}
+        ${row('구조', `<p>${flowSentence(pr)}</p>${mineSentence(pr)}`)}
+        ${row('기술적 결정', list(pr.decisions))}
+        ${row('결과', esc(pr.result))}
+        ${row('기술 스택', esc(pr.stack.join(', ')))}
+      </dl>
+    </details>
+  </article>`;
+}
+
+const cvList = (items) => `<ul class="cv-list">${items.map((e) => `<li><span class="cv-when">${esc(e.period || '')}</span><div><strong>${esc(e.title)}</strong>${e.note ? `<p>${esc(e.note)}</p>` : ''}${e.items ? list(e.items) : ''}</div></li>`).join('')}</ul>`;
+
+export function renderFlat({ profile: p, copy: c, projects, research: r, stack, resume }) {
   const featured = projects.find((x) => x.featured);
   const others = projects.filter((x) => !x.featured);
   return `
-  <section class="r-hero" id="top">
-    <div class="r-hero-text">
-      <p class="r-handle">${esc(p.handle)}</p>
-      <h1>${esc(p.nameKo)} <span class="r-en">${esc(p.name)}</span></h1>
-      <p class="r-tagline">${esc(p.tagline)}</p>
-      <p class="r-headline">${esc(p.headline)}</p>
-      <p class="lead">${esc(c.about)}</p>
-      <p class="btn-row">
-        ${btn('GitHub @' + p.handle, p.links.github, { solid: true })}
-        ${btn('⬇ 이력서 PDF', p.links.resume, { download: '안소희-이력서.pdf' })}
-        ${btn(`✉ ${p.links.email}`, `mailto:${p.links.email}`)}
-        ${btn('Velog ↗', p.links.velog)}
-        ${btn('PNU CV Lab ↗', p.links.lab)}
-      </p>
+  <section class="r-sec r-hero" id="top">
+    <h2 class="r-title"><span class="r-num">00</span>소개</h2>
+    <div class="r-hero-grid">
+      <div>
+        <p class="r-handle">닉네임 ${esc(p.handle)}</p>
+        <h1>${esc(p.nameKo)} <span class="r-en">${esc(p.name)}</span></h1>
+        <p class="r-tagline">${esc(p.tagline)}</p>
+        <ul class="lines">${p.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
+        <p class="r-headline">${esc(p.headline)}</p>
+        <p class="lead">${esc(c.about)}</p>
+        ${chips(p.interests, 'chip chip-accent')}
+        <p class="btn-row">
+          ${btn('GitHub ↗', p.links.github, { solid: true })}
+          ${btn(p.links.email, `mailto:${p.links.email}`)}
+          ${RESUME(p)}
+          ${btn('Velog ↗', p.links.velog)}
+          ${btn('PNU CV Lab ↗', p.links.lab)}
+        </p>
+      </div>
+      <figure class="polaroid r-photo">
+        <img src="${esc(p.photo)}" alt="${esc(p.photoAlt)}" width="800" height="1040" fetchpriority="high" />
+        <figcaption>${esc(p.nameKo)}, ${esc(p.handle)}</figcaption>
+      </figure>
     </div>
-    <figure class="polaroid r-photo">
-      <img src="${esc(p.photo)}" alt="${esc(p.photoAlt)}" width="800" height="1040" fetchpriority="high" />
-      <figcaption>${esc(p.nameKo)} · ${esc(p.handle)}</figcaption>
-    </figure>
     <a class="r-3d" href="/3d.html">
-      <span class="r-3d-k">3D 버전</span>
+      <span class="r-3d-k">3D 버전 (선택)</span>
       <span class="r-3d-t">${esc(c.question)}</span>
-      <span class="r-3d-s">사진 한 장이 점 구름이 되고, 걸어 다닐 수 있는 3D 캠퍼스가 됩니다 →</span>
+      <span class="r-3d-s">사진 한 장이 점 구름이 되고, 걸어 다닐 수 있는 3D 캠퍼스가 되는 버전도 있습니다. 내용은 이 페이지와 같습니다.</span>
     </a>
   </section>
-  ${sec('focus', '00', '현재 관심 분야', `
-    <div class="focus">${p.focus.map((f) => `<article class="focus-card"><h3>${esc(f.title)}</h3><p>${esc(f.body)}</p></article>`).join('')}</div>
-    <dl class="now-next"><div><dt>NOW</dt><dd>${esc(p.now)}</dd></div><div><dt>NEXT</dt><dd>${esc(p.next)}</dd></div></dl>`)}
-  ${sec('systems', '01', '대표 프로젝트', `<div class="panel panel-featured">${projectPanel(featured)}</div>`)}
-  ${sec('projects', '02', '다른 프로젝트', `<p class="muted">눌러서 펼치면 문제 정의·구조·역할·기술적 결정을 볼 수 있습니다.</p>${others.map(projectSummary).join('')}`)}
-  ${sec('research', '03', '연구', `<div class="panel">${researchPanel(research)}</div>`)}
-  ${sec('resume', '04', '이력서', `
+  ${sec('focus', '01', '관심 분야', interestBlock(p, r))}
+  ${sec('research', '02', '연구 활동', `
+    <p class="lead">${esc(r.status)}</p>
+    ${r.activities && r.activities.length ? `<p class="label">발표와 세미나</p>${activityList(r)}` : ''}
+    ${paperBoard(r)}`)}
+  ${sec('systems', '03', '대표 프로젝트', featuredBlock(featured))}
+  ${sec('projects', '04', '다른 프로젝트', `<div class="proj-grid">${others.map(projectCard).join('')}</div>`)}
+  ${sec('resume', '05', '이력', `
     <div class="cv">
-      <div class="cv-row"><h3>학력</h3><ul class="cv-list">${resume.education.map((e) => `<li><span class="cv-when">${esc(e.period)}</span><div><strong>${esc(e.title)}</strong><p>${esc(e.note)}</p></div></li>`).join('')}</ul></div>
-      <div class="cv-row"><h3>활동</h3><ul class="cv-list">${resume.activities.map((a) => `<li><span class="cv-when">${esc(a.period)}</span><div><strong>${esc(a.title)}</strong><ul>${a.items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div></li>`).join('')}</ul></div>
-      <div class="cv-row"><h3>기술</h3><dl class="cv-skills">${resume.skills.map((r) => `<div><dt>${esc(r.name)}</dt><dd>${r.items.map(esc).join(' · ')}</dd></div>`).join('')}</dl></div>
+      <div class="cv-row"><h3>학력</h3>${cvList(resume.education)}</div>
+      ${resume.research && resume.research.length ? `<div class="cv-row"><h3>연구</h3>${cvList(resume.research)}</div>` : ''}
+      <div class="cv-row"><h3>활동</h3>${cvList(resume.activities)}</div>
+      <div class="cv-row"><h3>기술</h3>${skillList(stack)}</div>
     </div>
-    <p class="btn-row">${btn('⬇ 이력서 PDF 내려받기', p.links.resume, { solid: true, download: '안소희-이력서.pdf' })}${btn('GitHub @' + p.handle, p.links.github)}${btn(`✉ ${p.links.email}`, `mailto:${p.links.email}`)}</p>`)}
+    <h3 class="contact-h">연락처</h3>
+    <p class="btn-row">${btn('GitHub ↗', p.links.github, { solid: true })}${btn(p.links.email, `mailto:${p.links.email}`)}${RESUME(p)}</p>`)}
   <p class="ending">${esc(c.ending)}</p>`;
 }

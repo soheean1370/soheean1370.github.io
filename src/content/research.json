@@ -1,17 +1,16 @@
 {
-  "problem": "인물 사진 한 장만으로 다른 각도의 모습을 만들어 내되, 같은 사람으로 보이고(identity) 3D로도 어긋나지 않게 하는 문제",
-  "angle": "카메라가 본 것은 지키고, 보지 못한 것만 상상하기",
-  "angleEn": "Keep what the camera saw; imagine only what it didn't.",
+  "problem": "셀카 한 장으로 다른 각도의 얼굴을 만들되, 같은 사람으로 보이고 3D로도 어긋나지 않게 하는 문제",
+  "angle": "카메라가 본 부분은 원본 픽셀을 지키고, 가려져 있던 부분만 새로 만든다.",
+  "angleEn": "Keep the pixels the camera saw; generate only what was hidden.",
   "status": "아직 연구 결과물은 없고, 관련 논문을 읽으며 정리하는 단계입니다.",
-  "surveyNote": "단일 인물 사진 시점 변환 논문 15편을 접근 방식 4가지로 나눠 정리했습니다. (분류와 논문 이름만 공개)",
+  "surveyNote": "셀카 한 장으로 시점을 바꾸는 논문 15편을 접근 방식 네 갈래로 나눠 정리했습니다. 분류와 논문 이름만 공개합니다.",
   "groups": [
     {
       "id": "A",
-      "title": "2D warping",
+      "title": "원본 사진 변형 (2D)",
       "papers": [
-        "Perspective-aware manipulation",
-        "DisCO",
-        "SUPER",
+        "Perspective-aware Manipulation (Fried et al., 2016)",
+        "Alhawwary et al. (TPAMI 2025)",
         "LivePortrait"
       ],
       "note": null
@@ -21,7 +20,9 @@
       "title": "3D GAN inversion",
       "papers": [
         "EG3D",
-        "PanoHead"
+        "PanoHead",
+        "DisCO",
+        "SUPER"
       ],
       "note": null
     },
@@ -42,14 +43,31 @@
         "DiffPortrait3D",
         "DiffPortrait360",
         "TurboPortrait3D",
-        "GeoDiff4D"
+        "GeoDiff4D",
+        "NVB-Face"
       ],
       "note": "보이지 않던 쪽은 잘 상상하지만, 얼굴이 다른 사람처럼 바뀔 수 있음"
     }
   ],
-  "nowLearning": [
-    "Diffusion",
-    "NeRF",
-    "3D Gaussian Splatting"
+  "nowLearning": null,
+  "activities": [
+    {
+      "date": "2026.10.02",
+      "title": "연구실 관심 분야 발표",
+      "body": "셀카 시점 바꾸기 연구를 네 갈래(원본 사진 변형, 3D GAN inversion, feed-forward 3D, diffusion)로 나눠 정리해 발표했습니다.",
+      "url": null
+    },
+    {
+      "date": "2026.10.16",
+      "title": "논문 세미나",
+      "body": "NeRF(ECCV 2020)를 약 30분 동안 발표하고, 후속 흐름으로 NeRF-W와 SHARP를 소개했습니다.",
+      "url": null
+    },
+    {
+      "date": "2026.10.27",
+      "title": "랩미팅",
+      "body": "셀카의 시점을 바꾸면 얼굴뿐 아니라 배경도 함께 바뀌어야 한다는 문제를 정리하고, 공개 모델부터 직접 돌려 보기로 계획했습니다.",
+      "url": null
+    }
   ]
 }

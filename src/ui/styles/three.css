@@ -127,3 +127,19 @@ kbd { font-family: var(--mono); font-size: .72em; padding: 1px 6px; border: 1px 
 .now-next div { display: flex; gap: 10px; align-items: baseline; }
 .now-next dt { font: 800 .72rem/1 var(--mono, monospace); letter-spacing: .08em; color: var(--ink); background: var(--horizon); border-radius: 6px; padding: 4px 6px; min-width: 42px; text-align: center; }
 .now-next dd { margin: 0; font-size: .92rem; font-weight: 600; }
+
+/* panels: question, timeline, skills (shared markup with the 2D page) */
+.q-text { font-size: 1.05rem; font-weight: 800; margin: 0; }
+.q-angle { font-weight: 600; margin: 0; padding-left: 12px; border-left: 4px solid var(--clay); }
+.question { margin: 12px 0 0; }
+.now-next ul { margin: 0; padding-left: 1.1em; }
+.timeline { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 10px; }
+.timeline > li { display: grid; grid-template-columns: 92px 1fr; gap: 10px; font-size: .9rem; }
+.timeline p { margin: 2px 0 0; }
+.cv-when { font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); }
+.cv-skills { margin: 8px 0 0; display: grid; gap: 8px; }
+.cv-skills div { display: grid; grid-template-columns: 90px 1fr; gap: 10px; font-size: .9rem; }
+.cv-skills dt { font-weight: 800; }
+.cv-skills dd { margin: 0; }
+.cv-skills small { display: block; font-size: .78rem; color: var(--ink-soft); }
+.case p { margin: 0; }

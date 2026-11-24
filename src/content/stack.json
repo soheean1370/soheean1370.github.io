@@ -1,53 +1,69 @@
 {
   "rows": [
     {
-      "name": "AI / ML",
+      "name": "AI 모델",
       "items": [
         "PyTorch",
-        "Hugging Face",
-        "transformers",
+        "Whisper",
+        "transformers"
+      ],
+      "where": "FarmForYou, 별점 예측"
+    },
+    {
+      "name": "컴퓨터 비전",
+      "items": [
         "OpenCV",
-        "scikit-learn"
-      ]
+        "PaddleOCR",
+        "EasyOCR"
+      ],
+      "where": "EatWise"
     },
     {
       "name": "LLM",
       "items": [
         "GPT-5",
         "Gemini",
-        "RAG",
-        "LangChain",
-        "Ollama",
-        "Prompt / Eval"
-      ]
+        "Ollama"
+      ],
+      "where": "FireGenerators, EatWise, 오픈소스 컨트리뷰션 아카데미"
     },
     {
-      "name": "Backend / Data",
+      "name": "AI 백엔드",
       "items": [
         "FastAPI",
-        "Python",
         "Supabase",
-        "PostgreSQL",
         "Pinecone",
-        "Firebase",
-        "Docker"
-      ]
+        "Firebase"
+      ],
+      "where": "FireGenerators, EatWise, FarmForYou, WithPNU"
     },
     {
-      "name": "Base",
+      "name": "화면",
       "items": [
-        "C++",
-        "C",
-        "NumPy",
-        "Pandas",
-        "Git"
-      ]
+        "Streamlit",
+        "Kotlin"
+      ],
+      "where": "FireGenerators, EatWise, WithPNU"
+    },
+    {
+      "name": "언어",
+      "items": [
+        "Python",
+        "Kotlin",
+        "C++"
+      ],
+      "where": "Python은 AI 프로젝트 전반, Kotlin은 WithPNU"
     }
   ],
+  "llmUse": {
+    "name": "LLM 활용",
+    "text": "RAG, 프롬프트 설계와 평가",
+    "where": "FireGenerators, 구름 딥다이브 과정"
+  },
   "thisSite": [
     "React Three Fiber",
     "drei",
-    "custom GLSL",
+    "직접 쓴 GLSL 셰이더",
     "Vite",
     "GitHub Actions"
   ]

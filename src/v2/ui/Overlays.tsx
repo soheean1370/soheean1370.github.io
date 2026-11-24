@@ -9,7 +9,7 @@ import { SECTIONS } from '../layout';
 
 /** short card that appears by itself at each stop, so every section is readable without hunting for clicks */
 const CARDS: Record<string, { title: string; body: string; open: any }> = {
-  hello: { title: `${profile.nameKo} · ${profile.handle}`, body: profile.headline, open: { kind: 'hello' } },
+  hello: { title: `${profile.nameKo}, ${profile.handle}`, body: profile.headline, open: { kind: 'hello' } },
   research: { title: '공부하고 있는 문제', body: '사진 한 장으로 다른 각도를 만들되, 같은 사람으로 보이게. 논문 15편을 4가지 접근으로 정리했습니다.', open: { kind: 'research' } },
   systems: { title: '만든 시스템 6개', body: '조형물 하나가 프로젝트 하나입니다. 분홍 테두리 블록이 제가 맡은 부분이에요. 조형물을 누르면 자세히 볼 수 있습니다.', open: { kind: 'project', id: 'firegenerators' } },
   stack: { title: '기술 스택', body: '배지에 마우스를 올리면 그 기술을 쓴 프로젝트로 빛줄기가 이어집니다.', open: { kind: 'stack' } },
@@ -66,7 +66,7 @@ export function Ending() {
       </figure>
       <p className="ending-actions">
         <button className="btn btn-solid" type="button" onClick={() => scrollToP(0, 3)}>↺ 처음부터 다시 보기</button>
-        <a className="btn" href={profile.links.resume} download="안소희-이력서.pdf">⬇ 이력서</a>
+        <a className="btn" href={profile.links.resume} download="안소희-이력서.pdf">이력서 PDF</a>
         <a className="btn" href={profile.links.github} target="_blank" rel="noopener">GitHub ↗</a>
         <a className="btn" href="/">2D 이력서</a>
       </p>
