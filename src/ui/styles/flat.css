@@ -92,3 +92,55 @@ a.btn-solid:hover { background: #2c2540; }
 .now-next div { display: flex; gap: 10px; align-items: baseline; }
 .now-next dt { font: 800 .72rem/1 var(--mono, monospace); letter-spacing: .08em; color: var(--ink); background: var(--horizon); border-radius: 6px; padding: 4px 6px; min-width: 42px; text-align: center; }
 .now-next dd { margin: 0; font-size: .92rem; font-weight: 600; }
+
+/* ---------- 2D resume (default page) ---------- */
+.r-hero { display: grid; grid-template-columns: 1fr minmax(180px, 240px); gap: clamp(20px, 4vw, 48px); align-items: start; padding: clamp(32px, 6vw, 64px) 0 24px; }
+.r-handle { font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; color: var(--ink-soft); margin: 0; }
+.r-hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; margin: 4px 0 0; }
+.r-en { font-size: .42em; font-weight: 600; color: var(--ink-soft); letter-spacing: 0; }
+.r-tagline { font-weight: 700; color: var(--ink-soft); margin: 6px 0 0; }
+.r-headline { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 800; letter-spacing: -.02em; margin: 18px 0 8px; }
+.r-photo { transform: rotate(2deg); margin-top: 12px; }
+.r-photo figcaption { font-size: .82rem; padding: 8px 0 10px; }
+.r-3d { grid-column: 1 / -1; display: grid; gap: 4px; text-decoration: none; padding: 18px 22px; border-radius: 18px; color: #fff; background: linear-gradient(120deg, #3E3550 0%, #6B5C8E 55%, #C98DB0 100%); box-shadow: var(--shadow); transition: transform .2s; }
+.r-3d:hover { transform: translateY(-2px); }
+.r-3d-k { font-family: var(--mono); font-size: .74rem; letter-spacing: .14em; opacity: .8; }
+.r-3d-t { font-size: 1.1rem; font-weight: 800; }
+.r-3d-s { font-size: .9rem; opacity: .9; }
+@media (max-width: 720px) { .r-hero { grid-template-columns: 1fr; } .r-photo { order: -1; width: min(200px, 56%); } }
+
+.r-sec { padding: 40px 0 8px; }
+.r-title { display: flex; align-items: baseline; gap: 12px; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1.5px solid rgba(62,53,80,.15); }
+.r-num { font-family: var(--mono); font-size: .8rem; font-weight: 600; color: #b24b78; }
+.r-sec .panel { margin: 0; }
+.focus { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.focus-card { background: #fff; }
+
+.proj { background: #fff; border-radius: 16px; margin: 10px 0; box-shadow: 0 6px 16px rgba(62,53,80,.06); border: 1px solid rgba(62,53,80,.08); }
+.proj > summary { list-style: none; cursor: pointer; padding: 16px 20px; display: grid; gap: 2px; position: relative; padding-right: 48px; }
+.proj > summary::-webkit-details-marker { display: none; }
+.proj > summary::after { content: "+"; position: absolute; right: 20px; top: 14px; font-size: 1.4rem; font-weight: 600; color: var(--ink-soft); }
+.proj[open] > summary::after { content: "−"; }
+.proj-head strong { font-size: 1.1rem; }
+.proj-sub { color: var(--ink-soft); font-weight: 600; font-size: .92rem; }
+.proj-meta { font-size: .84rem; color: var(--ink-soft); }
+.proj-result { font-size: .92rem; font-weight: 600; }
+.proj-body { padding: 0 20px 20px; }
+.proj-body .kicker, .proj-body h2, .proj-body .meta { display: none; }
+.proj-body .case { margin-top: 0; }
+.proj-body .case > div { background: var(--paper); }
+
+.cv { display: grid; gap: 22px; }
+.cv-row { display: grid; grid-template-columns: 90px 1fr; gap: 16px; }
+.cv-row h3 { font-size: 1rem; margin: 0; color: var(--ink-soft); }
+.cv-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.cv-list > li { display: grid; grid-template-columns: 150px 1fr; gap: 12px; }
+.cv-when { font-family: var(--mono); font-size: .8rem; color: var(--ink-soft); padding-top: 3px; }
+.cv-list p { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+.cv-list ul { margin: 2px 0 0; padding-left: 1.1em; font-size: .92rem; }
+.cv-skills { margin: 0; display: grid; gap: 6px; }
+.cv-skills div { display: grid; grid-template-columns: 100px 1fr; gap: 12px; }
+.cv-skills dt { font-weight: 800; font-size: .86rem; }
+.cv-skills dd { margin: 0; font-size: .92rem; }
+@media (max-width: 640px) { .cv-row, .cv-list > li, .cv-skills div { grid-template-columns: 1fr; gap: 2px; } }
+.ending { text-align: center; font-weight: 700; margin: 48px 0 0; }

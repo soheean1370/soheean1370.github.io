@@ -91,7 +91,7 @@
       "테스트 결과가 콘텐츠 큐레이션과 ETF 추천으로 이어지도록 Supabase 프로필 스키마 설계"
     ],
     "result": "레벨 테스트 → 개인 리포트 → 추천으로 이어지는 전체 흐름 완성, 평가 기반 프롬프트 개선으로 리포트 일관성 향상",
-    "resultNumbers": null,
+    "resultNumbers": "",
     "stack": [
       "Streamlit",
       "FastAPI",
@@ -103,10 +103,6 @@
       {
         "label": "소스 코드",
         "url": "https://github.com/soheean1370/FireGenerators"
-      },
-      {
-        "label": "데모",
-        "url": null
       }
     ],
     "linkNote": "라이브 데모 없음 (저장소 README에 스크린샷)"
@@ -473,21 +469,40 @@
   {
     "id": "withpnu",
     "title": "WithPNU",
-    "subtitle": "캠퍼스 제휴 정보 앱",
-    "period": "2024",
-    "team": "부산대 SW 해커톤 · 4인 팀",
-    "role": null,
-    "problem": "흩어져 있는 학생 대상 제휴·상권 정보를 한 앱에 모은 서비스입니다.",
+    "subtitle": "부산대 제휴·상권 정보 통합 앱",
+    "period": "2024.05–08",
+    "team": "제5회 부산대 SW 융합 해커톤 · 4인 팀",
+    "role": "팀 총괄, 백엔드 개발 (인증·데이터베이스·크롤링)",
+    "problem": "부산대 앞 상권 공실률이 25.6%까지 올라갔지만, 학생 제휴 정보는 인스타그램·에브리타임·카카오톡·학생회 사이트에 흩어져 있어 학생들이 혜택을 놓칩니다. 제휴 정보를 한 앱에 모으고 리뷰로 학생과 상인을 잇는 서비스입니다.",
     "nodes": [
       {
         "id": "crawl",
-        "label": "Crawler",
+        "label": "Notice crawler",
+        "kind": "input",
+        "mine": true
+      },
+      {
+        "id": "admin",
+        "label": "Admin posting",
         "kind": "input"
       },
       {
-        "id": "fb",
-        "label": "Firebase",
-        "kind": "db"
+        "id": "auth",
+        "label": "Firebase Auth (PNU webmail)",
+        "kind": "api",
+        "mine": true
+      },
+      {
+        "id": "db",
+        "label": "Realtime Database",
+        "kind": "db",
+        "mine": true
+      },
+      {
+        "id": "storage",
+        "label": "Firebase Storage",
+        "kind": "db",
+        "mine": true
       },
       {
         "id": "app",
@@ -496,17 +511,29 @@
       },
       {
         "id": "map",
-        "label": "Google Places API",
+        "label": "Google Maps markers",
         "kind": "api"
       }
     ],
     "edges": [
       [
         "crawl",
-        "fb"
+        "db"
       ],
       [
-        "fb",
+        "admin",
+        "auth"
+      ],
+      [
+        "auth",
+        "db"
+      ],
+      [
+        "db",
+        "storage"
+      ],
+      [
+        "storage",
         "app"
       ],
       [
@@ -515,21 +542,29 @@
       ]
     ],
     "decisions": [
-      "웹 크롤링으로 제휴 정보를 실시간 수집",
-      "Google Places API로 위치 기반 추천"
+      "부산대 웹메일 인증을 거친 계정만 가입하게 하고, 관리자 인증코드를 입력한 계정만 제휴 공지를 쓰고 고칠 수 있게 권한을 나눔",
+      "제휴·리뷰·공지사항을 Realtime Database에 카테고리 8종과 제휴 기간 기준으로 나눠 저장해, 카테고리별 보기와 \"진행 중인 제휴만 보기\"를 질의 하나로 처리",
+      "제휴 공고 이미지는 Firebase Storage에 올리고 DB에는 경로만 저장해 목록 로딩을 가볍게 유지",
+      "학생회·단과대 제휴 공지를 크롤링해 DB를 갱신하고, 가게 위치는 좌표로 저장해 지도 마커로 바로 쓰도록 구성"
     ],
-    "result": "해커톤 장려상 🏅",
+    "result": "홈·디테일·지도·사용자/관리자 마이페이지 전 화면 구현, 해커톤 장려상 수상 🏅",
     "resultNumbers": "",
     "stack": [
       "Kotlin",
-      "Firebase",
-      "Google Places API",
-      "JavaScript"
+      "Firebase Auth",
+      "Firebase Realtime Database",
+      "Firebase Storage",
+      "Google Maps",
+      "Web Crawling"
     ],
     "links": [
       {
         "label": "소스 코드",
-        "url": "https://github.com/soheean1370/WithPNU"
+        "url": "https://github.com/The-5th-PNU-Convergence-SW-Hackathon/PNUSW-2024-team-02"
+      },
+      {
+        "label": "시연 영상",
+        "url": "https://youtu.be/2g-vNY3k8fw"
       }
     ]
   }

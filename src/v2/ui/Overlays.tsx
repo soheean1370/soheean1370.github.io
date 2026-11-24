@@ -68,7 +68,7 @@ export function Ending() {
         <button className="btn btn-solid" type="button" onClick={() => scrollToP(0, 3)}>↺ 처음부터 다시 보기</button>
         <a className="btn" href={profile.links.resume} download="안소희-이력서.pdf">⬇ 이력서</a>
         <a className="btn" href={profile.links.github} target="_blank" rel="noopener">GitHub ↗</a>
-        <a className="btn" href="/flat.html">2D 버전</a>
+        <a className="btn" href="/">2D 이력서</a>
       </p>
     </section>
   );
@@ -81,7 +81,7 @@ export function Loader() {
   return (
     <div className={`loader${ready ? ' done' : ''}`} aria-hidden={ready}>
       <div className="loader-photo"><span>현상 중…</span></div>
-      <a className={`loader-skip${slow ? ' show' : ''}`} href="/flat.html">2D 버전으로 보기 →</a>
+      <a className={`loader-skip${slow ? ' show' : ''}`} href="/">2D 이력서로 보기 →</a>
     </div>
   );
 }

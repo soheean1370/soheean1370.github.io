@@ -5,8 +5,8 @@
 Novel View Synthesis(사진 한 장으로 새로운 시점 만들기)를 주제로 한 3D 포트폴리오입니다.
 해 질 녘 미국 고등학교 캠퍼스를 찍은 폴라로이드 한 장이 깊이를 가진 점으로 떠오르고, 시점이 돌며 카메라가 보지 못한 구멍이 드러난 뒤, 그 구멍이 채워지며 걸어 다닐 수 있는 3D 캠퍼스가 됩니다.
 
-- 3D 버전: https://soheean1370.github.io/
-- 2D 버전 (모든 내용을 한 페이지로): https://soheean1370.github.io/flat.html
+- 기본 화면 (2D 이력서형 포트폴리오): https://soheean1370.github.io/
+- 3D 버전: https://soheean1370.github.io/3d.html
 
 ## 구성
 | 구간 | 장소 | 카메라 | 내용 |
@@ -22,7 +22,7 @@ Novel View Synthesis(사진 한 장으로 새로운 시점 만들기)를 주제�
 - 스크롤: 길을 따라 이동 · 위쪽 바의 1–5: 구간 이동
 - 조형물·물건 클릭: 상세 패널 (모든 물건은 Tab으로 이동 가능한 버튼으로도 있음)
 - `V`: 점 구름 모드 · `D`: 개발자 오버레이 (fps, draw calls, 삼각형 수, 점 개수) · `Esc`: 패널 닫기
-- WebGL을 쓸 수 없거나 `prefers-reduced-motion`이면 2D 버전으로 이동
+- WebGL을 쓸 수 없거나 `prefers-reduced-motion`이면 2D 이력서로 이동
 
 ## NVS 데모 원리
 1. 로딩 때 정문 앞 카메라에서 장면을 색 + 깊이(`WebGLRenderTarget` + `DepthTexture`)로 한 번 렌더 → "사진 한 장"
@@ -45,9 +45,9 @@ npm run build
 
 ## 구조
 ```
-index.html            3D 버전
-flat.html             2D 버전 (src/content를 빌드 때 HTML로 구움)
-src/content/          모든 글 (profile, copy, research, projects, stack) + render.js
+index.html            기본 화면: 2D 이력서 (src/content를 빌드 때 HTML로 구움)
+3d.html               3D 버전
+src/content/          모든 글 (profile, copy, research, projects, stack, resume) + render.js
 src/v2/               3D: layout(장면 배치·카메라 키프레임), world/, nvs/, ui/
 public/               resume.pdf, photos/profile.webp, og-image.png, fonts/
 ```

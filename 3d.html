@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>안소희 — One Photo, Every Angle (3D)</title>
+  <meta name="description" content="AI 백엔드 개발자 · PNU CV Lab 학부연구생 · Novel View Synthesis. 사진 한 장이 3D 캠퍼스가 되는 포트폴리오." />
+  <meta property="og:title" content="안소희 — One Photo, Every Angle" />
+  <meta property="og:description" content="카메라가 없던 자리에서 보면, 이 사진은 어떤 모습일까? 사진 한 장이 3D 캠퍼스가 되는 포트폴리오." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://soheean1370.github.io/3d.html" />
+  <meta property="og:image" content="https://soheean1370.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#F3D6E4" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" />
+  <script>
+    // no WebGL or reduced motion → the 2D version (plan §7-6)
+    (function () {
+      var c = document.createElement('canvas');
+      var gl = c.getContext('webgl2') || c.getContext('webgl');
+      if (!gl || matchMedia('(prefers-reduced-motion: reduce)').matches) location.replace('/');
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="/flat.html">본문으로 바로가기 (2D 버전)</a>
+  <div id="root"></div>
+  <noscript><p style="padding:24px;font-family:sans-serif">이 3D 포트폴리오는 자바스크립트가 필요합니다. <a href="/flat.html">2D 버전 보기 →</a></p></noscript>
+  <script type="module" src="/src/v2/main.tsx"></script>
+</body>
+</html>

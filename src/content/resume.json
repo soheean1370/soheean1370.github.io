@@ -1,0 +1,82 @@
+{
+  "education": [
+    {
+      "title": "부산대학교 정보컴퓨터공학부",
+      "period": "2023.03 –",
+      "note": "재학 · PNU CV Lab 학부연구생"
+    },
+    {
+      "title": "Council Rock High School North (미국 펜실베이니아)",
+      "period": "2018.09 – 2022.06",
+      "note": "졸업"
+    }
+  ],
+  "activities": [
+    {
+      "title": "구름 딥다이브 — 생성형 AI 3기",
+      "period": "2025.03 – 2025.09",
+      "items": [
+        "LLM, RAG, AI 서비스 개발 중심의 집중 과정 수료",
+        "Python·PyTorch·FastAPI·LLM API로 AI 기능을 개발하고 배포"
+      ]
+    },
+    {
+      "title": "AIDeveloper — 부산대 정보컴퓨터공학부 학술 동아리",
+      "period": "2023.03 –",
+      "items": [
+        "50명 이상 디스코드 커뮤니티 운영 (딥러닝·컴퓨터 비전·NLP 채널)",
+        "GitHub 협업 흐름과 코드 리뷰 방식을 만들고, 입문–심화 AI 커리큘럼과 해커톤 팀 구성 운영"
+      ]
+    },
+    {
+      "title": "오픈소스 컨트리뷰션 아카데미 — Ollama 로컬 LLM",
+      "period": "2023.07 – 2023.10",
+      "items": [
+        "Ollama로 오픈소스 LLM을 로컬에 띄워 추론 실험",
+        "브랜치·PR 기반 오픈소스 협업 흐름 실습"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "AI / ML",
+      "items": [
+        "Machine Learning",
+        "Deep Learning",
+        "NLP",
+        "Computer Vision",
+        "OCR",
+        "RAG"
+      ]
+    },
+    {
+      "name": "LLM",
+      "items": [
+        "GPT-5",
+        "Gemini",
+        "Prompt Engineering",
+        "LLM Evaluation",
+        "Ollama"
+      ]
+    },
+    {
+      "name": "Backend",
+      "items": [
+        "FastAPI",
+        "Supabase",
+        "PostgreSQL",
+        "Pinecone",
+        "Firebase"
+      ]
+    },
+    {
+      "name": "Languages",
+      "items": [
+        "Python",
+        "C++",
+        "Kotlin",
+        "HTML/CSS"
+      ]
+    }
+  ]
+}

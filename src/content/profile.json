@@ -4,17 +4,17 @@
   "handle": "soheean1370",
   "photo": "/photos/profile.webp",
   "photoAlt": "안소희 프로필 사진",
-  "tagline": "AI 백엔드 개발자 · PNU CV Lab 학부연구생 · Novel View Synthesis",
-  "taglineEn": "AI Backend Developer · Undergrad Researcher @ PNU CV Lab · Novel View Synthesis",
+  "tagline": "LLM 중심 AI 백엔드 개발자 · PNU CV Lab 학부연구생",
+  "taglineEn": "LLM-focused AI Backend Developer · Undergrad Researcher @ PNU CV Lab",
   "lines": [
     "부산대학교 정보컴퓨터공학부 재학 (2023–) · PNU CV Lab 학부연구생",
     "미국 펜실베이니아 Council Rock High School North 졸업 (2022)"
   ],
   "interests": [
+    "LLM · AI 백엔드",
     "Novel View Synthesis",
-    "3D Vision",
-    "Generative Models",
-    "AI Backend"
+    "Generative AI",
+    "Computer Vision"
   ],
   "links": {
     "github": "https://github.com/soheean1370",
@@ -26,16 +26,16 @@
   "headline": "감으로 고르지 않고, 측정해서 고릅니다.",
   "focus": [
     {
-      "title": "Novel View Synthesis",
-      "body": "인물 사진 한 장으로 다른 각도의 모습을 만들되, 같은 사람으로 보이고 3D로도 어긋나지 않게 하는 문제를 공부하고 있습니다. 관련 논문 15편을 접근 방식 4가지(2D warping · 3D GAN inversion · Feed-forward 3D · Diffusion)로 나눠 정리했습니다."
-    },
-    {
-      "title": "AI 백엔드",
-      "body": "모델의 출력을 서비스가 바로 쓸 수 있는 형태로 만드는 일. EatWise에서는 OCR 결과를 Gemini로 JSON 정리해 FastAPI로 넘겼고, FireGenerators에서는 LLM 리포트를 강점·약점·다음 단계 3문장으로 고정해 추천까지 이어지게 했습니다."
+      "title": "LLM 중심 AI 백엔드",
+      "body": "지금 가장 많이 하는 일입니다. 모델의 출력을 서비스가 바로 쓸 수 있는 형태로 만듭니다. EatWise에서는 OCR 결과를 Gemini로 JSON 정리해 FastAPI로 넘겼고, FireGenerators에서는 GPT-5 리포트를 강점·약점·다음 단계 3문장으로 고정해 추천까지 이어지게 했습니다."
     },
     {
       "title": "측정해서 고르기",
       "body": "EatWise의 OCR 엔진은 정답 라벨과 CER(문자 오류율)로 PaddleOCR과 EasyOCR을 비교해 골랐고, FireGenerators에서는 오프라인 평가 파이프라인을 만들어 그 결과를 보고 프롬프트를 고쳤습니다."
+    },
+    {
+      "title": "Novel View Synthesis",
+      "body": "인물 사진 한 장으로 다른 각도의 모습을 만들되, 같은 사람으로 보이고 3D로도 어긋나지 않게 하는 문제를 연구실에서 공부하고 있습니다. 관련 논문 15편을 접근 방식 4가지(2D warping · 3D GAN inversion · Feed-forward 3D · Diffusion)로 나눠 정리했습니다."
     }
   ],
   "now": "PNU CV Lab 학부연구생 — 단일 인물 사진 시점 변환 논문 정리",
