@@ -160,7 +160,7 @@ function featuredBlock(pr) {
     ${pr.summary ? `<p class="feat-sum">${esc(pr.summary)}</p>` : ''}
     <p class="proj-meta">${meta(pr)}</p>
     <p class="proj-stack">${esc(pr.stack.join(', '))}</p>
-    ${pr.screenshot ? `<img class="feat-shot" src="${esc(pr.screenshot)}" alt="${esc(pr.screenshotAlt || pr.title + ' 화면')}" width="1532" height="420" loading="lazy" />` : ''}
+    ${pr.screenshot ? `<picture>${pr.screenshotMobile ? `<source media="(max-width: 640px)" srcset="${esc(pr.screenshotMobile)}" width="460" height="302" />` : ''}<img class="feat-shot" src="${esc(pr.screenshot)}" alt="${esc(pr.screenshotAlt || pr.title + ' 화면')}" width="1532" height="420" loading="lazy" /></picture>` : ''}
     <dl class="case case-flat">
       ${row('문제 정의', esc(pr.problem))}
       ${row('내가 한 일과 이유', list(pr.did))}
@@ -185,11 +185,21 @@ function projectCard(pr) {
   </article>`;
 }
 
+function paperBoardShort(r) {
+  return `
+  <p class="label">논문 정리</p>
+  <p class="muted">${esc(r.surveyNote)}</p>
+  <ul class="approaches">${r.groups.map((g) => `<li><strong>${esc(g.plain || g.title)}</strong> <span class="ap-en">(${esc(g.title)})</span><p>${esc(g.note || '')}</p></li>`).join('')}</ul>`;
+}
+
+const PROJECT_ORDER = ['qroom', 'withpnu', 'eatwise', 'farmforyou', 'review-stars'];
+
 const cvList = (items) => `<ul class="cv-list">${items.map((e) => `<li><span class="cv-when">${esc(e.period || '')}</span><div><strong>${esc(e.title)}</strong>${e.note ? `<p>${esc(e.note)}</p>` : ''}${e.items ? list(e.items) : ''}</div></li>`).join('')}</ul>`;
 
 export function renderFlat({ profile: p, copy: c, projects, research: r, stack, resume }) {
   const featured = projects.find((x) => x.featured);
-  const others = projects.filter((x) => !x.featured);
+  const others = projects.filter((x) => !x.featured)
+    .sort((a, b) => PROJECT_ORDER.indexOf(a.id) - PROJECT_ORDER.indexOf(b.id));
   return `
   <section class="r-sec r-hero" id="top">
     <h2 class="r-title"><span class="r-num">00</span>소개</h2>
@@ -212,13 +222,13 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
       </figure>
     </div>
   </section>
-  ${sec('research', '01', '연구', `
+  ${sec('projects', '01', '프로젝트', `${featuredBlock(featured)}<div class="proj-grid">${others.map(projectCard).join('')}</div>`)}
+  ${sec('research', '02', '연구', `
     ${chips(p.interests, 'chip chip-accent')}
     ${interestBlock(p, r)}
     ${r.activities && r.activities.length ? `<p class="label">발표와 세미나</p>${activityList(r)}` : ''}
     <p class="r-status">${esc(r.status)}</p>
-    ${paperBoard(r)}`)}
-  ${sec('projects', '02', '프로젝트', `${featuredBlock(featured)}<div class="proj-grid">${others.map(projectCard).join('')}</div>`)}
+    ${paperBoardShort(r)}`)}
   ${sec('resume', '03', '이력', `
     <div class="cv">
       <div class="cv-row"><h3>학력</h3>${cvList(resume.education)}</div>

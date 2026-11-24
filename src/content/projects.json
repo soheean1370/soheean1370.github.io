@@ -115,7 +115,8 @@
     ],
     "lesson": null,
     "screenshot": "/projects/firegenerators-levels.jpg",
-    "screenshotAlt": "FireGenerators 결과 화면. 같은 퀴즈를 마친 세 사용자가 Beginner, Intermediate, Advanced 단계로 나뉘고 단계별 가이드와 지식 요약이 표시된 모습"
+    "screenshotAlt": "FireGenerators 결과 화면. 같은 퀴즈를 마친 세 사용자가 Beginner, Intermediate, Advanced 단계로 나뉘고 단계별 가이드와 지식 요약이 표시된 모습",
+    "screenshotMobile": "/projects/firegenerators-levels-mobile.jpg"
   },
   {
     "id": "eatwise",

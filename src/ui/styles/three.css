@@ -143,3 +143,4 @@ kbd { font-family: var(--mono); font-size: .72em; padding: 1px 6px; border: 1px 
 .cv-skills dd { margin: 0; }
 .cv-skills small { display: block; font-size: .78rem; color: var(--ink-soft); }
 .case p { margin: 0; }
+@media (max-width: 480px) { .bar .pill { display: inline-block; } .bar-actions a[href*="github.com"] { display: none; } }
