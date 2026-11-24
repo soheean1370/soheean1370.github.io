@@ -27,7 +27,7 @@ export function TopBar() {
       </nav>
       <div className="bar-actions">
         <a href={profile.links.github} target="_blank" rel="noopener">GitHub</a>
-        <a href={profile.links.resume} download="안소희-이력서.pdf">이력서</a>
+        <a href={profile.links.resume} download="안소희cv.pdf">이력서</a>
         <a className="pill" href="/">2D 이력서</a>
       </div>
     </header>

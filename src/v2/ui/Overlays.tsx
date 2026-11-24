@@ -66,7 +66,7 @@ export function Ending() {
       </figure>
       <p className="ending-actions">
         <button className="btn btn-solid" type="button" onClick={() => scrollToP(0, 3)}>↺ 처음부터 다시 보기</button>
-        <a className="btn" href={profile.links.resume} download="안소희-이력서.pdf">이력서 PDF</a>
+        <a className="btn" href={profile.links.resume} download="안소희cv.pdf">이력서 PDF</a>
         <a className="btn" href={profile.links.github} target="_blank" rel="noopener">GitHub ↗</a>
         <a className="btn" href="/">2D 이력서</a>
       </p>

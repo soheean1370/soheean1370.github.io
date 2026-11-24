@@ -322,3 +322,28 @@ ul { padding-left: 1.15em; }
 .folder-body > *, .folder-paper > * { text-shadow: none; }
 .school { color: #4F4766; }
 .about { color: var(--ink); }
+
+/* round 5: colored folders (back = darker, front = lighter), reminder ending, pixel cursor */
+.ficon { --fb: #D8D8DC; --ff: #FBFBFC var(--dotf-s); background: var(--fb); }
+.ficon::before { background: var(--fb); }
+.ficon::after { background: var(--ff); box-shadow: 0 1px 2px rgba(0,0,0,.1); }
+.ficon-pink   { --fb: #F7A8C8; --ff: #FFCFE1; }
+.ficon-yellow { --fb: #F9C33C; --ff: #FFD866; }
+.ficon-blue   { --fb: #7DB8F5; --ff: #B5DAFE; }
+.ficon-lilac  { --fb: #B9A6EC; --ff: #DAD0FA; }
+.ficon-mint   { --fb: #79D3A8; --ff: #B6EBD0; }
+.ficon-white  { --fb: #D8D8DC; --ff: #FBFBFC var(--dotf-s); }
+
+.reminder { position: relative; width: min(320px, 100%); margin: 64px auto 8px; text-align: center; background: #fff; border-radius: 16px; border: 1px solid #E2DEE6; box-shadow: 0 16px 36px rgba(62,53,80,.14); overflow: hidden; }
+.reminder .ficon { margin: 18px auto 0; display: block; }
+.rm-title { margin: 8px 0 0; font: 600 .78rem/1 var(--mono); color: var(--ink-soft); letter-spacing: .04em; }
+.rm-body { margin: 8px 18px 0; font-weight: 800; font-size: 1.15rem; }
+.rm-sub { margin: 6px 22px 18px; font-size: .9rem; color: var(--ink-soft); line-height: 1.55; }
+.rm-ok { display: block; padding: 12px; border-top: 1px solid #E8E4EC; text-decoration: none; font-weight: 700; color: var(--blue); }
+.rm-ok:hover { background: #F3F6FD; }
+
+/* pixel cursor that follows the mouse (desktop only; touch devices ignore it) */
+@media (hover: hover) and (pointer: fine) {
+  html, body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='38' viewBox='0 0 12 19' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1H7v1h1v1h1v2H8v1H6v-1H5v-2H4v-1H3v1H2v1H1v1H0z' fill='%233E3550'/%3E%3Cpath d='M1 2h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1H6v1h1v1h1v2H7v-2H6v-2H5v-1H4v1H3v1H2v1H1z' fill='%23fff'/%3E%3C/svg%3E") 1 1, auto; }
+  a, button, summary, .switch, [role="button"] { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='38' viewBox='0 0 12 19' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1H7v1h1v1h1v2H8v1H6v-1H5v-2H4v-1H3v1H2v1H1v1H0z' fill='%233E3550'/%3E%3Cpath d='M1 2h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1H6v1h1v1h1v2H7v-2H6v-2H5v-1H4v1H3v1H2v1H1z' fill='%23FFB3CB'/%3E%3C/svg%3E") 1 1, pointer; }
+}

@@ -16,7 +16,7 @@ export function btn(label, url, { solid = false, download } = {}) {
 const chips = (items, cls = 'chip') => (items && items.length ? `<ul class="chips">${items.map((t) => `<li class="${cls}">${esc(t)}</li>`).join('')}</ul>` : '');
 const kicker = (t) => `<p class="kicker">${esc(t)}</p>`;
 const list = (items) => (items && items.length ? `<ul>${items.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>` : '');
-const RESUME = (p) => btn('이력서 PDF', p.links.resume, { download: '안소희-이력서.pdf' });
+const RESUME = (p) => btn('이력서 PDF', p.links.resume, { download: '안소희cv.pdf' });
 
 /** node labels in data-flow order (used by the 3D sculptures too) */
 export function flowText(pr) {
@@ -138,7 +138,7 @@ export function contactPanel(p) {
   ${kicker('NEXT STOP')}
   <h2>연락처와 이력서</h2>
   <p class="btn-row">
-    ${btn('이력서 PDF 내려받기', p.links.resume, { solid: true, download: '안소희-이력서.pdf' })}
+    ${btn('이력서 PDF 내려받기', p.links.resume, { solid: true, download: '안소희cv.pdf' })}
     ${btn(p.links.email, `mailto:${p.links.email}`)}
     ${btn('GitHub ↗', p.links.github)}
     ${btn('Velog ↗', p.links.velog)}
@@ -159,13 +159,14 @@ const ctxMenu = (pr) => {
   const items = pr.links.filter((l) => l.url).map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} 열기 <span aria-hidden="true">↗</span></a>`).join('');
   return items || pr.linkNote ? `<div class="ctx" role="group" aria-label="${esc(pr.title)} 링크">${items}${pr.linkNote ? `<p class="ctx-note">${esc(pr.linkNote)}</p>` : ''}</div>` : '';
 };
-const fileIcon = '<span class="ficon" aria-hidden="true"></span>';
+const fileIcon = (color = 'white') => `<span class="ficon ficon-${color}" aria-hidden="true"></span>`;
+const FOLDER_COLORS = ['pink', 'yellow', 'blue', 'lilac', 'mint'];
 
 function deskFeatured(pr) {
   return `
   <article class="feat">
     <div class="feat-head">
-      ${fileIcon}
+      ${fileIcon('blue')}
       <div>
         <p class="tagline-s">대표 프로젝트</p>
         <h3>${esc(pr.title)} <span class="sub">${esc(pr.subtitle)}</span></h3>
@@ -189,11 +190,11 @@ function deskFeatured(pr) {
   </article>`;
 }
 
-function deskCard(pr) {
+function deskCard(pr, i = 0) {
   const badge = pr.live ? '<span class="badge badge-live">LIVE</span>' : /장려상/.test(pr.result + (pr.cardResult || '')) ? '<span class="badge">장려상</span>' : '';
   return `
   <article class="file" id="project-${esc(pr.id)}">
-    <div class="file-head">${fileIcon}<h3><span class="file-name">${esc(pr.title)}</span></h3>${badge}</div>
+    <div class="file-head">${fileIcon(FOLDER_COLORS[i % FOLDER_COLORS.length])}<h3><span class="file-name">${esc(pr.title)}</span></h3>${badge}</div>
     <p class="file-sub">${esc(pr.subtitle)}</p>
     <p class="meta">${meta(pr)}</p>
     <p class="mini">내가 한 일</p>
@@ -261,12 +262,12 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
   </section>
 
   <section class="r-sec" id="projects" aria-labelledby="t-projects">
-    <h2 class="sec-label" id="t-projects"><span class="ficon ficon-s" aria-hidden="true"></span>01_프로젝트</h2>
-    ${win('01_프로젝트', `${deskFeatured(featured)}<div class="files">${others.map(deskCard).join('')}</div>`, 'win-projects')}
+    <h2 class="sec-label" id="t-projects"><span class="ficon ficon-s ficon-blue" aria-hidden="true"></span>01_프로젝트</h2>
+    ${win('01_프로젝트', `${deskFeatured(featured)}<div class="files">${others.map((pr, i) => deskCard(pr, i)).join('')}</div>`, 'win-projects')}
   </section>
 
   <section class="r-sec" id="research" aria-labelledby="t-research">
-    <h2 class="sec-label" id="t-research"><span class="ficon ficon-s" aria-hidden="true"></span>02_연구</h2>
+    <h2 class="sec-label" id="t-research"><span class="ficon ficon-s ficon-pink" aria-hidden="true"></span>02_연구</h2>
     <div class="paper">
       ${CLIP}
       <ul class="tags">${p.interests.map((t, i) => `<li><i style="background:${TAG_COLORS[i % TAG_COLORS.length]}"></i>${esc(t)}</li>`).join('')}</ul>
@@ -280,9 +281,9 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
   </section>
 
   <section class="r-sec" id="resume" aria-labelledby="t-resume">
-    <h2 class="sec-label" id="t-resume"><span class="ficon ficon-s" aria-hidden="true"></span>03_이력</h2>
+    <h2 class="sec-label" id="t-resume"><span class="ficon ficon-s ficon-yellow" aria-hidden="true"></span>03_이력</h2>
     ${win(`${p.handle} 정보`, `
-      <div class="gi-top">${fileIcon}<div><strong>${esc(p.nameKo)}</strong><p>이력, 2023년부터</p></div></div>
+      <div class="gi-top">${fileIcon('yellow')}<div><strong>${esc(p.nameKo)}</strong><p>이력, 2023년부터</p></div></div>
       ${giGroup('학력', giList(resume.education))}
       ${resume.research && resume.research.length ? giGroup('연구', giList(resume.research)) : ''}
       ${giGroup('활동', giList(resume.activities))}
@@ -291,13 +292,19 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
       <div class="airdrop" role="group" aria-label="이력서 받기">
         <p class="ad-title">AirDrop</p>
         <p>${esc(p.handle)} 님이 이력서 PDF를 보내려고 합니다.</p>
-        <div class="ad-btns"><a href="mailto:${esc(p.links.email)}">메일 보내기</a><a href="${esc(p.links.resume)}" download="안소희-이력서.pdf">받기</a></div>
+        <div class="ad-btns"><a href="mailto:${esc(p.links.email)}">메일 보내기</a><a href="${esc(p.links.resume)}" download="안소희cv.pdf">받기</a></div>
         ${CURSOR}
       </div>
       <ul class="sharelist" aria-label="연락처">${share.map(([k, label, url, sub]) => `
-        <li><a href="${esc(url)}"${url.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}><span class="si si-${k}" aria-hidden="true"></span><span><strong>${esc(label)}</strong><small>${esc(sub)}</small></span></a></li>`).join('')}
+        <li><a href="${esc(url)}"${url.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}><span class="ficon ficon-s ficon-${({ mail: 'blue', gh: 'lilac', velog: 'mint', lab: 'pink', three: 'yellow' })[k]}" aria-hidden="true"></span><span><strong>${esc(label)}</strong><small>${esc(sub)}</small></span></a></li>`).join('')}
       </ul>
     </div>
   </section>
-  <p class="ending">${esc(c.ending)}</p>`;
+  <div class="reminder" role="group" aria-label="미리 알림">
+    <span class="ficon ficon-xs ficon-yellow" aria-hidden="true"></span>
+    <p class="rm-title">${esc(c.endingTitle || '미리 알림')}</p>
+    <p class="rm-body">${esc(c.ending2D || c.ending)}</p>
+    <p class="rm-sub">${esc(c.endingSub || '')}</p>
+    <a class="rm-ok" href="mailto:${esc(p.links.email)}">확인</a>
+  </div>`;
 }
