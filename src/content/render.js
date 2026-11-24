@@ -149,7 +149,7 @@ export function contactPanel(p) {
 const PROJECT_ORDER = ['qroom', 'withpnu', 'eatwise', 'farmforyou', 'review-stars'];
 const DOTS = '<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>';
 const CLIP = '<svg class="clip" viewBox="0 0 24 64" aria-hidden="true"><path d="M8 18v30a6 6 0 0 0 12 0V12a9 9 0 0 0-18 0v38a12 12 0 0 0 24 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
-const CURSOR = '<svg class="cursor" viewBox="0 0 12 19" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1H7v1h1v1h1v2H8v1H6v-1H5v-2H4v-1H3v1H2v1H1v1H0z" fill="#3E3550"/><path d="M1 2h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1H6v1h1v1h1v2H7v-2H6v-2H5v-1H4v1H3v1H2v1H1z" fill="#fff"/></svg>';
+const CURSOR = '<svg class="cursor" viewBox="0 0 26 36" aria-hidden="true"><path d="M4 3v24l6-6 4.6 10 4-1.8-4.4-9.8H23z" fill="#111" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke"/></svg>';
 const win = (title, body, cls = '') => `
   <div class="win ${cls}">
     <div class="win-bar">${DOTS}<span class="win-title">${esc(title)}</span></div>
