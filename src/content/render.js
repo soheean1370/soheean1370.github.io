@@ -225,7 +225,7 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
     <div class="desk-grid">
       <div class="folder">
         <span class="folder-tab">00_소개</span>
-        <div class="folder-body">
+        <div class="folder-body"><div class="folder-paper">
           <p class="pixel">PORTFOLIO 2026</p>
           <h1>${esc(p.nameKo)} <span class="en">${esc(p.name)}, ${esc(p.handle)}</span></h1>
           <p class="tagline">${esc(p.tagline)}</p>
@@ -236,7 +236,7 @@ export function renderFlat({ profile: p, copy: c, projects, research: r, stack, 
             ${btn(p.links.email, `mailto:${p.links.email}`)}
             ${RESUME(p)}
           </p>
-        </div>
+        </div></div>
         <div class="note">${CLIP}<p>${esc(p.headline)}</p></div>
       </div>
       <div class="lanyard">
